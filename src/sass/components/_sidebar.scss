@@ -6,6 +6,7 @@
   position: relative;
   background-color: $color-light-navy;
 
+  //sidebar icons
   &__icons {
     position: absolute;
     width: 100%;
@@ -26,6 +27,7 @@
   & li {
     list-style: none;
   }
+  //sidebar icon
   &__icon {
     cursor: pointer;
     width: 2.2rem;
@@ -42,6 +44,7 @@
   }
 }
 
+//sidebar animation
 .sidebar-left-animation {
   @include animationDelay(2.2s, fadeIn 2.2s);
 }
