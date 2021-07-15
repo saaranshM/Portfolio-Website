@@ -1,0 +1,62 @@
+//HEADER
+.header {
+  background-color: $color-light-navy;
+  grid-row: 1 / span 1;
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  //header logo
+  &__logo {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-left: 2rem;
+  }
+}
+
+//NAVIGATION
+.navigation {
+  font-family: $font-secondary;
+  font-size: 1.3rem;
+
+  //navigation item
+  &__item {
+    padding: 1rem;
+    transition: all 0.3s;
+    cursor: pointer;
+
+    &:not(last-child) {
+      margin-right: 1.2rem;
+    }
+
+    &:hover {
+      outline: 2px dashed $color-green;
+      outline-offset: 3px;
+    }
+  }
+  //navigation list
+  &__list {
+    display: flex;
+    list-style: none;
+    margin-right: 2rem;
+  }
+  //navigation link
+  &__link,
+  &__link:visited,
+  &__link:link {
+    text-decoration: none;
+    color: $color-slate-lightest;
+    padding: 1rem;
+    transition: all 0.3s;
+
+    &:hover {
+      color: $color-green;
+    }
+  }
+
+  // navigation number
+  &__number {
+    color: $color-green;
+  }
+}

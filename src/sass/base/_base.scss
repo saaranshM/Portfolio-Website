@@ -1,0 +1,31 @@
+//font import
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap");
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.main {
+  font-family: $font-primary;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: 8rem min-content 40vw repeat(3, min-content);
+  grid-template-columns:
+    [left-sidebar-start] 8rem [left-sidebar-end] repeat(
+      12,
+      [col-start] minmax(min-content, 1fr) [col-end]
+    )
+    [right-sidebar-start]8rem [right-sidebar-end];
+}
