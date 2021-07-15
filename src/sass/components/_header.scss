@@ -6,6 +6,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
 
   //header logo
   &__logo {
@@ -58,5 +62,24 @@
   // navigation number
   &__number {
     color: $color-green;
+  }
+}
+
+//animations
+.navigation-logo-animation {
+  @include animationDelay(1.8s, fadeIn);
+}
+.navigation-fade-in {
+  &-1 {
+    @include animationDelay(1s, fadeInDown);
+  }
+  &-2 {
+    @include animationDelay(1.4s, fadeInDown);
+  }
+  &-3 {
+    @include animationDelay(1.8s, fadeInDown);
+  }
+  &-4 {
+    @include animationDelay(2.2s, fadeInDown);
   }
 }

@@ -1,0 +1,5 @@
+// animation mixins
+@mixin animationDelay($seconds, $animation) {
+  animation: $animation;
+  animation-duration: $seconds;
+}

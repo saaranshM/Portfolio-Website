@@ -21,6 +21,7 @@ html {
 
 .container {
   display: grid;
+  position: relative;
   grid-template-rows: 8rem min-content 40vw repeat(3, min-content);
   grid-template-columns:
     [left-sidebar-start] 8rem [left-sidebar-end] repeat(
