@@ -1,0 +1,47 @@
+//SIDEBAR
+.sidebar-left {
+  grid-column: left-sidebar-start / left-sidebar-end;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  background-color: $color-light-navy;
+
+  &__icons {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 90px;
+      margin: 0 auto;
+      background-color: $color-light-slate;
+    }
+  }
+  & li {
+    list-style: none;
+  }
+  &__icon {
+    cursor: pointer;
+    width: 2.2rem;
+    height: 2.2rem;
+    color: $color-light-slate;
+    transition: all 0.3s;
+    &:not(last-child) {
+      margin-bottom: 2.4rem;
+    }
+    &:hover {
+      color: $color-green;
+      transform: translateY(-5px);
+    }
+  }
+}
+
+.sidebar-left-animation {
+  @include animationDelay(2.2s, fadeIn 2.2s);
+}

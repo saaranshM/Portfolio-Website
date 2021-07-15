@@ -10,6 +10,7 @@
   top: 0;
   width: 100%;
   height: 100%;
+  z-index: $z-header;
 
   //header logo
   &__logo {
@@ -67,19 +68,19 @@
 
 //animations
 .navigation-logo-animation {
-  @include animationDelay(1.8s, fadeIn);
+  @include animationDelay(1.4s, fadeIn 1.4s);
 }
 .navigation-fade-in {
   &-1 {
-    @include animationDelay(1s, fadeInDown);
+    @include animationDelay(1s, fadeInDown 2s, hideElement 1s);
   }
   &-2 {
-    @include animationDelay(1.4s, fadeInDown);
+    @include animationDelay(1.2s, fadeInDown 2s, hideElement 1.2s);
   }
   &-3 {
-    @include animationDelay(1.8s, fadeInDown);
+    @include animationDelay(1.4s, fadeInDown 2s, hideElement 1.4s);
   }
   &-4 {
-    @include animationDelay(2.2s, fadeInDown);
+    @include animationDelay(1.6s, fadeInDown 2s, hideElement 1.6s);
   }
 }
