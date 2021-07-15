@@ -68,7 +68,7 @@
 
 //animations
 .navigation-logo-animation {
-  @include animationDelay(1.4s, fadeIn 1.4s);
+  @include animationDelay(1s, fadeIn 1s);
 }
 .navigation-fade-in {
   &-1 {
