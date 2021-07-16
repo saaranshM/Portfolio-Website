@@ -3,6 +3,7 @@
     <Header></Header>
     <SidebarLeft></SidebarLeft>
     <SidebarRight></SidebarRight>
+    <Main></Main>
   </div>
 </template>
 
@@ -10,9 +11,10 @@
 import Header from "@/components/header/Header";
 import SidebarLeft from "@/components/sidebar/SidebarLeft";
 import SidebarRight from "@/components/sidebar/SidebarRight";
+import Main from "@/components/mian/Main";
 export default {
   name: "Container",
-  components: { SidebarRight, SidebarLeft, Header }
+  components: { Main, SidebarRight, SidebarLeft, Header }
 };
 </script>
 

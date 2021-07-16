@@ -22,11 +22,11 @@ html {
 .container {
   display: grid;
   position: relative;
-  grid-template-rows: 8rem min-content 40vw repeat(3, min-content);
+  grid-template-rows: 8rem max-content;
   grid-template-columns:
-    [left-sidebar-start] 8rem [left-sidebar-end] repeat(
-      12,
-      [col-start] minmax(min-content, 1fr) [col-end]
+    [left-sidebar-start] 8rem [left-sidebar-end full-start] 1fr repeat(
+      10,
+      [col-start] minmax(min-content, 10rem) [col-end]
     )
-    [right-sidebar-start]8rem [right-sidebar-end];
+    1fr [full-end right-sidebar-start]8rem [right-sidebar-end];
 }

@@ -1,0 +1,67 @@
+.main {
+  grid-row: 1 / span 2;
+  grid-column: col-start 1 / span 10;
+  height: 100%;
+  width: 100%;
+  background-color: $color-navy;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  &__name-label {
+    font-family: $font-secondary;
+    font-size: clamp($fz-sm, 5vw, $fz-md);
+    padding: 1rem 0;
+    font-weight: 400;
+    color: $color-green;
+    margin-bottom: 1rem;
+  }
+  &__name {
+    font-family: $font-primary;
+    line-height: 1.1;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: $color-slate-lightest;
+    font-size: clamp(4rem, 8vw, 8rem);
+  }
+  &__who {
+    font-family: $font-primary;
+    color: $color-slate;
+    font-size: clamp(4rem, 8vw, 8rem);
+    font-weight: 600;
+    line-height: 0.9;
+    margin-top: 1rem;
+  }
+  &__description {
+    font-family: $font-primary;
+    color: $color-slate;
+    font-size: 2rem;
+    margin: 2rem 0 0;
+    max-width: 54rem;
+    line-height: 1.2;
+
+    & a {
+      text-decoration: none;
+      color: $color-green;
+      display: inline-block;
+      position: relative;
+      text-decoration-skip-ink: auto;
+
+      &:before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: 0.37rem;
+        left: 0;
+        background-color: rgba($color-green, 0.5);
+        visibility: hidden;
+        transition: $link-transition;
+      }
+      &:hover:before {
+        visibility: visible;
+        width: 100%;
+      }
+    }
+  }
+}
