@@ -3,16 +3,25 @@
     <transition appear appear-active-class="sidebar-left-animation">
       <ul class="sidebar-left__icons">
         <li class="sidebar-left__list">
-          <SvgIcon class="sidebar-left__icon" name="github"></SvgIcon>
+          <a href="#">
+            <SvgIcon class="sidebar-left__icon" name="github"></SvgIcon
+          ></a>
         </li>
         <li>
-          <SvgIcon class="sidebar-left__icon" name="linkedin"></SvgIcon>
+          <a href="#">
+            <SvgIcon class="sidebar-left__icon" name="linkedin"></SvgIcon
+          ></a>
+        </li>
+
+        <li class="sidebar-left__list">
+          <a href="#">
+            <SvgIcon class="sidebar-left__icon" name="insta"></SvgIcon
+          ></a>
         </li>
         <li class="sidebar-left__list">
-          <SvgIcon class="sidebar-left__icon" name="insta"></SvgIcon>
-        </li>
-        <li class="sidebar-left__list">
-          <SvgIcon class="sidebar-left__icon" name="twitter"></SvgIcon>
+          <a href="#">
+            <SvgIcon class="sidebar-left__icon" name="twitter"></SvgIcon
+          ></a>
         </li>
       </ul>
     </transition>

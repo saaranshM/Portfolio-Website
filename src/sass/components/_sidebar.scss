@@ -39,7 +39,49 @@
     }
     &:hover {
       color: $color-green;
-      transform: translateY(-5px);
+      transform: translateY(-5px) scale(1.2);
+    }
+  }
+}
+
+.sidebar-right {
+  grid-column: right-sidebar-start / right-sidebar-end;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  background-color: $color-light-navy;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &__container {
+    position: absolute;
+    bottom: 0;
+    &::after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 90px;
+      margin: 0 auto;
+      background-color: $color-light-slate;
+    }
+  }
+  &__email,
+  &__email:visited,
+  &__email:link {
+    font-family: $font-secondary;
+    font-size: 1.2rem;
+    padding: 1rem 1rem 0 1rem;
+    margin-bottom: 2.4rem;
+    text-decoration: none;
+    color: $color-light-slate;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transition: all 0.3s;
+    backface-visibility: hidden;
+    &:hover {
+      color: $color-green;
+      transform: translateY(-10px) scale(1.05);
     }
   }
 }
@@ -47,4 +89,7 @@
 //sidebar animation
 .sidebar-left-animation {
   @include animationDelay(2.2s, fadeIn 2.2s);
+}
+.sidebar-right-animation {
+  @include animationDelay(2.5s, fadeIn 2.5s);
 }
