@@ -6,7 +6,7 @@
   width: 100%;
   position: relative;
   background-color: $color-light-navy;
-  z-index: 2;
+  z-index: $z-sidebars;
 
   //sidebar icons
   &__icons {
@@ -58,7 +58,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 2;
+  z-index: $z-sidebars;
   &__container {
     bottom: 0;
     position: fixed;
