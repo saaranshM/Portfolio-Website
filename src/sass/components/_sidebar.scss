@@ -49,6 +49,13 @@
   }
 }
 
+.medium-icon {
+  fill: $color-light-slate;
+  &:hover {
+    fill: $color-green;
+  }
+}
+
 .sidebar-right {
   grid-column: col-end 10 / -1;
   grid-row: 1 / -1;

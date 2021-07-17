@@ -3,3 +3,9 @@
     opacity: 1;
   }
 }
+
+@keyframes hideElementVisible {
+  100% {
+    visibility: visible;
+  }
+}

@@ -4,3 +4,8 @@
   animation-delay: $delay;
   opacity: 0;
 }
+@mixin animationDelayVisible($delay: 0, $animations...) {
+  animation: $animations;
+  animation-delay: $delay;
+  visibility: hidden;
+}

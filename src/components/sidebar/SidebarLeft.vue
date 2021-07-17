@@ -23,6 +23,14 @@
             <SvgIcon class="sidebar-left__icon" name="twitter"></SvgIcon
           ></a>
         </li>
+        <li class="sidebar-left__list">
+          <a href="#">
+            <SvgIcon
+              class="sidebar-left__icon medium-icon"
+              name="medium"
+            ></SvgIcon
+          ></a>
+        </li>
       </ul>
     </transition>
   </div>

@@ -12,8 +12,8 @@
     "core-js": "^3.6.5",
     "node-sass": "^5.0.0",
     "sass-loader": "^10.1.1",
-    "typed.js": "^2.0.12",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-typed-js": "^0.1.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -36,7 +36,9 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-unused-vars": "off"
+    }
   },
   "browserslist": [
     "> 1%",

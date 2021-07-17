@@ -7,6 +7,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  backface-visibility: hidden;
 
   &__name-label {
     font-family: $font-secondary;
@@ -68,4 +69,21 @@
   &__btn {
     margin-top: 2.4rem;
   }
+}
+
+//animation classes
+.label-animation {
+  @include animationDelayVisible(2.6s, fadeInUp 1.5s, hideElementVisible 2.6s);
+}
+.name-animation {
+  @include animationDelayVisible(3.5s, fadeInUp 1.5s, hideElementVisible 3.5s);
+}
+.who-animation {
+  @include animationDelayVisible(3.6s, fadeInUp 1.5s, hideElementVisible 3.6s);
+}
+.description-animation {
+  @include animationDelayVisible(3.8s, fadeInUp 1.5s, hideElementVisible 3.8s);
+}
+.main-button-animation {
+  @include animationDelayVisible(4s, fadeInUp 1.5s, hideElementVisible 4s);
 }
