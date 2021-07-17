@@ -9,7 +9,7 @@
         knowledge there is about web development and Machine Learning residing
         in India. Always open for <a href="#">new opportunities.</a>
       </p>
-      <button class="btn btn__main">Get in touch</button>
+      <a href="#" class=" main__btn neon-button">Get in touch</a>
     </div>
   </section>
 </template>

@@ -1,0 +1,62 @@
+.neon-button {
+  font-family: $font-secondary;
+  font-size: $fz-sm;
+  color: $color-green;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border: 0.1em $color-green solid;
+  padding: 0.5em 1em;
+  border-radius: 0.15em;
+
+  text-shadow: 0 0 0.125em rgba(#fff, 0.3), 0 0 0.45em currentColor;
+
+  box-shadow: inset 0 0 0.5em 0 $color-green, 0 0 0.5em 0 $color-green;
+  position: relative;
+  z-index: $z-neon-button;
+
+  transition: background-color 0.2s linear;
+
+  &::before {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    background: $color-green;
+    top: 120%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    transform: perspective(1em) rotateX(40deg) scale(1, 0.25);
+    transition: opacity 0.2s linear;
+    filter: blur(1.8em);
+    opacity: 0.7;
+  }
+
+  &:hover::before,
+  &:focus::before {
+    opacity: 1;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 0 1.5em 0.2em $color-green;
+    opacity: 0;
+    transition: opacity 0.2s linear;
+  }
+  &:hover::after,
+  &:focus::after {
+    opacity: 1;
+  }
+
+  &:hover,
+  &:focus {
+    text-shadow: none;
+    background-color: $color-light-navy;
+  }
+}

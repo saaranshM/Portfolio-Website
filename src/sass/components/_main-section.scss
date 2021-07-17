@@ -27,7 +27,7 @@
   &__who {
     font-family: $font-primary;
     color: $color-slate;
-    font-size: clamp(4rem, 8vw, 8rem);
+    font-size: clamp(2.5rem, 5vw, 5rem);
     font-weight: 600;
     line-height: 0.9;
     margin-top: 1rem;
@@ -63,5 +63,9 @@
         width: 100%;
       }
     }
+  }
+
+  &__btn {
+    margin-top: 2.4rem;
   }
 }
