@@ -1,0 +1,13 @@
+.about {
+  grid-row: 3 / span 1;
+  grid-column: col-start 1 / span 10;
+  height: 100%;
+  width: 100%;
+  background-color: $color-navy;
+  border: 1px white solid;
+
+  &__image {
+    height: 100%;
+    width: 30rem;
+  }
+}

@@ -30,6 +30,8 @@ $fz-lg: 1.8rem;
 $fz-xl: 2rem;
 $fz-xxl: 2.2rem;
 
-//transitions
+//main container height
+$container-height-lg: calc(100vh - 8rem);
 
+//transitions
 $link-transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
