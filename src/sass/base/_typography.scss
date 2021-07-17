@@ -60,3 +60,45 @@
     background-color: $color-light-navy;
   }
 }
+
+.numbered-heading {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  position: relative;
+  margin: 1rem 0 4rem;
+  font-size: clamp(2.6rem, 5vw, $fz-heading);
+  white-space: nowrap;
+  font-family: $font-primary;
+  font-weight: 600;
+  line-height: 1.1;
+  color: $color-slate-lightest;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+
+  &::before {
+    position: relative;
+    bottom: 0.4rem;
+    counter-increment: section 1;
+    content: "0" counter(section) ".";
+    margin-right: 1rem;
+    color: $color-green;
+    font-family: $font-secondary;
+    font-size: clamp($fz-md, 3vw, $fz-xl);
+    font-weight: 400;
+  }
+  &::after {
+    content: "";
+    display: block;
+    position: relative;
+    top: -0.5rem;
+    width: 30rem;
+    height: 1px;
+    margin-left: 2rem;
+    background-color: $color-lightest-navy;
+  }
+}

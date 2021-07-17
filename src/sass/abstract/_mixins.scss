@@ -9,3 +9,14 @@
   animation-delay: $delay;
   visibility: hidden;
 }
+
+//box-shadows
+@mixin navy-box-shadow() {
+  box-shadow: 0 10px 30px -15px $navy-shadow;
+  transition: $link-transition;
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 20px 30px -15px$navy-shadow;
+  }
+}

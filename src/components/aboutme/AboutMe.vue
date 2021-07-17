@@ -2,7 +2,7 @@
   <section class="about">
     <div class="about__container">
       <h2 class="numbered-heading">About Me</h2>
-      <div class="about_content">
+      <div class="about__content">
         <div class="about__content-text">
           <div class="about__content-text-content">
             <p>
@@ -29,7 +29,7 @@
               Node.js
             </li>
             <li class="about__content-text-list-item">
-              Css/Scss
+              CSS/SCSS
             </li>
             <li class="about__content-text-list-item">
               Tensorflow
@@ -39,13 +39,13 @@
             </li>
           </ul>
         </div>
-      </div>
-      <div class="about__image-wrapper">
-        <img
-          src="../../assets/img/me/me.jpg"
-          alt="Me Photo"
-          class="about__image"
-        />
+        <div class="about__image-wrapper">
+          <img
+            src="../../assets/img/me/me.jpg"
+            alt="Me Photo"
+            class="about__image"
+          />
+        </div>
       </div>
     </div>
   </section>

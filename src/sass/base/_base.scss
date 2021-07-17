@@ -17,12 +17,13 @@ html {
   font-family: $font-primary;
   font-weight: 400;
   line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
   display: grid;
   position: relative;
-  grid-template-rows: 8rem $container-height-lg $container-height-lg;
+  grid-template-rows: 8rem $container-height-lg 75vh;
   grid-template-columns:
     [left-sidebar-start] 8rem [left-sidebar-end full-start] 1fr repeat(
       10,
