@@ -1,6 +1,13 @@
 <template>
   <section class="about">
-    <div class="about__container">
+    <div
+      v-observe-visibility="{ callback: isViewableNow, once: true }"
+      :class="{
+        'visible animate__animated animate__fadeInUp visible': showAnimation,
+        invisible: !showAnimation
+      }"
+      class="about__container"
+    >
       <h2 class="numbered-heading">About Me</h2>
       <div class="about__content">
         <div class="about__content-text">
@@ -53,7 +60,17 @@
 
 <script>
 export default {
-  name: "AboutMe"
+  name: "AboutMe",
+  data: () => {
+    return {
+      showAnimation: false
+    };
+  },
+  methods: {
+    isViewableNow(isVisible, entry) {
+      this.showAnimation = isVisible;
+    }
+  }
 };
 </script>
 

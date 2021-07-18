@@ -6,6 +6,10 @@
   background-color: $color-navy;
   z-index: $z-main;
 
+  &__container {
+    opacity: 0;
+  }
+
   &__image {
     width: $image-width-me-lg;
     mix-blend-mode: multiply;

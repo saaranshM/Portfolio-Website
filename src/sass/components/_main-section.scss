@@ -85,5 +85,10 @@
   @include animationDelayVisible(3.8s, fadeInUp 1.5s, hideElementVisible 3.8s);
 }
 .main-button-animation {
-  @include animationDelayVisible(4s, fadeInUp 1.5s, hideElementVisible 4s);
+  @include animationDelayVisible(
+    4s,
+    fadeInUp 1.5s,
+    hideElementVisible 4s,
+    buttonBlinker 0.8s
+  );
 }
