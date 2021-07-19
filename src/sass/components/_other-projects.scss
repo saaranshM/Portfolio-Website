@@ -25,6 +25,10 @@
     grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
     gap: 1.5rem;
     position: relative;
+
+    //@media (max-width: 1080px) {
+    //  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    //}
   }
   &-item {
     height: 100%;
