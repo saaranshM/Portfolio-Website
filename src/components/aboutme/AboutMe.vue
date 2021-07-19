@@ -1,5 +1,5 @@
 <template>
-  <section class="about">
+  <section id="about" class="about">
     <div
       v-observe-visibility="{ callback: isViewableNow, once: true }"
       :class="{
@@ -8,7 +8,10 @@
       }"
       class="about__container"
     >
-      <h2 class="numbered-heading">About Me</h2>
+      <h2 class="numbered-heading">
+        <span class="heading-number">01.</span>
+        About Me
+      </h2>
       <div class="about__content">
         <div class="about__content-text">
           <div class="about__content-text-content">

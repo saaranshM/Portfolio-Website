@@ -5,6 +5,7 @@
     <SidebarRight></SidebarRight>
     <Main></Main>
     <AboutMe></AboutMe>
+    <Projects></Projects>
   </div>
 </template>
 
@@ -14,9 +15,10 @@ import SidebarLeft from "@/components/sidebar/SidebarLeft";
 import SidebarRight from "@/components/sidebar/SidebarRight";
 import Main from "@/components/mian/Main";
 import AboutMe from "../aboutme/AboutMe";
+import Projects from "../projects/Projects";
 export default {
   name: "Container",
-  components: { AboutMe, Main, SidebarRight, SidebarLeft, Header }
+  components: { Projects, AboutMe, Main, SidebarRight, SidebarLeft, Header }
 };
 </script>
 

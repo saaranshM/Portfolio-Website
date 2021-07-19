@@ -80,17 +80,17 @@
   margin-inline-start: 0;
   margin-inline-end: 0;
 
-  &::before {
-    position: relative;
-    bottom: 0.4rem;
-    counter-increment: section 1;
-    content: "0" counter(section) ".";
-    margin-right: 1rem;
-    color: $color-green;
-    font-family: $font-secondary;
-    font-size: clamp($fz-md, 3vw, $fz-xl);
-    font-weight: 400;
-  }
+  //&::before {
+  //  position: relative;
+  //  bottom: 0.4rem;
+  //  counter-increment: section 1;
+  //  content: "0" counter(section) ".";
+  //  margin-right: 1rem;
+  //  color: $color-green;
+  //  font-family: $font-secondary;
+  //  font-size: clamp($fz-md, 3vw, $fz-xl);
+  //  font-weight: 400;
+  //}
   &::after {
     content: "";
     display: block;
@@ -101,4 +101,14 @@
     margin-left: 2rem;
     background-color: $color-lightest-navy;
   }
+}
+
+.heading-number {
+  position: relative;
+  bottom: 0.4rem;
+  margin-right: 1rem;
+  color: $color-green;
+  font-family: $font-secondary;
+  font-size: clamp($fz-md, 3vw, $fz-xl);
+  font-weight: 400;
 }

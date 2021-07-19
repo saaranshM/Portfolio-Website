@@ -1,0 +1,130 @@
+.projects {
+  grid-row: 4 / span 1;
+  grid-column: full-start/ full-end;
+  height: 100%;
+  width: 100%;
+  background-color: $color-navy;
+  z-index: $z-main;
+  padding: 20rem 35rem;
+}
+.project {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: max-content;
+  -moz-box-align: center;
+  align-items: center;
+
+  &__content {
+    grid-column: 7 / -1;
+    text-align: right;
+    position: relative;
+    grid-area: 1 / 7 / -1 / -1;
+    z-index: $z-main;
+  }
+  &__overline {
+    margin: 1rem 0;
+    color: $color-green;
+    font-family: $font-secondary;
+    font-size: $fz-xs;
+    font-weight: 400;
+  }
+  &__title {
+    font-size: clamp(2.4rem, 5vw, 2rem);
+    font-weight: 600;
+    line-height: 1.1;
+    font-family: $font-primary;
+    margin-bottom: 1.2rem;
+  }
+  &__link {
+    text-decoration: none;
+    color: $color-slate-lightest;
+    transition: all 0.3s;
+    &:hover {
+      color: $color-green;
+    }
+  }
+  &__description {
+    box-shadow: 0 1rem 3rem -1.5rem $navy-shadow;
+    padding: 2.5rem;
+    border-radius: 0.4rem;
+    background-color: $color-light-navy;
+    font-size: $fz-lg;
+    color: $color-light-slate;
+    font-family: $font-primary;
+  }
+  &__tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    margin: 2.5rem 0 1rem;
+    list-style: none;
+    justify-content: flex-end;
+
+    & li {
+      margin-bottom: 0.5rem;
+      color: $color-light-slate;
+      font-family: $font-secondary;
+      font-size: $fz-xs;
+      white-space: nowrap;
+      &:not(:last-child) {
+        margin-right: 2rem;
+      }
+    }
+  }
+  &__links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  &__icon {
+    height: 2rem;
+    width: 2rem;
+    text-decoration: none;
+    color: $color-slate-lightest;
+    transition: all 0.3s;
+    &:not(:last-child) {
+      margin-right: 2rem;
+    }
+    &:last-child {
+      height: 2.2rem;
+      width: 2.2rem;
+    }
+    &:hover {
+      color: $color-green;
+    }
+  }
+  &__image-content {
+    grid-column: 1 / 8;
+    grid-area: 1 / 1 / -1 / 8;
+    z-index: 2;
+  }
+  &__image-wrapper {
+    display: block;
+    position: relative;
+    border-radius: 0.4rem;
+    background-color: $color-green;
+    mix-blend-mode: screen;
+    transition: $link-transition;
+
+    &:hover,
+    &:focus {
+      background: transparent;
+      outline: 0;
+
+      & img {
+        filter: none;
+        mix-blend-mode: normal;
+      }
+    }
+  }
+
+  &__image {
+    max-width: 100%;
+    border-radius: 0.4rem;
+    mix-blend-mode: multiply;
+    filter: grayscale(100%) contrast(1) brightness(90%);
+    object-fit: cover;
+  }
+}

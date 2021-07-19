@@ -26,7 +26,7 @@
         </p>
       </transition>
       <transition appear appear-active-class="main-button-animation">
-        <a href="#" class=" main__btn neon-button">Get in touch</a>
+        <a href="#about" class=" main__btn neon-button">Get in touch</a>
       </transition>
     </div>
   </section>
