@@ -1,0 +1,84 @@
+.project-card {
+  box-shadow: 0 1rem 3rem -1.5rem $navy-shadow;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  height: 100%;
+  padding: 2.2rem 1.75rem;
+  border-radius: 0.4rem;
+  background-color: $color-light-navy;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  &:hover &__title a {
+    color: $color-green;
+  }
+
+  &__head {
+    width: 100%;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    &-folder {
+      height: 4rem;
+      width: 4rem;
+      color: $color-green;
+    }
+    &-links {
+      display: flex;
+      align-items: center;
+      & a {
+        width: 2.2rem;
+        height: 2.2rem;
+        text-decoration: none;
+        color: $color-light-slate;
+        margin-right: 1rem;
+        transition: all 0.3s;
+        &:hover {
+          transform: translateY(-3px);
+          color: $color-green;
+        }
+      }
+    }
+  }
+
+  &__title {
+    margin-bottom: 1rem;
+  }
+
+  &__title a {
+    color: $color-slate-lightest;
+    font-size: $fz-xxl;
+    font-weight: 600;
+    font-family: $font-primary;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  &__description {
+    color: $color-light-slate;
+    font-size: 1.7rem;
+    font-family: $font-primary;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+
+    li {
+      color: $color-light-slate;
+      font-size: 1.1rem;
+      font-family: $font-secondary;
+      margin-right: 1.5rem;
+    }
+  }
+}
