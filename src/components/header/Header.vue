@@ -65,17 +65,17 @@ export default {
       const btnLogo = document.querySelector(":root");
       const sideNav = document.getElementById("sidenav");
       if (this.btnToggle) {
-        sideNav.style.transform = "translateX(0vw)";
-        btnLogo.setAttribute(
-          "style",
-          "--after-deg: 135deg; --before-deg:-135deg; --after-top: 0;   --before-top: 0px; --middle-background-color: transparent; --ham-bottom-width: 100%; --ham-top-width: 100%; --sidenav-pos: -100%;"
-        );
-        this.btnToggle = !this.btnToggle;
-      } else {
         sideNav.style.transform = "translateX(100%)";
         btnLogo.setAttribute(
           "style",
           "--after-deg: 0deg; --before-deg: 0deg;--after-top: 1rem;--before-top: -1rem; --middle-background-color: #64ffda; --ham-bottom-width: 80%; --ham-top-width: 120%; --sidenav-pos: 0"
+        );
+        this.btnToggle = !this.btnToggle;
+      } else {
+        sideNav.style.transform = "translateX(0)";
+        btnLogo.setAttribute(
+          "style",
+          "--after-deg: 135deg; --before-deg:-135deg; --after-top: 0;   --before-top: 0px; --middle-background-color: transparent; --ham-bottom-width: 100%; --ham-top-width: 100%; --sidenav-pos: -100%;"
         );
         this.btnToggle = !this.btnToggle;
       }

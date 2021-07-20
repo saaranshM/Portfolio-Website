@@ -13,7 +13,7 @@
   background-color: $color-light-navy;
   box-shadow: -10px 0px 30px -15px $navy-shadow;
   z-index: $z-sidenav;
-  transform: translateX(0);
+  transform: translateX(100%);
   visibility: visible;
   transition: $link-transition;
 
