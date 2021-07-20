@@ -5,6 +5,7 @@
     <SidebarRight></SidebarRight>
     <Main></Main>
     <AboutMe></AboutMe>
+    <Skills></Skills>
     <Projects></Projects>
     <OtherProjects></OtherProjects>
     <ContactUs></ContactUs>
@@ -20,9 +21,11 @@ import AboutMe from "../aboutme/AboutMe";
 import Projects from "../projects/Projects";
 import OtherProjects from "../other-projects/OtherProjects";
 import ContactUs from "../contact/Contact";
+import Skills from "../skills/Skills";
 export default {
   name: "Container",
   components: {
+    Skills,
     ContactUs,
     OtherProjects,
     Projects,

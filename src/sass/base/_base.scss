@@ -23,7 +23,7 @@ html {
 .container {
   display: grid;
   position: relative;
-  grid-template-rows: 8rem $container-height-lg max-content max-content 100vh max-content;
+  grid-template-rows: 8rem $container-height-lg max-content max-content max-content 100vh max-content;
   grid-template-columns:
     [left-sidebar-start] 8rem [left-sidebar-end full-start] 1fr repeat(
       10,
