@@ -1,7 +1,7 @@
 <template>
   <section class="projects">
     <h2 class="numbered-heading">
-      <span class="heading-number">02.</span>
+      <span class="heading-number">03.</span>
       Projects I have done
     </h2>
     <ul class="projects__list">

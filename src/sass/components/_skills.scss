@@ -20,11 +20,16 @@
   }
 
   &__item {
-    box-shadow: 0 1rem 4rem -1rem $navy-shadow;
-    padding: 1rem;
+    box-shadow: 0 1rem 4rem -1rem $dark-navy-shadow;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
 
     &-heading {
       font-size: 1.3rem;
@@ -50,7 +55,7 @@
           top: 0;
           left: 0;
           height: 100%;
-          width: 80%;
+          width: var(--width);
           background-color: $color-green;
           filter: brightness(90%);
         }
