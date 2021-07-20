@@ -7,6 +7,7 @@
     <AboutMe></AboutMe>
     <Projects></Projects>
     <OtherProjects></OtherProjects>
+    <ContactUs></ContactUs>
   </div>
 </template>
 
@@ -18,9 +19,11 @@ import Main from "@/components/mian/Main";
 import AboutMe from "../aboutme/AboutMe";
 import Projects from "../projects/Projects";
 import OtherProjects from "../other-projects/OtherProjects";
+import ContactUs from "../contact/Contact";
 export default {
   name: "Container",
   components: {
+    ContactUs,
     OtherProjects,
     Projects,
     AboutMe,
