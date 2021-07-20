@@ -31,3 +31,30 @@ html {
     )
     1fr [full-end right-sidebar-start]8rem [right-sidebar-end];
 }
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: $color-dark-slate $color-navy;
+}
+body::-webkit-scrollbar {
+  width: 12px;
+}
+body::-webkit-scrollbar-track {
+  background: $color-navy;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: $color-dark-slate;
+  border: 3px solid $color-navy;
+  border-radius: 10px;
+}
+
+:root {
+  --after-deg: 0deg;
+  --before-deg: 0deg;
+  --after-top: 1rem;
+  --before-top: -1rem;
+  --middle-background-color: #64ffda;
+  --ham-top-width: 120%;
+  --ham-bottom-width: 80%;
+  --sidenav-pos: 0vw;
+}

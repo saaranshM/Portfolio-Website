@@ -1,0 +1,51 @@
+.sidenav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding: 50px 10px;
+  width: calc(min(75vw, 400px));
+  height: 100vh;
+  outline: 0;
+  background-color: $color-light-navy;
+  box-shadow: -10px 0px 30px -15px $navy-shadow;
+  z-index: $z-sidenav;
+  transform: translateX(0);
+  visibility: visible;
+  transition: $link-transition;
+
+  & nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    color: $color-slate-lightest;
+    font-family: $font-primary;
+    text-align: center;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      font-size: clamp($fz-xs, 4vw, $fz-lg);
+      margin-top: 1rem;
+    }
+    span {
+      font-family: $font-secondary;
+      color: $color-green;
+      font-weight: 400;
+      font-size: clamp($fz-sm);
+    }
+  }
+}

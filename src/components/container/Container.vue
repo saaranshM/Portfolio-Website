@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <Header></Header>
+    <!--    <Sidenav></Sidenav>-->
     <SidebarLeft></SidebarLeft>
     <SidebarRight></SidebarRight>
     <Main></Main>
@@ -24,6 +25,7 @@ import OtherProjects from "../other-projects/OtherProjects";
 import ContactUs from "../contact/Contact";
 import Skills from "../skills/Skills";
 import Footer from "../footer/Footer";
+import Sidenav from "../sidenav/Sidenav";
 export default {
   name: "Container",
   components: {
