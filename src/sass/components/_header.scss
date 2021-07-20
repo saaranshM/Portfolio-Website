@@ -1,6 +1,6 @@
 //HEADER
 .header {
-  background-color: $color-navy;
+  background-color: rgba($color-navy, 0.95);
   grid-row: 1 / span 1;
   grid-column: 1 / -1;
   display: flex;
@@ -11,6 +11,8 @@
   width: 100%;
   height: 8rem;
   z-index: $z-header;
+  transition: all 0.3s;
+  backdrop-filter: blur(3px);
 
   //header logo
   &__logo {

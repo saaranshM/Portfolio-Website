@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div>
-      <div class="footer__main">Made with ♥ by me.</div>
+      <div class="footer__main">Made with <span>♥</span> by me.</div>
       <div class="footer__sub">
         Design inspired by
         <a href="#" class="underlined-link" :style="'--bottom: 0'"

@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header id="navbar" class="header">
     <transition appear appear-active-class="navigation-logo-animation">
       <SvgIcon class="header__logo" name="colored-logo"></SvgIcon>
     </transition>
@@ -43,6 +43,28 @@ export default {
     return {
       show: false
     };
+  },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
+  methods: {
+    handleScroll() {
+      let prevScrollpos = window.pageYOffset;
+      window.onscroll = () => {
+        let currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+          console.log("yes");
+          document.getElementById("navbar").style.top = "0";
+        } else {
+          console.log("no");
+          document.getElementById("navbar").style.top = "-80px";
+        }
+        prevScrollpos = currentScrollPos;
+      };
+    }
   }
 };
 </script>

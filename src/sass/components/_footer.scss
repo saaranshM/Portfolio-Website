@@ -15,6 +15,9 @@
 
   &__main {
     margin-bottom: 1rem;
+    & > span {
+      color: $color-green;
+    }
   }
 
   &__main,
