@@ -1,5 +1,5 @@
 <template>
-  <header id="navbar" class="header">
+  <header class="header" :class="{ 'navbar-hidden': !showNavbar }">
     <transition appear appear-active-class="navigation-logo-animation">
       <SvgIcon class="header__logo" name="colored-logo"></SvgIcon>
     </transition>
@@ -41,7 +41,9 @@ export default {
   components: { SvgIcon },
   data() {
     return {
-      show: false
+      show: false,
+      showNavbar: true,
+      lastScrollPosition: 0
     };
   },
   created() {
@@ -52,18 +54,20 @@ export default {
   },
   methods: {
     handleScroll() {
-      let prevScrollpos = window.pageYOffset;
-      window.onscroll = () => {
-        let currentScrollPos = window.pageYOffset;
-        if (prevScrollpos > currentScrollPos) {
-          console.log("yes");
-          document.getElementById("navbar").style.top = "0";
-        } else {
-          console.log("no");
-          document.getElementById("navbar").style.top = "-80px";
-        }
-        prevScrollpos = currentScrollPos;
-      };
+      const currentScrollPosition =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+      if (currentScrollPosition < 0) {
+        return;
+      }
+
+      if (Math.abs(currentScrollPosition - this.lastScrollPosition) < 60) {
+        return;
+      }
+
+      this.showNavbar = currentScrollPosition < this.lastScrollPosition;
+
+      this.lastScrollPosition = currentScrollPosition;
     }
   }
 };
