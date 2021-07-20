@@ -62,18 +62,11 @@
 </template>
 
 <script>
+import visibility from "../../mixins/visibility";
+
 export default {
   name: "AboutMe",
-  data: () => {
-    return {
-      showAnimation: false
-    };
-  },
-  methods: {
-    isViewableNow(isVisible, entry) {
-      this.showAnimation = isVisible;
-    }
-  }
+  mixins: [visibility]
 };
 </script>
 

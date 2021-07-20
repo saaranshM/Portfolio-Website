@@ -5,7 +5,9 @@
   width: 100%;
   background-color: $color-navy;
   padding: 10rem 0;
-
+  & > div {
+    opacity: 0;
+  }
   &__container {
     padding: 5rem;
     background-color: $color-light-navy;
@@ -70,3 +72,5 @@
     }
   }
 }
+
+//animations

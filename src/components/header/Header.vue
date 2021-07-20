@@ -36,7 +36,7 @@
         <div class="navigation__hamburger-inner"></div>
       </div>
     </li>
-    <Sidenav v-scroll-lock="!btnToggle"></Sidenav>
+    <Sidenav></Sidenav>
   </header>
 </template>
 

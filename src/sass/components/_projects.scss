@@ -6,6 +6,10 @@
   background-color: $color-navy;
   z-index: $z-main;
   padding: 20rem 37rem;
+
+  & > div {
+    opacity: 0;
+  }
 }
 .project {
   position: relative;
