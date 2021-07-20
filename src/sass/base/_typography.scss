@@ -112,3 +112,27 @@
   font-size: clamp($fz-md, 3vw, $fz-xl);
   font-weight: 400;
 }
+
+.underlined-link {
+  text-decoration: none;
+  color: $color-green;
+  display: inline-block;
+  position: relative;
+  text-decoration-skip-ink: auto;
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: var(--bottom);
+    left: 0;
+    background-color: rgba($color-green, 0.5);
+    visibility: hidden;
+    transition: $link-transition;
+  }
+  &:hover:before {
+    visibility: visible;
+    width: 100%;
+  }
+}

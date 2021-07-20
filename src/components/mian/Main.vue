@@ -19,14 +19,17 @@
         </vue-typed-js>
       </transition>
       <transition appear appear-active-class="description-animation">
-        <p class="main__description .d">
+        <p class="main__description ">
           I am a software engineering student currently trying to grasp all the
           knowledge there is about web development and Machine Learning residing
-          in India. Always open for <a href="#">new opportunities.</a>
+          in India. Always open for
+          <a href="#" class="underlined-link" :style="'--bottom: 3.7px'"
+            >new opportunities.</a
+          >
         </p>
       </transition>
       <transition appear appear-active-class="main-button-animation">
-        <a href="#about" class=" main__btn neon-button">Get in touch</a>
+        <a href="#about" class=" main__btn neon-button">About Me</a>
       </transition>
     </div>
   </section>

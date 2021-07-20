@@ -1,0 +1,28 @@
+.footer {
+  grid-row: 8 / span 2;
+  grid-column: col-start 1 / span 10;
+  height: 100%;
+  width: 100%;
+  background-color: $color-navy;
+
+  & > div {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__main {
+    margin-bottom: 1rem;
+  }
+
+  &__main,
+  &__sub {
+    color: $color-slate;
+    font-family: $font-secondary;
+    font-weight: 400;
+    font-size: $fz-xs;
+    line-height: 1;
+  }
+}

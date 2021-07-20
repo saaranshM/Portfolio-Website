@@ -9,6 +9,7 @@
     <Projects></Projects>
     <OtherProjects></OtherProjects>
     <ContactUs></ContactUs>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -22,9 +23,11 @@ import Projects from "../projects/Projects";
 import OtherProjects from "../other-projects/OtherProjects";
 import ContactUs from "../contact/Contact";
 import Skills from "../skills/Skills";
+import Footer from "../footer/Footer";
 export default {
   name: "Container",
   components: {
+    Footer,
     Skills,
     ContactUs,
     OtherProjects,
