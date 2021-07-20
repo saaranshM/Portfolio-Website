@@ -6,6 +6,8 @@
   background-color: $color-navy;
   padding: 15rem 10vw;
 
+  @include fill-all-columns;
+
   & > div {
     display: flex;
     flex-direction: column;

@@ -5,6 +5,9 @@
   width: 100%;
   background-color: $color-navy;
   padding: 10rem 0;
+
+  @include fill-all-columns;
+
   & > div {
     opacity: 0;
   }

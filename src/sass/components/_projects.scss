@@ -5,7 +5,13 @@
   width: 100%;
   background-color: $color-navy;
   z-index: $z-main;
-  padding: 20rem 37rem;
+  padding: 20rem 20%;
+
+  @include fill-all-columns;
+
+  @media screen and (max-width: 1425px) {
+    padding: 20rem 12%;
+  }
 
   & > div {
     opacity: 0;

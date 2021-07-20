@@ -6,6 +6,7 @@
   background-color: $color-navy;
   z-index: $z-main;
   padding: 15rem 5rem 20rem 5rem;
+  @include fill-all-columns;
 
   &__container {
     opacity: 0;

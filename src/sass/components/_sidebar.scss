@@ -10,6 +10,10 @@
   background-color: $color-navy;
   z-index: $z-sidebars;
 
+  @media only screen and (max-width: 780px) {
+    display: none;
+  }
+
   //sidebar icons
   &__icons {
     position: fixed;
@@ -71,6 +75,11 @@
   justify-content: center;
   align-items: center;
   z-index: $z-sidebars;
+
+  @media only screen and (max-width: 780px) {
+    display: none;
+  }
+
   &__container {
     bottom: 0;
     position: fixed;

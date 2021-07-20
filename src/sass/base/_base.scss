@@ -30,6 +30,15 @@ html {
       [col-start] minmax(min-content, 10rem) [col-end]
     )
     1fr [full-end right-sidebar-start]8rem [right-sidebar-end];
+
+  @media only screen and (max-width: 780px) {
+    grid-template-columns:
+      [ full-start] 1fr repeat(
+        10,
+        [col-start] minmax(min-content, 10rem) [col-end]
+      )
+      1fr [full-end ];
+  }
 }
 
 html {

@@ -9,6 +9,8 @@
   flex-direction: column;
   backface-visibility: hidden;
 
+  @include fill-all-columns;
+
   &__name-label {
     font-family: $font-secondary;
     font-size: clamp($fz-sm, 5vw, $fz-md);
