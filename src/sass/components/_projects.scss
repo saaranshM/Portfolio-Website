@@ -9,8 +9,11 @@
 
   @include fill-all-columns;
 
-  @media screen and (max-width: 1425px) {
-    padding: 20rem 12%;
+  @media screen and (max-width: 1080px) {
+    padding: 20rem 5rem;
+  }
+  @media screen and (max-width: 490px) {
+    padding: 20rem 2rem;
   }
 
   & > div {
@@ -27,16 +30,39 @@
   align-items: center;
   margin-bottom: 10rem;
 
+  @media only screen and (max-width: 780px) {
+    margin-bottom: 5rem;
+  }
+
   &:nth-child(2n) &__content {
     grid-column: 1 / 7;
     text-align: left;
     grid-area: 1 / 1 / -1 / 7;
+
+    @media only screen and (max-width: 1080px) {
+      grid-column: 1 / 9;
+    }
+
+    @media only screen and (max-width: 780px) {
+      grid-column: 1 / -1;
+      padding: 4rem 4rem 3rem;
+      text-align: left;
+    }
+
+    @media only screen and (max-width: 480px) {
+      grid-column: 1 / -1;
+      padding: 4rem 2rem 3rem;
+      text-align: left;
+    }
   }
 
   &:nth-child(2n) &__image-content {
     grid-column: 6 / -1;
     grid-area: 1 / 6 / -1 / -1;
     z-index: 2;
+    @media only screen and (max-width: 780px) {
+      grid-column: 1/-1;
+    }
   }
   &:nth-child(2n) &__tech-list {
     justify-content: flex-start;
@@ -51,6 +77,20 @@
     position: relative;
     grid-area: 1 / 7 / -1 / -1;
     z-index: $z-main;
+
+    @media only screen and (max-width: 1080px) {
+      grid-column: 5 / -1;
+    }
+    @media only screen and (max-width: 780px) {
+      grid-column: 1 / -1;
+      padding: 4rem 4rem 3rem;
+      text-align: left;
+    }
+    @media only screen and (max-width: 480px) {
+      grid-column: 1 / -1;
+      padding: 4rem 2rem 3rem;
+      text-align: left;
+    }
   }
   &__overline {
     margin: 1rem 0;
@@ -70,6 +110,9 @@
     text-decoration: none;
     color: $color-slate-lightest;
     transition: all 0.3s;
+    @media only screen and (max-width: 780px) {
+      color: $color-white;
+    }
     &:hover {
       color: $color-green;
     }
@@ -82,6 +125,16 @@
     font-size: $fz-lg;
     color: $color-light-slate;
     font-family: $font-primary;
+
+    @media only screen and (max-width: 780px) {
+      box-shadow: none;
+      background-color: transparent;
+      padding: 2.5rem 0;
+    }
+
+    @media only screen and (max-width: 480px) {
+      padding: 0.5rem 0;
+    }
   }
   &__tech-list {
     display: flex;
@@ -90,6 +143,10 @@
     margin: 2.5rem 0 1rem;
     list-style: none;
     justify-content: flex-end;
+    @media only screen and (max-width: 780px) {
+      justify-content: flex-start;
+      margin: 1rem 0;
+    }
 
     & li {
       margin-bottom: 0.5rem;
@@ -106,6 +163,10 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
+    @media only screen and (max-width: 780px) {
+      justify-content: flex-start;
+    }
   }
   &__icon {
     height: 2rem;
@@ -128,6 +189,10 @@
     grid-column: 1 / 8;
     grid-area: 1 / 1 / -1 / 8;
     z-index: 2;
+    height: 100%;
+    @media only screen and (max-width: 780px) {
+      grid-column: 1/-1;
+    }
   }
   &__image-wrapper {
     display: block;
@@ -136,6 +201,11 @@
     background-color: $color-green;
     mix-blend-mode: screen;
     transition: $link-transition;
+    height: 100%;
+    width: 100%;
+    @media only screen and (max-width: 780px) {
+      background-color: rgba($color-navy, 0.9);
+    }
 
     &:hover,
     &:focus {
@@ -150,10 +220,19 @@
   }
 
   &__image {
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
     border-radius: 0.4rem;
     mix-blend-mode: multiply;
     filter: grayscale(100%) contrast(1) brightness(90%);
-    object-fit: cover;
+
+    @media only screen and (max-width: 780px) {
+      filter: none;
+      object-fit: cover;
+    }
+
+    &-link {
+      height: 100%;
+    }
   }
 }
