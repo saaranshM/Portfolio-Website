@@ -7,6 +7,13 @@
   align-items: center;
   flex-direction: column;
 
+  & > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
   &__heading {
     color: $color-green;
     font-family: $font-secondary;

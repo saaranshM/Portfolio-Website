@@ -24,9 +24,13 @@ import OtherProjects from "../other-projects/OtherProjects";
 import ContactUs from "../contact/Contact";
 import Skills from "../skills/Skills";
 import Footer from "../footer/Footer";
-import Sidenav from "../sidenav/Sidenav";
 export default {
   name: "Container",
+  data: () => {
+    return {
+      loading: true
+    };
+  },
   components: {
     Footer,
     Skills,
@@ -38,6 +42,11 @@ export default {
     SidebarRight,
     SidebarLeft,
     Header
+  },
+  mounted() {
+    setTimeout(() => {
+      this.loading = false;
+    }, 1500);
   }
 };
 </script>
