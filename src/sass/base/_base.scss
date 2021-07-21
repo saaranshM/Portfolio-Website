@@ -23,7 +23,8 @@ html {
 .container {
   display: grid;
   position: relative;
-  grid-template-rows: 8rem $container-height-lg max-content max-content max-content 100vh max-content 10rem;
+  width: 100%;
+  grid-template-rows: 8rem $container-height-lg repeat(5, max-content) 10rem;
   grid-template-columns:
     [left-sidebar-start] 8rem [left-sidebar-end full-start] 1fr repeat(
       10,
@@ -32,12 +33,7 @@ html {
     1fr [full-end right-sidebar-start]8rem [right-sidebar-end];
 
   @media only screen and (max-width: 780px) {
-    grid-template-columns:
-      [ full-start] 1fr repeat(
-        10,
-        [col-start] minmax(min-content, 10rem) [col-end]
-      )
-      1fr [full-end ];
+    grid-template-columns: repeat(10, 1fr);
   }
 }
 

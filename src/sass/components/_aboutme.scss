@@ -13,20 +13,34 @@
   }
 
   &__image {
-    width: $image-width-me-lg;
+    max-width: $image-width-me-lg;
     mix-blend-mode: multiply;
     filter: grayscale(100%) contrast(1);
     transition: $link-transition;
     border-radius: 0.4rem;
 
+    @media only screen and (max-width: 420px) {
+      max-width: 25rem;
+    }
+
     &-wrapper {
       @include navy-box-shadow;
       display: block;
       position: relative;
-      height: $image-width-me-lg;
-      width: $image-width-me-lg;
+      max-height: $image-width-me-lg;
+      max-width: $image-width-me-lg;
       border-radius: 0.4rem;
       background-color: $color-green;
+
+      @media only screen and (max-width: 780px) {
+        margin: 5rem auto 0;
+      }
+      @media only screen and (max-width: 420px) {
+        max-width: 25rem;
+        max-height: 25rem;
+        box-shadow: none;
+        margin: 5rem auto;
+      }
 
       &:before,
       &:after {
@@ -37,6 +51,10 @@
         height: 100%;
         border-radius: 0.4rem;
         transition: $link-transition;
+
+        @media only screen and (max-width: 420px) {
+          display: none;
+        }
       }
 
       &:before {
@@ -76,6 +94,10 @@
     grid-template-columns: 3fr 2fr;
     gap: 5rem;
     align-items: start;
+
+    @media only screen and (max-width: 780px) {
+      display: block;
+    }
 
     &-text-content p {
       font-family: $font-primary;

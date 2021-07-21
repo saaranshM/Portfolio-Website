@@ -7,14 +7,27 @@
   padding: 10rem 0;
 
   @include fill-all-columns;
-
-  & > div {
-    opacity: 0;
+  @media only screen and (max-width: 1080px) {
+    padding: 10rem 0;
+    margin-right: 0 !important;
   }
+  @media only screen and (max-width: 900px) {
+    padding: 10rem 0;
+  }
+
   &__container {
     padding: 5rem;
     background-color: $color-light-navy;
     box-shadow: 0 1rem 3rem -1.5rem $navy-shadow;
+
+    @media only screen and (max-width: 1080px) {
+      width: 80vw;
+      margin: 0 auto;
+    }
+    @media only screen and (max-width: 780px) {
+      width: 90vw;
+      padding: 5rem 3rem;
+    }
   }
 
   &__grid {
@@ -22,15 +35,26 @@
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 2rem;
     list-style: none;
+    place-items: center;
+
+    @media only screen and (max-width: 780px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__item {
     box-shadow: 0 1rem 4rem -1rem $dark-navy-shadow;
+    width: 100%;
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     transition: all 0.3s;
+
+    @media only screen and (max-width: 780px) {
+      //padding: 5rem 2.5rem;
+      //width: 80%;
+    }
 
     &:hover {
       transform: translateY(-5px);

@@ -8,6 +8,10 @@
 
   @include fill-all-columns;
 
+  @media (max-width: 780px) {
+    padding: 10rem 5rem;
+  }
+
   & > div {
     display: flex;
     flex-direction: column;
@@ -33,9 +37,9 @@
     gap: 1.5rem;
     position: relative;
 
-    //@media (max-width: 1080px) {
-    //  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
-    //}
+    @media (max-width: 780px) {
+      grid-template-columns: 1fr;
+    }
   }
   &-item {
     height: 100%;
