@@ -4,6 +4,7 @@
   height: 100%;
   width: 100%;
   background-color: $color-navy;
+  padding: 2rem 0;
 
   @include fill-all-columns;
 
@@ -29,5 +30,30 @@
     font-weight: 400;
     font-size: $fz-xs;
     line-height: 1;
+  }
+
+  &__icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin-bottom: 1.5rem;
+
+    @media only screen and (min-width: 780px) {
+      display: none;
+    }
+  }
+
+  &__icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    margin-left: 1.5rem;
+    color: $color-light-slate;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: translateY(-3px);
+      color: $color-green;
+    }
   }
 }
