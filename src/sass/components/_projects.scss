@@ -208,14 +208,16 @@
       background-color: rgba($color-navy, 0.9);
     }
 
-    &:hover,
-    &:focus {
-      background: transparent;
-      outline: 0;
+    @media (hover: hover) {
+      &:hover,
+      &:focus {
+        background: transparent;
+        outline: 0;
 
-      & img {
-        filter: none;
-        mix-blend-mode: normal;
+        & img {
+          filter: none;
+          mix-blend-mode: normal;
+        }
       }
     }
   }

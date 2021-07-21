@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <Container></Container>
+    <Container> </Container>
   </div>
 </template>
 
 <script>
-import Container from "@/components/container/Container";
+import Container from "./components/container/Container";
 export default {
   name: "App",
   components: { Container }
