@@ -8,6 +8,10 @@
   padding: 15rem 5rem 20rem 5rem;
   @include fill-all-columns;
 
+  @media only screen and (max-width: 420px) {
+    padding: 15rem 5rem 15rem 5rem;
+  }
+
   &__container {
     opacity: 0;
   }

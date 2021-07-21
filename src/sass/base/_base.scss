@@ -24,7 +24,7 @@ html {
   display: grid;
   position: relative;
   width: 100%;
-  grid-template-rows: 8rem $container-height-lg repeat(5, max-content) 10rem;
+  grid-template-rows: 8rem 100vh repeat(5, max-content) 10rem;
   grid-template-columns:
     [left-sidebar-start] 8rem [left-sidebar-end full-start] 1fr repeat(
       10,

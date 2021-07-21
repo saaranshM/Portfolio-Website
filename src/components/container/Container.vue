@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <Header></Header>
-    <!--    <Sidenav></Sidenav>-->
     <SidebarLeft></SidebarLeft>
     <SidebarRight></SidebarRight>
     <Main></Main>

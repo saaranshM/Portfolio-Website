@@ -1,5 +1,5 @@
 <template>
-  <section class="main">
+  <section id="main" class="main">
     <div class="main__container">
       <transition appear appear-active-class="label-animation">
         <vue-typed-js v-bind="typedJsPropsLabel">

@@ -32,11 +32,11 @@
       </ul>
     </nav>
     <li class="navigation__ham-item">
-      <div @click="toggle" class="navigation__hamburger">
-        <div class="navigation__hamburger-inner"></div>
+      <div id="ham-item" @click="toggle" class="navigation__hamburger">
+        <div id="ham-item-inner" class="navigation__hamburger-inner"></div>
       </div>
     </li>
-    <Sidenav></Sidenav>
+    <Sidenav v-scroll-lock="btnToggle"></Sidenav>
   </header>
 </template>
 
@@ -56,11 +56,31 @@ export default {
   },
   created() {
     window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("click", this.closeNav);
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("click", this.closeNav);
   },
   methods: {
+    closeNav(e) {
+      if (
+        e.target.id !== "sidenav" &&
+        e.target.id !== "ham-item" &&
+        e.target.id !== "ham-item-inner"
+      ) {
+        const btnLogo = document.querySelector(":root");
+        const sideNav = document.getElementById("sidenav");
+        if (this.btnToggle) {
+          sideNav.style.transform = "translateX(100%)";
+          btnLogo.setAttribute(
+            "style",
+            "--after-deg: 0deg; --before-deg: 0deg;--after-top: 1rem;--before-top: -1rem; --middle-background-color: #64ffda; --ham-bottom-width: 80%; --ham-top-width: 120%; --sidenav-pos: 0"
+          );
+          this.btnToggle = !this.btnToggle;
+        }
+      }
+    },
     toggle() {
       const btnLogo = document.querySelector(":root");
       const sideNav = document.getElementById("sidenav");
