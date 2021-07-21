@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import App from "./App";
+import Page404 from "./components/404/Page404";
+import Container from "./components/container/Container";
 
 Vue.use(VueRouter);
 
@@ -14,7 +16,12 @@ let router = new VueRouter({
     {
       path: "/",
       name: "Home",
-      component: App
+      component: Container
+    },
+    {
+      path: "*",
+      name: "404",
+      component: Page404
     }
   ]
 });
