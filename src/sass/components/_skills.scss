@@ -21,11 +21,14 @@
     padding: 5rem;
     background-color: $color-light-navy;
     box-shadow: 0 1rem 3rem -1.5rem $navy-shadow;
+    @media only screen and (max-width: 480px) {
+      padding: 2rem;
+    }
   }
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
     gap: 2rem;
     list-style: none;
     place-items: center;

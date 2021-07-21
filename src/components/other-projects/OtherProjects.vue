@@ -9,7 +9,7 @@
     >
       <h2 class="other-projects__heading">Some Other Projects</h2>
       <ul class="other-projects__grid">
-        <ProjectCard v-for="i in 4" :key="i"></ProjectCard>
+        <ProjectCard v-for="i in 6" :key="i"></ProjectCard>
       </ul>
     </div>
   </section>
