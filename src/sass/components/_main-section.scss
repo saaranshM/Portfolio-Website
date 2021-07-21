@@ -11,6 +11,10 @@
 
   @include fill-all-columns;
 
+  @media only screen and (max-width: 780px) {
+    padding: 0 5rem;
+  }
+
   &__name-label {
     font-family: $font-secondary;
     font-size: clamp($fz-sm, 5vw, $fz-md);
