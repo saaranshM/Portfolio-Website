@@ -4,19 +4,19 @@
       <ol class="sidenav__list">
         <li class="sidenav__item">
           <span>01. </span>
-          <a href="#">About</a>
+          <a v-scroll-to="'#about'" href="#about">About</a>
+        </li>
+        <li class="sidenav__item">
+          <span>02. </span>
+          <a v-scroll-to="'#skills'" href="#skills">Skills</a>
         </li>
         <li class="sidenav__item">
           <span>01. </span>
-          <a href="#">About</a>
+          <a v-scroll-to="'#projects'" href="#projects">Projects</a>
         </li>
         <li class="sidenav__item">
           <span>01. </span>
-          <a href="#">About</a>
-        </li>
-        <li class="sidenav__item">
-          <span>01. </span>
-          <a href="#">About</a>
+          <a v-scroll-to="'#contact'" href="#contact">Contact</a>
         </li>
       </ol>
     </nav>

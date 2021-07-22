@@ -5,11 +5,11 @@
   width: 100%;
   background-color: $color-navy;
   z-index: $z-main;
-  padding: 15rem 5rem 20rem 5rem;
+  padding: 10rem 5rem 10rem 5rem;
   @include fill-all-columns;
 
   @media only screen and (max-width: 420px) {
-    padding: 15rem 5rem 15rem 5rem;
+    padding: 15rem 5rem 10rem 5rem;
   }
 
   &__container {
