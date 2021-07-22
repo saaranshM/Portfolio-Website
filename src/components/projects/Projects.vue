@@ -12,122 +12,43 @@
         Projects I have done
       </h2>
       <ul class="projects__list">
-        <li class="project">
+        <li class="project" v-for="(project, index) in projects" :key="index">
           <div class="project__content">
             <div>
               <p class="project__overline">Featured Project</p>
               <h3 class="project__title">
-                <a href="#" class="project__link">Breast Cancer Detector</a>
+                <a href="#" class="project__link">{{ project.title }}</a>
               </h3>
               <div class="project__description">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Commodi cupiditate eius enim nulla numquam quae quaerat
-                  recusandae sunt ullam? Beatae!
+                  {{ project.description }}
                 </p>
               </div>
               <ul class="project__tech-list">
-                <li>Python</li>
-                <li>Tensorflow</li>
-                <li>Open CV</li>
+                <li v-for="(tech, index) in project.techList" :key="index">
+                  {{ tech }}
+                </li>
               </ul>
               <div class="project__links">
-                <a class="project__icon" href="#">
+                <a
+                  class="project__icon"
+                  v-if="project.github"
+                  :href="project.github"
+                  target="_blank"
+                >
                   <SvgIcon name="github"></SvgIcon>
                 </a>
-                <a class="project__icon" href="#">
+                <a class="project__icon" target="_blank" v-if="project.url" :href="project.url">
                   <SvgIcon name="linkto"></SvgIcon>
                 </a>
               </div>
             </div>
           </div>
           <div class="project__image-content">
-            <a href="#" class="project__image-link">
+            <a :href="project.url ? project.url : project.github" target="_blank" class="project__image-link">
               <div class="project__image-wrapper">
                 <img
-                  src="../../assets/img/projects/breast-cancer.jpg"
-                  alt="Breast Cancer Project"
-                  class="project__image"
-                />
-              </div>
-            </a>
-          </div>
-        </li>
-        <li class="project">
-          <div class="project__content">
-            <div>
-              <p class="project__overline">Featured Project</p>
-              <h3 class="project__title">
-                <a href="#" class="project__link">Breast Cancer Detector</a>
-              </h3>
-              <div class="project__description">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Commodi cupiditate eius enim nulla numquam quae quaerat
-                  recusandae sunt ullam? Beatae!
-                </p>
-              </div>
-              <ul class="project__tech-list">
-                <li>Python</li>
-                <li>Tensorflow</li>
-                <li>Open CV</li>
-              </ul>
-              <div class="project__links">
-                <a class="project__icon" href="#">
-                  <SvgIcon name="github"></SvgIcon>
-                </a>
-                <a class="project__icon" href="#">
-                  <SvgIcon name="linkto"></SvgIcon>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="project__image-content">
-            <a href="#" class="project__image-link">
-              <div class="project__image-wrapper">
-                <img
-                  src="../../assets/img/projects/breast-cancer.jpg"
-                  alt="Breast Cancer Project"
-                  class="project__image"
-                />
-              </div>
-            </a>
-          </div>
-        </li>
-        <li class="project">
-          <div class="project__content">
-            <div>
-              <p class="project__overline">Featured Project</p>
-              <h3 class="project__title">
-                <a href="#" class="project__link">Breast Cancer Detector</a>
-              </h3>
-              <div class="project__description">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Commodi cupiditate eius enim nulla numquam quae quaerat
-                  recusandae sunt ullam? Beatae!
-                </p>
-              </div>
-              <ul class="project__tech-list">
-                <li>Python</li>
-                <li>Tensorflow</li>
-                <li>Open CV</li>
-              </ul>
-              <div class="project__links">
-                <a class="project__icon" href="#">
-                  <SvgIcon name="github"></SvgIcon>
-                </a>
-                <a class="project__icon" href="#">
-                  <SvgIcon name="linkto"></SvgIcon>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="project__image-content">
-            <a href="#" class="project__image-link">
-              <div class="project__image-wrapper">
-                <img
-                  src="../../assets/img/projects/breast-cancer.jpg"
+                  :src="project.src"
                   alt="Breast Cancer Project"
                   class="project__image"
                 />
@@ -146,6 +67,39 @@ import visibility from "../../mixins/visibility";
 export default {
   name: "Projects",
   components: { SvgIcon },
+  data: () => {
+    return {
+      projects: [
+        {
+          src: require('../../assets/img/projects/breast-cancer.jpg'),
+          title: "Breast Cancer Detector",
+          description:
+            "This app is takes in images of breast tissue and sends it over to a CNN model trained on tissue samples using tensorflow and is deployed as and api using flask on Heroku. .",
+          github:
+            "https://github.com/saaranshM/breast-cancer-detector-streamlit-app",
+          url: "https://share.streamlit.io/saaranshm/breast-cancer-detector-streamlit-app/app.py",
+          techList: ["Tensorflow", "OpenCV", "Python"]
+        },
+        {
+          src: require('../../assets/img/projects/chat-app.jpg'),
+          title: "Live Chat App With Rooms",
+          description:
+            "A chat app built using Node.js,express and socket.io. You can have a name and chat in different rooms",
+          github: "https://github.com/saaranshM/node-chat-app",
+          url: "https://saaransh-node-chat-app.herokuapp.com/",
+          techList: ["Node.js", "Express", "Socket.io"]
+        },
+        {
+          src: require('../../assets/img/projects/rps.jpg'),
+          title: "Rock Paper Scissors Bot",
+          description:
+            "A bot with which you can play Rock Paper Scissors. It is built using OpenCV and Tensorflow. It detects your hand and plays its moves accordingly",
+          github: "https://github.com/saaranshM/rock-paper-scissors-tensorflow",
+          techList: ["Tensorflow", "OpenCV", "Python"]
+        }
+      ]
+    };
+  },
   mixins: [visibility]
 };
 </script>
