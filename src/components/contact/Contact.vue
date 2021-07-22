@@ -1,5 +1,5 @@
 <template>
-  <section class="contact">
+  <section id="contact" class="contact">
     <div
       v-observe-visibility="{ callback: isViewableNow, once: true }"
       :class="{
