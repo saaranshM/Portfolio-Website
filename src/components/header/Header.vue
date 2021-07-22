@@ -31,21 +31,28 @@
         </transition>
       </ul>
     </nav>
-    <li class="navigation__ham-item">
-      <div id="ham-item" @click="toggle" class="navigation__hamburger">
+    <li id="ham-li" @click="toggle" class="navigation__ham-item">
+      <div id="ham-item" class="navigation__hamburger">
         <div id="ham-item-inner" class="navigation__hamburger-inner"></div>
       </div>
     </li>
     <Sidenav v-scroll-lock="btnToggle"></Sidenav>
+    <transition
+      enter-active-class="animate__animated animate__fadeIn"
+      leave-active-class="animate__animated animate__fadeOut"
+    >
+      <BlurContainer v-if="btnToggle"></BlurContainer>
+    </transition>
   </header>
 </template>
 
 <script>
 import SvgIcon from "@/components/common/SvgIcon";
 import Sidenav from "../sidenav/Sidenav";
+import BlurContainer from "../blur-container/BlurContainer";
 export default {
   name: "Header",
-  components: { Sidenav, SvgIcon },
+  components: { BlurContainer, Sidenav, SvgIcon },
   data() {
     return {
       show: false,
@@ -67,7 +74,8 @@ export default {
       if (
         e.target.id !== "sidenav" &&
         e.target.id !== "ham-item" &&
-        e.target.id !== "ham-item-inner"
+        e.target.id !== "ham-item-inner" &&
+        e.target.id !== "ham-li"
       ) {
         const btnLogo = document.querySelector(":root");
         const sideNav = document.getElementById("sidenav");

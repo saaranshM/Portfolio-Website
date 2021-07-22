@@ -1,15 +1,17 @@
 <template>
   <div class="container">
     <Header></Header>
-    <SidebarLeft></SidebarLeft>
-    <SidebarRight></SidebarRight>
-    <Main></Main>
-    <AboutMe></AboutMe>
-    <Skills></Skills>
-    <Projects></Projects>
-    <OtherProjects></OtherProjects>
-    <ContactUs></ContactUs>
-    <Footer></Footer>
+    <template>
+      <SidebarLeft></SidebarLeft>
+      <SidebarRight></SidebarRight>
+      <Main></Main>
+      <AboutMe></AboutMe>
+      <Skills></Skills>
+      <Projects></Projects>
+      <OtherProjects></OtherProjects>
+      <ContactUs></ContactUs>
+      <Footer></Footer>
+    </template>
   </div>
 </template>
 
@@ -24,6 +26,7 @@ import OtherProjects from "../other-projects/OtherProjects";
 import ContactUs from "../contact/Contact";
 import Skills from "../skills/Skills";
 import Footer from "../footer/Footer";
+import BlurContainer from "../blur-container/BlurContainer";
 export default {
   name: "Container",
   data: () => {
@@ -32,6 +35,7 @@ export default {
     };
   },
   components: {
+    // BlurContainer,
     Footer,
     Skills,
     ContactUs,
