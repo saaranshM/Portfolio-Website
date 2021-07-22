@@ -32,18 +32,20 @@
           ></a>
         </li>
       </ul>
-      <a href="mailto:saaransh.dev2811@gmail.com" class="footer__email">saaransh.dev2811@gmail.com</a>
+      <a href="mailto:saaransh.dev2811@gmail.com" class="footer__email"
+        >saaransh.dev2811@gmail.com</a
+      >
       <div class="footer__main">Made with <span>♥</span> by me.</div>
-      <div class="footer__sub">
-        Design inspired by
-        <a
-          href="https://brittanychiang.com/"
-          target="_blank"
-          class="underlined-link"
-          :style="'--bottom: 0'"
-          >brittanychiang.com</a
-        >
-      </div>
+      <!--      <div class="footer__sub">-->
+      <!--        Design inspired by-->
+      <!--        <a-->
+      <!--          href="https://brittanychiang.com/"-->
+      <!--          target="_blank"-->
+      <!--          class="underlined-link"-->
+      <!--          :style="'&#45;&#45;bottom: 0'"-->
+      <!--          >brittanychiang.com</a-->
+      <!--        >-->
+      <!--      </div>-->
     </div>
   </footer>
 </template>

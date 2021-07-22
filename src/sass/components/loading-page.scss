@@ -1,0 +1,38 @@
+.loading-page {
+  width: 100vw;
+  height: 100vh;
+  background-color: $color-navy-dark;
+  display: grid;
+  place-items: center;
+
+  &__icon svg {
+    width: clamp(10rem, 100px, 15rem);
+    height: clamp(10rem, 100px, 15rem);
+
+    & path {
+      fill: $color-green;
+      opacity: 0;
+      backface-visibility: hidden;
+    }
+
+    & > rect {
+      fill: transparent;
+      stroke: $color-green;
+      stroke-width: 15;
+      transition: 1.5s;
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      animation: svgAnimation 6s;
+    }
+  }
+}
+
+@keyframes svgAnimation {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.logo-hide {
+  @include animationDelay(3s, fadeIn 1s, hideElement 3s);
+}

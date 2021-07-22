@@ -1,18 +1,19 @@
 <template>
-  <div class="container">
+  <div v-if="!loading" class="container">
     <Header></Header>
-    <template>
-      <SidebarLeft></SidebarLeft>
-      <SidebarRight></SidebarRight>
-      <Main></Main>
-      <AboutMe></AboutMe>
-      <Skills></Skills>
-      <Projects></Projects>
-      <OtherProjects></OtherProjects>
-      <ContactUs></ContactUs>
-      <Footer></Footer>
-    </template>
+    <SidebarLeft></SidebarLeft>
+    <SidebarRight></SidebarRight>
+    <Main></Main>
+    <AboutMe></AboutMe>
+    <Skills></Skills>
+    <Projects></Projects>
+    <OtherProjects></OtherProjects>
+    <ContactUs></ContactUs>
+    <Footer></Footer>
   </div>
+  <transition v-else leave-active-class="animate__animated animate__fadeOut">
+    <LoadingPage></LoadingPage>
+  </transition>
 </template>
 
 <script>
@@ -26,7 +27,7 @@ import OtherProjects from "../other-projects/OtherProjects";
 import ContactUs from "../contact/Contact";
 import Skills from "../skills/Skills";
 import Footer from "../footer/Footer";
-import BlurContainer from "../blur-container/BlurContainer";
+import LoadingPage from "../loading-page/LoadingPage";
 export default {
   name: "Container",
   data: () => {
@@ -35,7 +36,7 @@ export default {
     };
   },
   components: {
-    // BlurContainer,
+    LoadingPage,
     Footer,
     Skills,
     ContactUs,
@@ -50,7 +51,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.loading = false;
-    }, 1500);
+    }, 3500);
   }
 };
 </script>

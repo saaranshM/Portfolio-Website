@@ -11,11 +11,11 @@
           <a v-scroll-to="'#skills'" href="#skills">Skills</a>
         </li>
         <li class="sidenav__item">
-          <span>01. </span>
+          <span>03. </span>
           <a v-scroll-to="'#projects'" href="#projects">Projects</a>
         </li>
         <li class="sidenav__item">
-          <span>01. </span>
+          <span>04. </span>
           <a v-scroll-to="'#contact'" href="#contact">Contact</a>
         </li>
       </ol>

@@ -20,10 +20,15 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+body {
+  background-color: $color-navy;
+}
+
 .container {
   display: grid;
   position: relative;
   width: 100%;
+  height: 100%;
   grid-template-rows: 8rem 100vh repeat(5, max-content) max-content;
   grid-template-columns:
     [left-sidebar-start] 8rem [left-sidebar-end full-start] 1fr repeat(
@@ -62,5 +67,5 @@ body::-webkit-scrollbar-thumb {
   --ham-top-width: 120%;
   --ham-bottom-width: 80%;
   --sidenav-pos: 0vw;
-  --bottom: 0,
+  --bottom: 0;
 }

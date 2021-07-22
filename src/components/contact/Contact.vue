@@ -10,7 +10,9 @@
       <h2 class="contact__heading">04. What's Next?</h2>
       <h2 class="contact__heading-main">Get In Touch</h2>
       <p class="contact__text">
-        Always open for new opportunities in Full Stack Development and Machine Learning / Deep Learning. If you are looking for such an individual, you contact me right now by clicking that button bellow.
+        Always open for new opportunities in Full Stack Development and Machine
+        Learning / Deep Learning. If you are looking for such an individual, you
+        can contact me by clicking the button bellow.
       </p>
       <a href="mailto:saaransh.dev2811@gmail.com" class=" main__btn neon-button"
         >Say Hello</a
