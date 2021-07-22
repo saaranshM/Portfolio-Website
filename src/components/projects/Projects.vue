@@ -90,7 +90,7 @@ export default {
           src: require("../../assets/img/projects/breast-cancer.jpg"),
           title: "Breast Cancer Detector",
           description:
-            "This app is takes in images of breast tissue and sends it over to a CNN model trained on tissue samples using tensorflow and is deployed as and api using flask on Heroku. .",
+            "This web app takes in images of breast tissue and sends it over to a CNN model trained on tissue samples using tensorflow and is deployed as and api using flask on Heroku.",
           github:
             "https://github.com/saaranshM/breast-cancer-detector-streamlit-app",
           url:
@@ -102,7 +102,7 @@ export default {
           src: require("../../assets/img/projects/chat-app.jpg"),
           title: "Live Chat App With Rooms",
           description:
-            "A chat app built using Node.js,express and socket.io. You can have a name and chat in different rooms",
+            "A chat app built using Node.js, Express and Socket.io. You can have a name and chat in different rooms.",
           github: "https://github.com/saaranshM/node-chat-app",
           url: "https://saaransh-node-chat-app.herokuapp.com/",
           techList: ["Node.js", "Express", "Socket.io"]
@@ -112,7 +112,7 @@ export default {
           src: require("../../assets/img/projects/rps.jpg"),
           title: "Rock Paper Scissors Bot",
           description:
-            "A bot with which you can play Rock Paper Scissors. It is built using OpenCV and Tensorflow. It detects your hand and plays its moves accordingly",
+            "A bot with which you can play Rock Paper Scissors. It is built using OpenCV and Tensorflow. It detects your hand and plays its moves accordingly.",
           github: "https://github.com/saaranshM/rock-paper-scissors-tensorflow",
           techList: ["Tensorflow", "OpenCV", "Python"]
         }
