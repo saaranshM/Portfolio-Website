@@ -16,7 +16,7 @@
     transform: translateY(-5px);
   }
 
-  &:hover &__title a {
+  &:hover &__title  {
     color: $color-green;
   }
 
@@ -53,9 +53,6 @@
 
   &__title {
     margin-bottom: 1rem;
-  }
-
-  &__title a {
     color: $color-slate-lightest;
     font-size: $fz-xxl;
     font-weight: 600;

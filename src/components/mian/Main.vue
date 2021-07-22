@@ -23,7 +23,7 @@
           I am a software engineering student currently trying to grasp all the
           knowledge there is about web development and Machine Learning residing
           in India. Always open for
-          <a href="#" class="underlined-link" :style="'--bottom: 3.7px'"
+          <a v-scroll-to="'#contact'" href="#contact" class="underlined-link" :style="'--bottom: 3.7px'"
             >new opportunities.</a
           >
         </p>

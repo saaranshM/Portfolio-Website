@@ -17,7 +17,7 @@
             <div>
               <p class="project__overline">Featured Project</p>
               <h3 class="project__title">
-                <a href="#" class="project__link">{{ project.title }}</a>
+                <a :href="project.url ? project.url : project.github" target="_blank" class="project__link">{{ project.title }}</a>
               </h3>
               <div class="project__description">
                 <p>
@@ -71,6 +71,7 @@ export default {
     return {
       projects: [
         {
+          id: 1,
           src: require('../../assets/img/projects/breast-cancer.jpg'),
           title: "Breast Cancer Detector",
           description:
@@ -81,6 +82,7 @@ export default {
           techList: ["Tensorflow", "OpenCV", "Python"]
         },
         {
+          id: 2,
           src: require('../../assets/img/projects/chat-app.jpg'),
           title: "Live Chat App With Rooms",
           description:
@@ -90,6 +92,7 @@ export default {
           techList: ["Node.js", "Express", "Socket.io"]
         },
         {
+          id: 3,
           src: require('../../assets/img/projects/rps.jpg'),
           title: "Rock Paper Scissors Bot",
           description:

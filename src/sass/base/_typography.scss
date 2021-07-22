@@ -136,3 +136,15 @@
     width: 100%;
   }
 }
+
+.inline-link {
+  text-decoration: none;
+  color: $color-green;
+  display: inline-block;
+  text-decoration-skip-ink: auto;
+  transition: all .3s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
