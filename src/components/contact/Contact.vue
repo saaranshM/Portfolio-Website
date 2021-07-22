@@ -14,7 +14,9 @@
         consequatur dolores est ex fugiat illo ipsam iure magni nisi odit
         perspiciatis sit, voluptate voluptatibus voluptatum?
       </p>
-      <a href="#" class=" main__btn neon-button">Get in touch</a>
+      <a href="mailto:saaransh.dev2811@gmail.com" class=" main__btn neon-button"
+        >Get in touch</a
+      >
     </div>
   </section>
 </template>
