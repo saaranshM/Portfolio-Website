@@ -61,6 +61,10 @@ export default {
           percentage: "65%"
         },
         {
+          name: "Sickit-Learn",
+          percentage: "70%"
+        },
+        {
           name: "HTML",
           percentage: "90%"
         },
@@ -77,7 +81,7 @@ export default {
           percentage: "65%"
         },
         {
-          name: "Express.js",
+          name: "Express",
           percentage: "70%"
         }
       ]
