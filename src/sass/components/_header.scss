@@ -149,6 +149,9 @@
 .navigation-logo-animation {
   @include animationDelay(1s, fadeIn 1s);
 }
+.navigation__ham-fadeIn {
+  @include animationDelay(1.2s, fadeIn 1.2s);
+}
 .navigation-fade-in {
   &-1 {
     @include animationDelay(1s, fadeInDown 2s, hideElement 1s);

@@ -45,11 +45,13 @@
         </transition>
       </ul>
     </nav>
+    <transition appear appear-active-class="navigation__ham-fadeIn">
     <li id="ham-li" @click="toggle" class="navigation__ham-item">
       <div id="ham-item" class="navigation__hamburger">
         <div id="ham-item-inner" class="navigation__hamburger-inner"></div>
       </div>
     </li>
+    </transition>
     <Sidenav v-scroll-lock="btnToggle"></Sidenav>
     <transition
       enter-active-class="animate__animated animate__fadeIn"
