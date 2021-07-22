@@ -29,7 +29,7 @@
         </p>
       </transition>
       <transition appear appear-active-class="main-button-animation">
-        <a href="#about" class=" main__btn neon-button">About Me</a>
+        <a href="mailto:saaransh.dev2811@gmail.com" class=" main__btn neon-button">Get in touch</a>
       </transition>
     </div>
   </section>

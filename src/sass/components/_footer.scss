@@ -44,6 +44,25 @@
     }
   }
 
+  &__email {
+    font-family: $font-secondary;
+    font-weight: 400;
+    text-decoration: none;
+    color: $color-slate;
+    font-size: $fz-xs;
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+
+    @media only screen and (min-width: 780px) {
+      display: none;
+    }
+
+    &:hover {
+      transform: translateY(-3px);
+      color: $color-green;
+    }
+  }
+
   &__icon {
     width: 2.2rem;
     height: 2.2rem;

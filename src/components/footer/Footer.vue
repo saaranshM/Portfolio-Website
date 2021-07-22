@@ -32,6 +32,7 @@
           ></a>
         </li>
       </ul>
+      <a href="mailto:saaransh.dev2811@gmail.com" class="footer__email">saaransh.dev2811@gmail.com</a>
       <div class="footer__main">Made with <span>♥</span> by me.</div>
       <div class="footer__sub">
         Design inspired by
