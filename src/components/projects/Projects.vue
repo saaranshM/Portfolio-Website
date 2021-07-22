@@ -13,11 +13,17 @@
       </h2>
       <ul class="projects__list">
         <li class="project" v-for="(project, index) in projects" :key="index">
-          <div class="project__content">
+          <div @click="goToProject" class="project__content">
             <div>
               <p class="project__overline">Featured Project</p>
               <h3 class="project__title">
-                <a :href="project.url ? project.url : project.github" target="_blank" class="project__link">{{ project.title }}</a>
+                <a
+                  id="project-link"
+                  :href="project.url ? project.url : project.github"
+                  target="_blank"
+                  class="project__link"
+                  >{{ project.title }}</a
+                >
               </h3>
               <div class="project__description">
                 <p>
@@ -38,14 +44,23 @@
                 >
                   <SvgIcon name="github"></SvgIcon>
                 </a>
-                <a class="project__icon" target="_blank" v-if="project.url" :href="project.url">
+                <a
+                  class="project__icon"
+                  target="_blank"
+                  v-if="project.url"
+                  :href="project.url"
+                >
                   <SvgIcon name="linkto"></SvgIcon>
                 </a>
               </div>
             </div>
           </div>
           <div class="project__image-content">
-            <a :href="project.url ? project.url : project.github" target="_blank" class="project__image-link">
+            <a
+              :href="project.url ? project.url : project.github"
+              target="_blank"
+              class="project__image-link"
+            >
               <div class="project__image-wrapper">
                 <img
                   :src="project.src"
@@ -72,18 +87,19 @@ export default {
       projects: [
         {
           id: 1,
-          src: require('../../assets/img/projects/breast-cancer.jpg'),
+          src: require("../../assets/img/projects/breast-cancer.jpg"),
           title: "Breast Cancer Detector",
           description:
             "This app is takes in images of breast tissue and sends it over to a CNN model trained on tissue samples using tensorflow and is deployed as and api using flask on Heroku. .",
           github:
             "https://github.com/saaranshM/breast-cancer-detector-streamlit-app",
-          url: "https://share.streamlit.io/saaranshm/breast-cancer-detector-streamlit-app/app.py",
+          url:
+            "https://share.streamlit.io/saaranshm/breast-cancer-detector-streamlit-app/app.py",
           techList: ["Tensorflow", "OpenCV", "Python"]
         },
         {
           id: 2,
-          src: require('../../assets/img/projects/chat-app.jpg'),
+          src: require("../../assets/img/projects/chat-app.jpg"),
           title: "Live Chat App With Rooms",
           description:
             "A chat app built using Node.js,express and socket.io. You can have a name and chat in different rooms",
@@ -93,7 +109,7 @@ export default {
         },
         {
           id: 3,
-          src: require('../../assets/img/projects/rps.jpg'),
+          src: require("../../assets/img/projects/rps.jpg"),
           title: "Rock Paper Scissors Bot",
           description:
             "A bot with which you can play Rock Paper Scissors. It is built using OpenCV and Tensorflow. It detects your hand and plays its moves accordingly",
@@ -102,6 +118,14 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    goToProject() {
+      const width = window.innerWidth;
+      if (width < 780) {
+        document.getElementById("project-link").click();
+      }
+    }
   },
   mixins: [visibility]
 };
