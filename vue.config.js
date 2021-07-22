@@ -5,5 +5,6 @@ module.exports = {
       return args;
     });
   },
-  publicPath: process.env.NODE_ENV === "production" ? "/hello-world/" : "/"
+  publicPath:
+    process.env.NODE_ENV === "production" ? "/Portfolio-Website/" : "/"
 };
