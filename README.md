@@ -10,8 +10,9 @@
 <div align="center">
     <img src="https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D" alt="Vuejs Logo">
 <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white" alt="Sass Logo">
-<img alt="Firebase" src="https://img.shields.io/badge/firebase-%23039BE5.svg?sCancel changestyle=for-the-badge&logo=firebase" />
+
 </div>
+<div align="center"><img alt="Firebase" src="https://img.shields.io/badge/firebase-%23039BE5.svg?sCancel changestyle=for-the-badge&logo=firebase" /></div>
 
 
 ![demo](https://firebasestorage.googleapis.com/v0/b/vue-express-54b2e.appspot.com/o/demo.png?alt=media&token=c29517e2-5fd7-459f-b721-1e336f1d2168)
