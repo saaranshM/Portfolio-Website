@@ -61,7 +61,7 @@ export default {
         strings: ["Saaransh Menon."]
       },
       typedJsPropsWho: {
-        typeSpeed: 50,
+        typeSpeed: 30,
         showCursor: false,
         startDelay: 2600,
         strings: ["Full stack developer and ML Enthusiast."]
