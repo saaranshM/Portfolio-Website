@@ -43,14 +43,22 @@
             >
           </li>
         </transition>
+        <li class="navigation__item">
+          <a
+            href="https://firebasestorage.googleapis.com/v0/b/vue-express-54b2e.appspot.com/o/RESUME%2FMy%20Resume.pdf?alt=media&token=84b70296-7c92-4444-900b-c707961a6e30"
+            target="_blank"
+            class="navigation__resume"
+            >Resume</a
+          >
+        </li>
       </ul>
     </nav>
     <transition appear appear-active-class="navigation__ham-fadeIn">
-    <li id="ham-li" @click="toggle" class="navigation__ham-item">
-      <div id="ham-item" class="navigation__hamburger">
-        <div id="ham-item-inner" class="navigation__hamburger-inner"></div>
-      </div>
-    </li>
+      <li id="ham-li" @click="toggle" class="navigation__ham-item">
+        <div id="ham-item" class="navigation__hamburger">
+          <div id="ham-item-inner" class="navigation__hamburger-inner"></div>
+        </div>
+      </li>
     </transition>
     <Sidenav v-scroll-lock="btnToggle"></Sidenav>
     <transition

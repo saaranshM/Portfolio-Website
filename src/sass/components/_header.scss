@@ -37,14 +37,25 @@
     padding: 1rem;
     transition: all 0.3s;
     cursor: pointer;
-
-    &:not(last-child) {
-      margin-right: 1.2rem;
-    }
+    margin-right: 1.2rem;
 
     &:hover {
       outline: 2px dashed $color-green;
       outline-offset: 3px;
+    }
+    &:hover:last-child {
+      outline: none;
+      background-color: $color-light-navy;
+    }
+
+    &:last-child {
+      border: 1px solid $color-green;
+      border-radius: 3px;
+      padding: 1rem 1.5rem;
+      & > a {
+        text-decoration: none;
+        color: $color-green;
+      }
     }
   }
   //navigation list
