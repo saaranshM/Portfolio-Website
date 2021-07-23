@@ -43,14 +43,16 @@
             >
           </li>
         </transition>
-        <li class="navigation__item">
-          <a
-            href="https://firebasestorage.googleapis.com/v0/b/vue-express-54b2e.appspot.com/o/RESUME%2FMy%20Resume.pdf?alt=media&token=84b70296-7c92-4444-900b-c707961a6e30"
-            target="_blank"
-            class="navigation__resume"
-            >Resume</a
-          >
-        </li>
+        <transition appear appear-active-class="navigation-fade-in-5">
+          <li class="navigation__item">
+            <a
+              href="https://firebasestorage.googleapis.com/v0/b/vue-express-54b2e.appspot.com/o/RESUME%2FMy%20Resume.pdf?alt=media&token=84b70296-7c92-4444-900b-c707961a6e30"
+              target="_blank"
+              class="navigation__resume"
+              >Resume</a
+            >
+          </li>
+        </transition>
       </ul>
     </nav>
     <transition appear appear-active-class="navigation__ham-fadeIn">

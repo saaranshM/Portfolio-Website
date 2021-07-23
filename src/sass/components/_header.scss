@@ -165,15 +165,18 @@
 }
 .navigation-fade-in {
   &-1 {
-    @include animationDelay(1s, fadeInDown 2s, hideElement 1s);
+    @include animationDelay(1s, fadeInDown 1.5s, hideElement 1s);
   }
   &-2 {
-    @include animationDelay(1.2s, fadeInDown 2s, hideElement 1.2s);
+    @include animationDelay(1.1s, fadeInDown 1.5s, hideElement 1.1s);
   }
   &-3 {
-    @include animationDelay(1.4s, fadeInDown 2s, hideElement 1.4s);
+    @include animationDelay(1.2s, fadeInDown 1.5s, hideElement 1.2s);
   }
   &-4 {
-    @include animationDelay(1.6s, fadeInDown 2s, hideElement 1.6s);
+    @include animationDelay(1.3s, fadeInDown 1.5s, hideElement 1.3s);
+  }
+  &-5 {
+    @include animationDelay(1.4s, fadeInDown 1.5s, hideElement 1.4s);
   }
 }
