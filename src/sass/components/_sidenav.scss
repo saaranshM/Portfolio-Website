@@ -58,5 +58,13 @@
       font-weight: 400;
       font-size: 1.5rem;
     }
+
+    &:last-child > a {
+      border: 1px solid $color-green;
+      width: 10rem;
+      color: $color-green;
+      padding: 1rem 1.5rem;
+      border-radius: 3px;
+    }
   }
 }
