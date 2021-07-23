@@ -23,13 +23,21 @@
           I am a software engineering student currently trying to grasp all the
           knowledge there is about web development and Machine Learning residing
           in India. Always open for
-          <a v-scroll-to="'#contact'" href="#contact" class="underlined-link" :style="'--bottom: 3.7px'"
+          <a
+            v-scroll-to="'#contact'"
+            href="#contact"
+            class="underlined-link"
+            :style="'--bottom: 3.7px'"
             >new opportunities.</a
           >
         </p>
       </transition>
       <transition appear appear-active-class="main-button-animation">
-        <a href="mailto:saaransh.dev2811@gmail.com" class=" main__btn neon-button">Get in touch</a>
+        <a
+          href="mailto:saaransh.dev2811@gmail.com"
+          class=" main__btn neon-button"
+          >Get in touch</a
+        >
       </transition>
     </div>
   </section>
@@ -47,15 +55,15 @@ export default {
         strings: ["Hi, my name is"]
       },
       typedJsPropsName: {
-        typeSpeed: 60,
+        typeSpeed: 50,
         showCursor: false,
-        startDelay: 3500,
+        startDelay: 2400,
         strings: ["Saaransh Menon."]
       },
       typedJsPropsWho: {
         typeSpeed: 50,
         showCursor: false,
-        startDelay: 3200,
+        startDelay: 2600,
         strings: ["Full stack developer and ML Enthusiast."]
       }
     };

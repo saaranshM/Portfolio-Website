@@ -1,8 +1,11 @@
 <template>
   <header class="header" :class="{ 'navbar-hidden': !showNavbar }">
     <transition appear appear-active-class="navigation-logo-animation">
-      <SvgIcon class="header__logo" name="colored-logo"></SvgIcon>
+      <div @click="refresh">
+        <SvgIcon class="header__logo" name="colored-logo"></SvgIcon>
+      </div>
     </transition>
+
     <nav class="navigation">
       <ul class="navigation__list">
         <transition appear appear-active-class="navigation-fade-in-1">
@@ -96,6 +99,10 @@ export default {
     window.removeEventListener("click", this.closeNav);
   },
   methods: {
+    refresh() {
+      console.log("yes");
+      this.$router.go();
+    },
     closeNav(e) {
       if (
         e.target.id !== "sidenav" &&

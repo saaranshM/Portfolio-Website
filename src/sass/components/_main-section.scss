@@ -56,20 +56,20 @@
 
 //animation classes
 .label-animation {
-  @include animationDelayVisible(2.6s, fadeInUp 1.5s, hideElementVisible 2.6s);
+  @include animationDelayVisible(2s, fadeInUp 1.5s, hideElementVisible 2s);
 }
 .name-animation {
-  @include animationDelayVisible(3.5s, fadeInUp 1.5s, hideElementVisible 3.5s);
+  @include animationDelayVisible(2.4s, fadeInUp 1.5s, hideElementVisible 2.4s);
 }
 .who-animation {
-  @include animationDelayVisible(3.6s, fadeInUp 1.5s, hideElementVisible 3.6s);
+  @include animationDelayVisible(2.6s, fadeInUp 1.5s, hideElementVisible 2.6s);
 }
 .description-animation {
-  @include animationDelayVisible(3.8s, fadeInUp 1.5s, hideElementVisible 3.8s);
+  @include animationDelayVisible(3.4s, fadeInUp 1.5s, hideElementVisible 3.4s);
 }
 .main-button-animation {
   @include animationDelayVisible(
-    4s,
+    3.8s,
     fadeInUp 1.5s,
     hideElementVisible 4s,
     buttonBlinker 0.8s
