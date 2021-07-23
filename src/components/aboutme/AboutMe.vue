@@ -51,7 +51,7 @@
         </div>
         <div class="about__image-wrapper">
           <img
-            src="../../assets/img/me/me.jpg"
+            src="../../assets/img/me/me.webp"
             alt="Me Photo"
             class="about__image"
           />
