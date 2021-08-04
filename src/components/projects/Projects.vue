@@ -13,12 +13,12 @@
       </h2>
       <ul class="projects__list">
         <li class="project" v-for="(project, index) in projects" :key="index">
-          <div @click="goToProject" class="project__content">
+          <div @click="goToProject(project.id)" class="project__content">
             <div>
               <p class="project__overline">Featured Project</p>
               <h3 class="project__title">
                 <a
-                  id="project-link"
+                  :id="'project-link-' + project.id"
                   :href="project.url ? project.url : project.github"
                   target="_blank"
                   class="project__link"
@@ -41,6 +41,7 @@
                   v-if="project.github"
                   :href="project.github"
                   target="_blank"
+                  @click.stop
                 >
                   <SvgIcon name="github"></SvgIcon>
                 </a>
@@ -49,6 +50,7 @@
                   target="_blank"
                   v-if="project.url"
                   :href="project.url"
+                  @click.stop
                 >
                   <SvgIcon name="linkto"></SvgIcon>
                 </a>
@@ -60,6 +62,7 @@
               :href="project.url ? project.url : project.github"
               target="_blank"
               class="project__image-link"
+              @click.stop
             >
               <div class="project__image-wrapper">
                 <img
@@ -120,10 +123,10 @@ export default {
     };
   },
   methods: {
-    goToProject() {
+    goToProject(id) {
       const width = window.innerWidth;
       if (width < 780) {
-        document.getElementById("project-link").click();
+        document.getElementById("project-link-" + id).click();
       }
     }
   },
