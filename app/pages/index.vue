@@ -10,23 +10,25 @@ useSeoMeta({
 <template>
   <section class="hero">
     <div class="hero__inner">
-      <p class="hero__kicker t-mono fx-decode">// INCOMING TRANSMISSION</p>
+      <HudPanel class="hero__panel" strap="00 // TRANSMISSION">
+        <DecodeText class="hero__kicker t-mono" tag="p" text="// INCOMING TRANSMISSION" />
 
-      <h1 class="hero__name fx-rgb-split">SAARANSH MENON</h1>
+        <h1 class="hero__name fx-rgb-split">SAARANSH MENON</h1>
 
-      <p class="hero__role t-mono">TECH LEAD&nbsp;//&nbsp;FULL-STACK + NLP</p>
+        <p class="hero__role t-mono">TECH LEAD&nbsp;//&nbsp;FULL-STACK + NLP</p>
 
-      <p class="hero__copy">
-        Parked on the glass bridge above a quiet skirmish in deep space.
-        I build production web systems and NLP pipelines — calm interfaces
-        over a lot of moving machinery.
-      </p>
+        <p class="hero__copy">
+          Parked on the glass bridge above a quiet skirmish in deep space.
+          I build production web systems and NLP pipelines — calm interfaces
+          over a lot of moving machinery.
+        </p>
 
-      <a class="hero__cta" href="#contact">
-        <span class="bracket-bl" aria-hidden="true" />
-        <span class="bracket-br" aria-hidden="true" />
-        [ OPEN CHANNEL&nbsp;↗ ]
-      </a>
+        <a class="hero__cta" href="#contact">
+          <span class="bracket-bl" aria-hidden="true" />
+          <span class="bracket-br" aria-hidden="true" />
+          [ OPEN CHANNEL&nbsp;↗ ]
+        </a>
+      </HudPanel>
     </div>
   </section>
 </template>
@@ -62,6 +64,14 @@ useSeoMeta({
       rgba(3, 0, 20, 0.78) 0%,
       transparent 70%
     );
+  }
+}
+
+.hero__panel {
+  padding: t.$space-6;
+
+  @include t.mobile {
+    padding: t.$space-5;
   }
 }
 
