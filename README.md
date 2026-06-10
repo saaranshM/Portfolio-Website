@@ -1,39 +1,30 @@
-<div align="center">
-    <img src="https://firebasestorage.googleapis.com/v0/b/vue-express-54b2e.appspot.com/o/favicon.png?alt=media&token=2017ab56-fcff-4d0f-8b86-808199bcb72d"  alt="logo" width="75">
-</div>
-<h1 align="center">
-    My Portfolio Website
-</h1>
-<p align="center">This is my portfolio website (<a href="https://saaranshmenon.me">saaranshmenon.me</a>) where I share all my projects and experience built using <a href="https://vuejs.org/">Vue</a> and <a href="https://sass-lang.com/">Sass</a>, hosted on <a href="https://firebase.google.com/">Firebase</a>. </p>
+# Flight Deck — Portfolio of Saaransh Menon
 
+A sci-fi Nuxt 4 portfolio ([saaranshmenon.me](https://saaranshmenon.me)): a calm HUD of translucent panels parked over a starfield skirmish. Chaos lives behind the glass; calm lives on it.
 
-<div align="center">
-    <img src="https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D" alt="Vuejs Logo">
-<img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white" alt="Sass Logo">
+## Stack
 
-</div>
-<div align="center"><img alt="Firebase" src="https://img.shields.io/badge/firebase-%23039BE5.svg?sCancel changestyle=for-the-badge&logo=firebase" /></div>
+- [Nuxt 4](https://nuxt.com) — static generation via `nuxt generate`
+- [Vue 3](https://vuejs.org) + TypeScript (strict)
+- [Sass](https://sass-lang.com) — hand-rolled "Flight Deck" design system (no Tailwind)
+- `@nuxt/image` · `@nuxt/fonts` (Chakra Petch / Space Grotesk / JetBrains Mono, self-hosted) · `@nuxt/icon` · `@vueuse/nuxt`
+- WebGL scene (Three.js / TresJS) lands in a later phase, behind a device-tier fallback system
 
+## Usage
 
-![demo](https://firebasestorage.googleapis.com/v0/b/vue-express-54b2e.appspot.com/o/demo.png?alt=media&token=c29517e2-5fd7-459f-b721-1e336f1d2168)
+```sh
+npm install
 
-## 🛠 Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
+npm run dev        # dev server at http://localhost:3000
+npm run generate   # prerender static site to .output/public
+npm run preview    # serve the generated output locally
+npm run typecheck  # vue-tsc via nuxt typecheck
 ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
+## Deploy
 
-### Lints and fixes files
-```
-yarn lint
-```
+Firebase Hosting (project `vue-express-54b2e`), serving the prerendered `.output/public`. Deploy scripts and `firebase.json` rewrite are finalized in a later phase.
 
+## Content checklist
+
+> Populated in Phase 2.
