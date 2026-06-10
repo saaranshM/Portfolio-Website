@@ -4,6 +4,12 @@ export default defineNuxtConfig({
 
   modules: ['@nuxt/image', '@nuxt/fonts', '@nuxt/icon', '@vueuse/nuxt'],
 
+  components: [
+    // UI primitives are used bare (<HudPanel>, <DecodeText>), no <Ui…> prefix.
+    { path: '~/components/ui', pathPrefix: false },
+    '~/components',
+  ],
+
   css: ['~/assets/scss/main.scss'],
 
   app: {
