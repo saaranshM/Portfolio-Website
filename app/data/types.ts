@@ -10,8 +10,12 @@ export interface Profile {
   role: string
   /** Mono HUD role line, e.g. 'TECH LEAD // FULL-STACK + NLP'. */
   roleLine: string
+  /** Short hero intro paragraph, rendered under the role line. */
+  heroIntro: string
   /** Bio paragraphs, rendered in order. */
   bio: string[]
+  /** OPEN CHANNEL copy — short sentences rendered in order. */
+  contactBlurb: string[]
   email: string
   location: string
   resumeUrl?: string
