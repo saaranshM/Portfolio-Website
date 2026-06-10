@@ -27,4 +27,17 @@ Firebase Hosting (project `vue-express-54b2e`), serving the prerendered `.output
 
 ## Content checklist
 
-> Populated in Phase 2.
+Every `TODO(saaransh)` in `app/data/` — resolve before launch:
+
+- [ ] `profile.ts` — review bio wording
+- [ ] `profile.ts` — confirm contact email (GitHub profile shows a different work email; old site used `saaransh.dev2811@gmail.com`)
+- [ ] `profile.ts` — drop the new resume PDF into `public/resume.pdf`
+- [ ] `skills.ts` — adjust skill levels (honest ordinals on the 5-segment power cells)
+- [ ] `projects.ts` — Instagram Comment Analyzer: add a screenshot
+- [ ] `projects.ts` — Vue Account Manager: expand the description
+- [ ] `projects.ts` — Vue Account Manager: add a screenshot
+- [ ] `projects.ts` — Live Chat App: old Heroku live link is dead — redeploy or leave SRC-only
+- [ ] `projects.ts` — Breast Cancer Detector: verify the Streamlit deployment is still live
+- [ ] `projects.ts` — Expense Tracker: confirm client + server repo names
+- [ ] `projects.ts` — Phishing Website Detector: confirm exact repo name
+- [ ] `socials.ts` — confirm the Medium account is still active
