@@ -8,9 +8,17 @@
     <!-- z-20: static scanline glass. 3% opacity, no animation, ever. -->
     <div class="scanlines" aria-hidden="true" />
 
+    <!-- z-30: fixed instrument rail. -->
+    <SiteHeader />
+
     <main id="main" class="site-main" tabindex="-1">
       <slot />
     </main>
+
+    <!-- z-10: decorative-but-interactive chrome flanking the viewport. -->
+    <SideRails />
+
+    <SiteFooter />
   </div>
 </template>
 
@@ -35,5 +43,13 @@
 .site-main {
   position: relative;
   z-index: var(--z-content);
+}
+</style>
+
+<style lang="scss">
+// Unscoped: anchor jumps must clear the fixed 64px header everywhere,
+// including section ids rendered inside child components.
+.site-main section[id] {
+  scroll-margin-top: 10rem;
 }
 </style>

@@ -5,10 +5,13 @@ export default defineNuxtConfig({
   modules: ['@nuxt/image', '@nuxt/fonts', '@nuxt/icon', '@vueuse/nuxt'],
 
   components: [
-    // UI primitives are used bare (<HudPanel>, <DecodeText>), no <Ui…> prefix;
-    // ignored in the default scan below so each registers exactly once.
+    // UI primitives, sections and site chrome are used bare (<HudPanel>,
+    // <HeroSection>, <SideRails>), no folder prefix; each folder is ignored
+    // in the default scan below so every component registers exactly once.
     { path: '~/components/ui', pathPrefix: false },
-    { path: '~/components', ignore: ['ui/**'] },
+    { path: '~/components/sections', pathPrefix: false },
+    { path: '~/components/site', pathPrefix: false },
+    { path: '~/components', ignore: ['ui/**', 'sections/**', 'site/**'] },
   ],
 
   css: ['~/assets/scss/main.scss'],
