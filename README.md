@@ -41,3 +41,4 @@ Every `TODO(saaransh)` in `app/data/` — resolve before launch:
 - [ ] `projects.ts` — Expense Tracker: confirm client + server repo names
 - [ ] `projects.ts` — Phishing Website Detector: confirm exact repo name
 - [ ] `socials.ts` — confirm the Medium account is still active
+- [ ] `public/og-image.png` — add the OG share image (referenced by the SEO meta)

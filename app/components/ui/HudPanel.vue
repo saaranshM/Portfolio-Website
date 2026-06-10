@@ -4,26 +4,33 @@
  *
  * The corner-brackets mixin owns the top corners via ::before/::after; the two
  * <span> bracket elements below carry the bottom corners (see _tokens.scss).
- * Brackets extend 12 → 18px on :hover and when `.is-revealed` is applied by
- * the scroll-reveal orchestration (Phase 2b).
+ * Reveal grammar: `revealed` plays a one-shot bracket pulse + strap-rule sweep;
+ * :hover holds the brackets extended (see corner-brackets in _tokens.scss).
  *
- * - `strap`  — mono header line ('NN // LABEL') above the content, with a 1px
- *              rule that sweeps left → right when `.is-revealed` lands.
- * - `notch`  — clips a 10px corner off the top-right, console-display style.
- * - `tag`    — wrapper element, default 'div'.
+ * - `strap`    — mono header line ('NN // LABEL') above the content, with a 1px
+ *                rule that sweeps left → right when the panel is revealed.
+ * - `notch`    — clips a 10px corner off the top-right, console-display style.
+ * - `tag`      — wrapper element, default 'div'.
+ * - `revealed` — typed reveal trigger; the bare `.is-revealed` class also works
+ *                for non-component uses (e.g. raw mixin consumers).
  */
 withDefaults(
   defineProps<{
     strap?: string
     notch?: boolean
     tag?: string
+    revealed?: boolean
   }>(),
   { tag: 'div' },
 )
 </script>
 
 <template>
-  <component :is="tag" class="hud-panel" :class="{ 'hud-panel--notch': notch }">
+  <component
+    :is="tag"
+    class="hud-panel"
+    :class="{ 'hud-panel--notch': notch, 'is-revealed': revealed }"
+  >
     <span class="bracket-bl" aria-hidden="true" />
     <span class="bracket-br" aria-hidden="true" />
 

@@ -5,9 +5,10 @@ export default defineNuxtConfig({
   modules: ['@nuxt/image', '@nuxt/fonts', '@nuxt/icon', '@vueuse/nuxt'],
 
   components: [
-    // UI primitives are used bare (<HudPanel>, <DecodeText>), no <Ui…> prefix.
+    // UI primitives are used bare (<HudPanel>, <DecodeText>), no <Ui…> prefix;
+    // ignored in the default scan below so each registers exactly once.
     { path: '~/components/ui', pathPrefix: false },
-    '~/components',
+    { path: '~/components', ignore: ['ui/**'] },
   ],
 
   css: ['~/assets/scss/main.scss'],

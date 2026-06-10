@@ -28,7 +28,7 @@ export const featuredProjects: Project[] = [
     tech: ['Node.js', 'Express', 'Socket.io'],
     github: 'https://github.com/saaranshM/node-chat-app',
     // TODO(saaransh): old Heroku liveUrl is dead — redeploy somewhere or leave SRC-only
-    image: 'projects/chat-app.jpg',
+    image: '/img/projects/chat-app.jpg',
   },
   {
     slug: 'breast-cancer-detector',
@@ -40,7 +40,7 @@ export const featuredProjects: Project[] = [
     // TODO(saaransh): verify the Streamlit share deployment is still live
     liveUrl:
       'https://share.streamlit.io/saaranshm/breast-cancer-detector-streamlit-app/app.py',
-    image: 'projects/breast-cancer.jpg',
+    image: '/img/projects/breast-cancer.jpg',
   },
 ]
 

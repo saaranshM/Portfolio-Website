@@ -10,7 +10,8 @@ import type { Project } from '~/data/types'
  */
 const props = defineProps<{
   project: Project
-  craftId: string
+  /** 1-based hangar position — renders as CRAFT-01… and picks the ship glyph. */
+  index: number
 }>()
 
 // Six simple stroke silhouettes (24×24): hull path + engine dot position.
@@ -23,11 +24,13 @@ const SHIP_VARIANTS = [
   { hull: 'M4 9 L12 4 L20 9 L20 15 L12 20 L4 15 Z', engine: { cx: 12, cy: 16 } }, // freighter
 ] as const
 
-// 'CRAFT-01' → variant 0, 'CRAFT-02' → 1 … wraps past the sixth craft.
-const ship = computed(() => {
-  const index = Number.parseInt(props.craftId.replace(/\D/g, ''), 10) || 1
-  return SHIP_VARIANTS[(index - 1) % SHIP_VARIANTS.length]!
-})
+const craftId = computed(() => `CRAFT-${String(props.index).padStart(2, '0')}`)
+
+const ship = computed(
+  () =>
+    SHIP_VARIANTS[(props.index - 1 + SHIP_VARIANTS.length) % SHIP_VARIANTS.length] ??
+    SHIP_VARIANTS[0],
+)
 </script>
 
 <template>
@@ -141,15 +144,21 @@ const ship = computed(() => {
   color: t.$ice-dim;
 }
 
+// Negative outer margins absorb the enlarged hit areas so the header row keeps
+// its visual height and right-edge alignment; the boxes themselves never
+// overlap (no gap needed — adjacent 44px targets satisfy the guardrail).
 .project-card__links {
   display: flex;
-  gap: t.$space-2;
-  margin-left: auto;
+  margin: -10px -13px -10px auto;
 }
 
+// 44px minimum tap target (project guardrail).
 .project-card__link {
   display: inline-flex;
-  padding: t.$space-1;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
   color: t.$ice-dim;
 
   @media (prefers-reduced-motion: no-preference) {

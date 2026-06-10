@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { profile } from '~/data/profile'
+
 // Temporary Phase 1 hero — proves the Flight Deck design system end to end.
 // Rebuilt as HeroSection + full page composition in Phase 2.
 useSeoMeta({
@@ -13,9 +15,9 @@ useSeoMeta({
       <HudPanel class="hero__panel" strap="00 // TRANSMISSION">
         <DecodeText class="hero__kicker t-mono" tag="p" text="// INCOMING TRANSMISSION" />
 
-        <h1 class="hero__name fx-rgb-split">SAARANSH MENON</h1>
+        <h1 class="hero__name fx-rgb-split">{{ profile.name.toUpperCase() }}</h1>
 
-        <p class="hero__role t-mono">TECH LEAD&nbsp;//&nbsp;FULL-STACK + NLP</p>
+        <p class="hero__role t-mono">{{ profile.roleLine }}</p>
 
         <p class="hero__copy">
           Parked on the glass bridge above a quiet skirmish in deep space.

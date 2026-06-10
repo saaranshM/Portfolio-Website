@@ -15,6 +15,8 @@ export interface Profile {
   email: string
   location: string
   resumeUrl?: string
+  /** Absolute path under `public/`, e.g. '/img/me.jpg' — render with <NuxtImg> (+ explicit width/height). */
+  avatar: string
   /** Mono pull-stats for the PERSONNEL FILE panel (YRS / REPOS / ROLE). */
   stats: { label: string; value: string }[]
 }
@@ -40,7 +42,7 @@ export interface Project {
   tech: string[]
   github?: string
   liveUrl?: string
-  /** Path under `app/assets/img/`, e.g. 'projects/chat-app.jpg'. */
+  /** Absolute path under `public/`, e.g. '/img/projects/chat-app.jpg' — render with <NuxtImg> (+ explicit width/height). */
   image?: string
 }
 

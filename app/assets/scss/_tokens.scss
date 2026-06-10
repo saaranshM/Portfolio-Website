@@ -110,7 +110,10 @@ $duration-fast: 150ms;
 //     ...content...
 //   </div>
 //
-// On :hover / .is-revealed the strokes extend $size -> $size-active (150ms).
+// Reveal grammar: reveal = one-shot pulse; hover = held extension.
+// `.is-revealed` plays a single $size -> $size-active -> $size pulse (the
+// global `bracket-pulse` keyframes in _base.scss); :hover/:focus-within hold
+// the strokes at $size-active for as long as the pointer/focus stays.
 @mixin corner-brackets($size: 12px, $size-active: 18px, $color: $cyan) {
   position: relative;
 
@@ -164,13 +167,24 @@ $duration-fast: 150ms;
   }
 
   &:hover,
-  &.is-revealed {
+  &:focus-within {
     &::before,
     &::after,
     > .bracket-bl,
     > .bracket-br {
       width: $size-active;
       height: $size-active;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &.is-revealed {
+      &::before,
+      &::after,
+      > .bracket-bl,
+      > .bracket-br {
+        animation: bracket-pulse 400ms $ease-hud 1;
+      }
     }
   }
 }

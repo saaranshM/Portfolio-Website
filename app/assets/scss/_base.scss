@@ -107,6 +107,29 @@ body::after {
 }
 
 // ----------------------------------------------------------------------------
+// Bracket pulse — one-shot reveal animation referenced by the corner-brackets
+// mixin (`.is-revealed`). Global (unscoped) so scoped SFC styles can reference
+// it without Vue rewriting the name. Sizes are the mixin defaults (12 → 18px);
+// custom bracket sizes only affect the held :hover state, not the pulse.
+// ----------------------------------------------------------------------------
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes bracket-pulse {
+    0% {
+      width: 12px;
+      height: 12px;
+    }
+    45% {
+      width: 18px;
+      height: 18px;
+    }
+    100% {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
 // Selection — selecting text is interaction; interaction glows cyan.
 // ----------------------------------------------------------------------------
 ::selection {

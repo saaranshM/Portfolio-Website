@@ -12,6 +12,7 @@ export const profile: Profile = {
   // TODO(saaransh): confirm contact email — GitHub profile shows a different work email; old site used saaransh.dev2811@gmail.com
   email: 'saaransh.dev2811@gmail.com',
   location: 'Mumbai, India',
+  avatar: '/img/me.jpg',
   // TODO(saaransh): drop the new resume PDF into public/resume.pdf
   resumeUrl: '/resume.pdf',
   stats: [
