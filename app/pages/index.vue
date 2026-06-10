@@ -100,7 +100,6 @@ useSeoMeta({
 
   @include t.hud-panel;
   @include t.corner-brackets;
-  @include t.focus-ring;
 
   @media (prefers-reduced-motion: no-preference) {
     transition:

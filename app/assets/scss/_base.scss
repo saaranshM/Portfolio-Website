@@ -68,15 +68,13 @@ html {
 }
 
 // ----------------------------------------------------------------------------
-// Body — the void. Fixed radial gradient ceiling; never plain black.
+// Body — the void. Base color only; ceiling gradient lives on ::before (fixed)
+// so background-attachment: fixed is not needed (iOS Safari ignores it).
 // ----------------------------------------------------------------------------
 body {
   min-height: 100vh;
   color: tokens.$ice;
   background-color: tokens.$bg-void;
-  background-image: radial-gradient(ellipse at 50% 0%, #0a0a2e 0%, #030014 70%);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -92,13 +90,11 @@ body::after {
   pointer-events: none;
 }
 
-// Magenta nebula, top-right
+// Ceiling gradient (replaces body background-image) + magenta nebula, top-right
 body::before {
-  background: radial-gradient(
-    circle at 82% 12%,
-    rgba(tokens.$magenta, 0.05) 0%,
-    transparent 42%
-  );
+  background:
+    radial-gradient(ellipse at 50% 0%, tokens.$bg-deep 0%, tokens.$bg-void 70%),
+    radial-gradient(circle at 82% 12%, rgba(tokens.$magenta, 0.05) 0%, transparent 42%);
 }
 
 // Cyan nebula, bottom-left

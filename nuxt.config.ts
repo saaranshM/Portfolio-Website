@@ -13,6 +13,9 @@ export default defineNuxtConfig({
       meta: [
         { name: 'theme-color', content: '#030014' },
       ],
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+      ],
     },
   },
 
@@ -32,5 +35,6 @@ export default defineNuxtConfig({
       { name: 'Space Grotesk', weights: [400, 500] },
       { name: 'JetBrains Mono', weights: [400, 600] },
     ],
+    defaults: { styles: ['normal'], subsets: ['latin'] },
   },
 })

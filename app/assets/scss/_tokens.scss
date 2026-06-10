@@ -4,8 +4,6 @@
 // Safe to `@use` from any component without duplicating styles.
 // ============================================================================
 
-@use 'sass:color';
-
 // ----------------------------------------------------------------------------
 // PALETTE
 // One load-bearing rule: if it glows cyan, you can click it.
@@ -92,10 +90,11 @@ $duration-fast: 150ms;
 // ============================================================================
 
 // HUD panel — the signature surface. Translucent navy glass over the scene.
+// Phase 3's tier system sets --panel-blur on :root to override blur strength.
 @mixin hud-panel {
   background: $panel;
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(var(--panel-blur, 12px));
+  backdrop-filter: blur(var(--panel-blur, 12px));
   border: 1px solid $cyan-dim;
   border-radius: 4px;
 }
@@ -116,10 +115,14 @@ $duration-fast: 150ms;
   position: relative;
 
   &::before,
+  &::after {
+    content: '';
+  }
+
+  &::before,
   &::after,
   > .bracket-bl,
   > .bracket-br {
-    content: '';
     position: absolute;
     width: $size;
     height: $size;
@@ -179,7 +182,7 @@ $duration-fast: 150ms;
     0 0 28px rgba($color, 0.25);
 }
 
-// Keyboard-only focus ring. Glowing cyan = interactive, even for focus.
+// Keyboard-only focus ring — for custom offset/inset rings only — global rule covers the default.
 @mixin focus-ring {
   &:focus {
     outline: none;

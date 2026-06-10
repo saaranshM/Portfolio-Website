@@ -58,8 +58,9 @@ const stars: Star[] = Array.from({ length: STAR_COUNT }, (_, i) => ({
         top: `${star.y}%`,
         width: `${star.size}px`,
         height: `${star.size}px`,
-        animationDelay: `${star.delay}s`,
-        animationDuration: `${star.duration}s`,
+        ...(star.twinkle
+          ? { animationDelay: `${star.delay}s`, animationDuration: `${star.duration}s` }
+          : {}),
       }"
     />
   </div>

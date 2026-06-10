@@ -8,13 +8,15 @@
     <!-- z-20: static scanline glass. 3% opacity, no animation, ever. -->
     <div class="scanlines" aria-hidden="true" />
 
-    <main id="main" class="site-main">
+    <main id="main" class="site-main" tabindex="-1">
       <slot />
     </main>
   </div>
 </template>
 
 <style lang="scss" scoped>
+@use '~/assets/scss/tokens' as t;
+
 .scanlines {
   position: fixed;
   inset: 0;
@@ -22,8 +24,8 @@
   pointer-events: none;
   background: repeating-linear-gradient(
     to bottom,
-    #cfe9ff 0px,
-    #cfe9ff 1px,
+    #{t.$ice} 0px,
+    #{t.$ice} 1px,
     transparent 1px,
     transparent 4px
   );
