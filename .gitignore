@@ -3,8 +3,10 @@ node_modules/
 .output/
 dist/
 .firebase/
-.env
+.env*
 .DS_Store
 logs/
 *.log
 .salvage/
+.vscode/
+.idea/
