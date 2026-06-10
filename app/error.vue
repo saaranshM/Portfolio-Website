@@ -9,6 +9,8 @@ import type { NuxtError } from '#app'
  */
 const props = defineProps<{ error: NuxtError }>()
 
+useHead({ title: 'SIGNAL LOST // Saaransh Menon' })
+
 const message = computed(() =>
   props.error.statusCode === 404
     ? 'These coordinates don’t map to any charted sector.'

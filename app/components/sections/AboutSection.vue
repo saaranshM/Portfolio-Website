@@ -38,8 +38,8 @@ const { target, revealed } = useReveal()
               :alt="`Portrait of ${profile.name}`"
               width="420"
               height="420"
-              sizes="(max-width: 780px) 90vw, 420px"
               format="webp"
+              loading="lazy"
             />
             <span class="about__tint" aria-hidden="true" />
             <span class="about__scan about__scan--once" aria-hidden="true" />
@@ -90,10 +90,13 @@ const { target, revealed } = useReveal()
 // --- portrait -------------------------------------------------------------
 // The figure carries the corner brackets (drawn 1px OUTSIDE the box, so it
 // must not clip); the inner media wrapper clips the scan-line sweep.
+// Duotone at rest (cyan-tinted monochrome, full color on hover) comes from
+// the shared mixin; only the resting brightness is local.
 .about__portrait {
   max-width: 420px;
 
   @include t.corner-brackets;
+  @include t.duotone-media('.about__img', '.about__tint', 0.92);
 }
 
 .about__media {
@@ -101,67 +104,42 @@ const { target, revealed } = useReveal()
   overflow: hidden;
 }
 
-// Duotone at rest: grayscale pushed into a cyan-tinted monochrome; hover
-// (or keyboard focus within) lifts to full color.
-.about__img {
-  width: 100%;
-  height: auto;
-  filter: grayscale(1) sepia(0.35) hue-rotate(155deg) saturate(1.6) brightness(0.92);
-
-  @media (prefers-reduced-motion: no-preference) {
-    transition: filter 300ms t.$ease-hud;
-  }
-}
-
-.about__tint {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: rgba(t.$cyan, 0.12);
-  mix-blend-mode: screen;
-
-  @media (prefers-reduced-motion: no-preference) {
-    transition: opacity 300ms t.$ease-hud;
-  }
-}
-
-.about__portrait:hover {
-  .about__img {
-    filter: none;
-  }
-
-  .about__tint {
-    opacity: 0;
-  }
-}
-
 // --- scan line ----------------------------------------------------------------
-// Two stacked 1px lines: a brighter one-shot sweep when the section reveals,
+// Two stacked sweeps: a brighter one-shot pass when the section reveals,
 // then a 20%-opacity pass every 8s. Both gated; hidden entirely at rest.
+// Each sweep is a full-height carrier box whose ::before draws the 1px line
+// at its top edge — tweening translateY(%) on the carrier moves the line
+// across the frame compositor-only (no `top` layout animation).
 .about__scan {
   display: none;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 1px;
-  background: t.$cyan;
-  box-shadow: 0 0 6px rgba(t.$cyan, 0.6);
+  inset: 0;
   pointer-events: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: t.$cyan;
+    box-shadow: 0 0 6px rgba(t.$cyan, 0.6);
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   @keyframes about-scan {
     0% {
-      top: 0;
+      transform: translateY(0);
       opacity: 1;
     }
     99% {
-      top: 100%;
+      transform: translateY(100%);
       opacity: 1;
     }
     100% {
-      top: 100%;
+      transform: translateY(100%);
       opacity: 0;
     }
   }
@@ -169,16 +147,16 @@ const { target, revealed } = useReveal()
   // Loop variant: traverse during the first 1.2s of each 8s cycle, idle after.
   @keyframes about-scan-loop {
     0% {
-      top: 0;
+      transform: translateY(0);
       opacity: 0.2;
     }
     14% {
-      top: 100%;
+      transform: translateY(100%);
       opacity: 0.2;
     }
     15%,
     100% {
-      top: 100%;
+      transform: translateY(100%);
       opacity: 0;
     }
   }

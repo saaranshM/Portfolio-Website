@@ -4,9 +4,10 @@ import { profile } from '~/data/profile'
 
 /**
  * SideRails — two fixed, bottom-anchored rails flanking the viewport
- * (hidden ≤780px). Left: stacked social icons over a 1px cyan-dim drop
- * line; right: the contact email written vertically as a GlowLink mailto
- * over the same line. Decorative chrome, but fully keyboard reachable.
+ * (hidden ≤1180px — they need real gutter space outside the 1100px content
+ * column). Left: stacked social icons over a 1px cyan-dim drop line; right:
+ * the contact email written vertically as a GlowLink mailto over the same
+ * line. Decorative chrome, but fully keyboard reachable.
  */
 </script>
 
@@ -41,8 +42,12 @@ import { profile } from '~/data/profile'
 <style lang="scss" scoped>
 @use '~/assets/scss/tokens' as t;
 
+// Below ~1180px the fixed rails collide with the 1100px content column, so
+// they hide well above the 780px mobile breakpoint.
+$bp-rails: 1180px;
+
 .side-rails {
-  @include t.mobile {
+  @media (max-width: $bp-rails) {
     display: none;
   }
 }
@@ -72,24 +77,7 @@ import { profile } from '~/data/profile'
 }
 
 .side-rails__social {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
-  color: t.$ice-dim;
-
-  @media (prefers-reduced-motion: no-preference) {
-    transition:
-      color t.$duration-fast t.$ease-hud,
-      transform t.$duration-fast t.$ease-hud;
-  }
-
-  &:hover,
-  &:focus-visible {
-    color: t.$cyan;
-    transform: translateY(-2px);
-  }
+  @include t.icon-link;
 }
 
 // Email reads top-to-bottom along the right edge. Mono floor is 12px;

@@ -11,7 +11,7 @@ import { skillGroups } from '~/data/skills'
  */
 const SEGMENTS = [1, 2, 3, 4, 5] as const
 
-const { target, revealed } = useReveal(0.15)
+const { target, revealed } = useReveal()
 </script>
 
 <template>

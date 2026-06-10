@@ -37,14 +37,29 @@ function onScroll() {
   lastY = y
 }
 
+// The <dialog> menu only exists ≤780px: if the viewport crosses to desktop
+// while it's open (rotation, window resize), close it — otherwise the modal
+// scroll-lock lingers with no visible menu to dismiss it.
+let desktopQuery: MediaQueryList | null = null
+
+function onDesktopChange(event: MediaQueryListEvent) {
+  if (event.matches) closeMenu()
+}
+
 onMounted(() => {
   booted.value = true
   lastY = window.scrollY
   window.addEventListener('scroll', onScroll, { passive: true })
+  desktopQuery = window.matchMedia('(min-width: 781px)')
+  desktopQuery.addEventListener('change', onDesktopChange)
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', onScroll)
+  desktopQuery?.removeEventListener('change', onDesktopChange)
+  desktopQuery = null
+  staggerTimers.forEach((t) => window.clearTimeout(t))
+  staggerTimers = []
   unlockScroll()
 })
 
@@ -179,6 +194,7 @@ function onDialogClick(event: MouseEvent) {
         class="site-menu__resume"
         :href="profile.resumeUrl"
         external
+        @click="closeMenu"
       >
         [ RESUME ]
       </HudCta>
@@ -333,7 +349,8 @@ function onDialogClick(event: MouseEvent) {
   position: fixed;
   inset: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100vh; // fallback for browsers without dynamic viewport units
+  height: 100dvh;
   max-width: none;
   max-height: none;
   display: none;

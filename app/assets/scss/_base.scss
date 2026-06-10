@@ -156,13 +156,13 @@ body::after {
 
 // ----------------------------------------------------------------------------
 // Section shell — shared content column + vertical rhythm for the page
-// sections, and clearance under the fixed 64px header for anchor jumps.
+// sections. Anchor-jump clearance under the fixed 64px header lives on
+// `.site-main section[id]` in the default layout.
 // ----------------------------------------------------------------------------
 .content-section {
   max-width: 1100px;
   margin: 0 auto;
   padding: tokens.$space-8 tokens.$space-7;
-  scroll-margin-top: 10rem;
 
   @include tokens.mobile {
     padding: tokens.$space-8 tokens.$space-5;

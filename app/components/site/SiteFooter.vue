@@ -49,6 +49,8 @@ import { profile } from '~/data/profile'
 }
 
 // --- signal rule ----------------------------------------------------------
+// inline-size container so the pulse can traverse the rule's full width in
+// `cqw` units via transform alone (compositor-only — no `left` animation).
 .site-footer__rule {
   position: relative;
   max-width: 1100px;
@@ -56,6 +58,7 @@ import { profile } from '~/data/profile'
   margin: 0 auto t.$space-5;
   background: t.$cyan-dim;
   overflow: visible;
+  container-type: inline-size;
 }
 
 .site-footer__pulse {
@@ -78,7 +81,7 @@ import { profile } from '~/data/profile'
 @media (prefers-reduced-motion: no-preference) {
   @keyframes footer-pulse {
     0% {
-      left: 0%;
+      transform: translateX(0);
       opacity: 0;
     }
     4% {
@@ -88,7 +91,7 @@ import { profile } from '~/data/profile'
       opacity: 1;
     }
     100% {
-      left: 100%;
+      transform: translateX(100cqw);
       opacity: 0;
     }
   }
@@ -102,24 +105,7 @@ import { profile } from '~/data/profile'
 }
 
 .site-footer__social {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
-  color: t.$ice-dim;
-
-  @media (prefers-reduced-motion: no-preference) {
-    transition:
-      color t.$duration-fast t.$ease-hud,
-      transform t.$duration-fast t.$ease-hud;
-  }
-
-  &:hover,
-  &:focus-visible {
-    color: t.$cyan;
-    transform: translateY(-2px);
-  }
+  @include t.icon-link;
 }
 
 // --- build line ----------------------------------------------------------------

@@ -6,7 +6,7 @@ import { otherProjects } from '~/data/projects'
  * 3/2/1-column grid of ProjectCard craft, fading up with a 60ms stagger
  * when the bay doors open.
  */
-const { target, revealed } = useReveal(0.1)
+const { target, revealed } = useReveal()
 </script>
 
 <template>

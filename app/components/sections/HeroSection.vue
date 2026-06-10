@@ -12,7 +12,8 @@ import { profile } from '~/data/profile'
  *
  * Reduced-motion: DecodeText no-ops and every animation below is gated —
  * the hero is simply at rest. No-JS: `is-booted` never lands, same rest
- * state. Nothing is hidden by default.
+ * state. Nothing is hidden by default. Late hydration (>2s) also stays at
+ * rest — see onMounted.
  */
 const booted = ref(false)
 const playKicker = ref(false)
@@ -20,6 +21,10 @@ const playRole = ref(false)
 let timers: number[] = []
 
 onMounted(() => {
+  // Late hydration (slow device/network): the SSR'd hero has been readable
+  // for a while — skip the boot replay (rest state == settled end state)
+  // instead of making visible text vanish and re-decode.
+  if (performance.now() > 2000) return
   booted.value = true
   timers = [
     window.setTimeout(() => (playKicker.value = true), 100),

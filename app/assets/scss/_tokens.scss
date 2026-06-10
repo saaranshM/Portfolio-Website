@@ -189,6 +189,68 @@ $duration-fast: 150ms;
   }
 }
 
+// Duotone media frame — grayscale pushed into a cyan-tinted monochrome via
+// a filter chain on the image plus a screen-blended tint overlay; hovering
+// the frame lifts the image to full color. Include on the hover root and
+// pass the (scoped) image / tint-overlay selectors; only the resting
+// brightness differs between usages.
+@mixin duotone-media($img, $tint, $brightness: 0.92) {
+  #{$img} {
+    width: 100%;
+    height: auto;
+    filter: grayscale(1) sepia(0.35) hue-rotate(155deg) saturate(1.6) brightness($brightness);
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: filter 300ms $ease-hud;
+    }
+  }
+
+  #{$tint} {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: rgba($cyan, 0.12);
+    mix-blend-mode: screen;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: opacity 300ms $ease-hud;
+    }
+  }
+
+  &:hover {
+    #{$img} {
+      filter: none;
+    }
+
+    #{$tint} {
+      opacity: 0;
+    }
+  }
+}
+
+// Icon link — 44px-square hit target around a glyph: dim at rest, cyan with
+// a 2px lift on hover/keyboard focus. Footer social row + side-rail socials.
+@mixin icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: $ice-dim;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      color $duration-fast $ease-hud,
+      transform $duration-fast $ease-hud;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: $cyan;
+    transform: translateY(-2px);
+  }
+}
+
 // Soft neon halo for text — keep it subtle, the glow is the signal.
 @mixin glow-text($color: $cyan) {
   text-shadow:

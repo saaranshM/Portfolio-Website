@@ -46,7 +46,6 @@ const strap = computed(
           :alt="`Screenshot of ${project.title}`"
           width="640"
           height="360"
-          sizes="(max-width: 780px) 92vw, 640px"
           format="webp"
           loading="lazy"
         />
@@ -109,11 +108,15 @@ const strap = computed(
   }
 }
 
+// Duotone at rest (cyan-tinted monochrome, full color on hover) comes from
+// the shared mixin; the resting brightness and the hover rgb-split echo
+// (below) are local.
 .dossier__media {
   grid-column: 1 / 8;
   grid-row: 1;
 
   @include t.corner-brackets;
+  @include t.duotone-media('.dossier__img', '.dossier__tint', 0.85);
 }
 
 .dossier__panel {
@@ -139,28 +142,6 @@ const strap = computed(
   overflow: hidden;
 }
 
-.dossier__img {
-  width: 100%;
-  height: auto;
-  filter: grayscale(1) sepia(0.35) hue-rotate(155deg) saturate(1.6) brightness(0.85);
-
-  @media (prefers-reduced-motion: no-preference) {
-    transition: filter 300ms t.$ease-hud;
-  }
-}
-
-.dossier__tint {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: rgba(t.$cyan, 0.12);
-  mix-blend-mode: screen;
-
-  @media (prefers-reduced-motion: no-preference) {
-    transition: opacity 300ms t.$ease-hud;
-  }
-}
-
 // Static scanline texture — stays put on hover; it's the glass, not the feed.
 .dossier__scanlines {
   position: absolute;
@@ -173,16 +154,6 @@ const strap = computed(
     transparent 1px,
     transparent 3px
   );
-}
-
-.dossier__media:hover {
-  .dossier__img {
-    filter: none;
-  }
-
-  .dossier__tint {
-    opacity: 0;
-  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
