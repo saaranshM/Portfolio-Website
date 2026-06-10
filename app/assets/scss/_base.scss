@@ -1,0 +1,181 @@
+// ============================================================================
+// FLIGHT DECK — BASE
+// Reset, root sizing, the void gradient + CSS nebula, selection, focus,
+// skip-link, scrollbars. Loaded exactly once via main.scss.
+// ============================================================================
+
+@use 'tokens';
+
+// ----------------------------------------------------------------------------
+// Modern reset
+// ----------------------------------------------------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+// ----------------------------------------------------------------------------
+// Root
+// ----------------------------------------------------------------------------
+:root {
+  @include tokens.z-custom-props;
+
+  color-scheme: dark;
+}
+
+html {
+  font-size: 62.5%; // 1rem = 10px
+  scroll-behavior: smooth;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Body — the void. Fixed radial gradient ceiling; never plain black.
+// ----------------------------------------------------------------------------
+body {
+  min-height: 100vh;
+  color: tokens.$ice;
+  background-color: tokens.$bg-void;
+  background-image: radial-gradient(ellipse at 50% 0%, #0a0a2e 0%, #030014 70%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+// CSS nebula — two huge fixed radial washes. These survive every effects
+// tier (even `off` / no-JS), so the page is never a flat void.
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+// Magenta nebula, top-right
+body::before {
+  background: radial-gradient(
+    circle at 82% 12%,
+    rgba(tokens.$magenta, 0.05) 0%,
+    transparent 42%
+  );
+}
+
+// Cyan nebula, bottom-left
+body::after {
+  background: radial-gradient(
+    circle at 12% 92%,
+    rgba(tokens.$cyan, 0.04) 0%,
+    transparent 40%
+  );
+}
+
+// ----------------------------------------------------------------------------
+// Selection — selecting text is interaction; interaction glows cyan.
+// ----------------------------------------------------------------------------
+::selection {
+  background: tokens.$cyan;
+  color: tokens.$bg-void;
+  text-shadow: none;
+}
+
+// ----------------------------------------------------------------------------
+// Global keyboard focus
+// ----------------------------------------------------------------------------
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid tokens.$cyan;
+  outline-offset: 2px;
+}
+
+// ----------------------------------------------------------------------------
+// Skip link — hidden until keyboard focus, then docks top-left as a HUD chip.
+// ----------------------------------------------------------------------------
+.skip-link {
+  position: fixed;
+  top: tokens.$space-3;
+  left: tokens.$space-3;
+  z-index: var(--z-overlay);
+  padding: tokens.$space-2 tokens.$space-4;
+  font-family: tokens.$font-mono;
+  font-size: 1.3rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: tokens.$cyan;
+  transform: translateY(-300%);
+
+  @include tokens.hud-panel;
+
+  &:focus-visible {
+    transform: translateY(0);
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Scrollbar — thin instrument rail, cyan-dim thumb.
+// ----------------------------------------------------------------------------
+html {
+  scrollbar-width: thin;
+  scrollbar-color: tokens.$cyan-dim tokens.$bg-void;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: tokens.$bg-void;
+}
+
+::-webkit-scrollbar-thumb {
+  background: tokens.$cyan-dim;
+  border-radius: 4px;
+
+  &:hover {
+    background: rgba(tokens.$cyan, 0.45);
+  }
+}

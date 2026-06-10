@@ -1,0 +1,147 @@
+// ============================================================================
+// FLIGHT DECK — TYPOGRAPHY
+// Stacks: display 'Chakra Petch' / body 'Space Grotesk' / mono 'JetBrains Mono'
+// (variables live in _tokens.scss so components can use them too).
+// Scale + the two glitch keyframes. ALL motion is gated behind
+// prefers-reduced-motion: no-preference — never assume motion is welcome.
+// ============================================================================
+
+@use 'tokens';
+
+// ----------------------------------------------------------------------------
+// Body copy — 1.7rem / 1.65, Space Grotesk
+// ----------------------------------------------------------------------------
+body {
+  font-family: tokens.$font-body;
+  font-size: 1.7rem;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+p {
+  max-width: 64ch;
+  color: tokens.$ice-dim;
+}
+
+strong {
+  color: tokens.$ice;
+  font-weight: 500;
+}
+
+// ----------------------------------------------------------------------------
+// Display headings — Chakra Petch, uppercase, tracked out
+// ----------------------------------------------------------------------------
+h1,
+h2,
+h3,
+.t-display {
+  font-family: tokens.$font-display;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  color: tokens.$ice;
+}
+
+// Hero name scale
+h1,
+.t-hero {
+  font-size: clamp(4.4rem, 8vw, 8.4rem);
+  font-weight: 700;
+  line-height: 1.02;
+}
+
+// Section title scale
+h2,
+.t-title {
+  font-size: clamp(2.6rem, 4vw, 3.6rem);
+  font-weight: 600;
+}
+
+h3,
+.t-subtitle {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+// ----------------------------------------------------------------------------
+// Mono HUD chrome — labels, kickers, nav indices, straps
+// ----------------------------------------------------------------------------
+.t-mono {
+  font-family: tokens.$font-mono;
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.t-mono-sm {
+  font-family: tokens.$font-mono;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+code,
+kbd,
+samp {
+  font-family: tokens.$font-mono;
+}
+
+// ----------------------------------------------------------------------------
+// Glitch FX — strictly one-shot, never on body text, never looping.
+// ----------------------------------------------------------------------------
+@media (prefers-reduced-motion: no-preference) {
+  // Decode flicker — terminal text resolving out of noise.
+  @keyframes decode-flicker {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.85;
+    }
+    22% {
+      opacity: 0.15;
+    }
+    36% {
+      opacity: 1;
+    }
+    48% {
+      opacity: 0.4;
+    }
+    62% {
+      opacity: 0.95;
+    }
+    74% {
+      opacity: 0.6;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  // RGB split — a single 150ms chromatic settle. NEVER loops.
+  @keyframes rgb-split {
+    0% {
+      text-shadow:
+        2px 0 tokens.$magenta,
+        -2px 0 tokens.$cyan;
+    }
+    45% {
+      text-shadow:
+        1px 0 tokens.$magenta,
+        -1px 0 tokens.$cyan;
+    }
+    100% {
+      text-shadow: none;
+    }
+  }
+
+  .fx-decode {
+    animation: decode-flicker 600ms steps(8, jump-none) both;
+  }
+
+  .fx-rgb-split {
+    animation: rgb-split 150ms steps(3, jump-none) 1 both;
+  }
+}

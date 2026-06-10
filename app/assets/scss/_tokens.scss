@@ -1,0 +1,192 @@
+// ============================================================================
+// FLIGHT DECK — DESIGN TOKENS
+// Pure module: SCSS variables + mixins only, zero CSS output.
+// Safe to `@use` from any component without duplicating styles.
+// ============================================================================
+
+@use 'sass:color';
+
+// ----------------------------------------------------------------------------
+// PALETTE
+// One load-bearing rule: if it glows cyan, you can click it.
+// ----------------------------------------------------------------------------
+$bg-void: #030014; // page background — the void
+$bg-deep: #0a0a2e; // gradient ceiling
+$panel: rgba(10, 16, 46, 0.55); // HUD panels (pair with backdrop blur 12px)
+$cyan: #00f0ff; // interactive glow
+$cyan-dim: rgba(0, 240, 255, 0.25); // resting borders, rules
+$magenta: #ff2d78; // signal accents ONLY — never body text, never text < 18px
+$ice: #cfe9ff; // body/heading text
+$ice-dim: #93a7d1; // secondary text
+$white-hot: #eafffe; // laser cores, hover-brightened borders
+
+// ----------------------------------------------------------------------------
+// FONT STACKS (loaded via @nuxt/fonts; applied in _typography.scss)
+// ----------------------------------------------------------------------------
+$font-display: 'Chakra Petch', 'Segoe UI', system-ui, sans-serif;
+$font-body: 'Space Grotesk', 'Helvetica Neue', system-ui, sans-serif;
+$font-mono: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, monospace;
+
+// ----------------------------------------------------------------------------
+// Z-STACK — chaos behind the glass (scene), calm on it (content).
+// Kept as SCSS vars for compile-time use, and emitted as CSS custom
+// properties on :root via `z-custom-props` (included once in _base.scss)
+// so runtime code and inline styles can read them too.
+// ----------------------------------------------------------------------------
+$z-scene: 0; // WebGL / backdrop canvas
+$z-scrim: 5; // contrast scrims over the scene
+$z-content: 10; // HUD panels, all readable content
+$z-scanlines: 20; // static scanline overlay
+$z-nav: 30; // fixed header
+$z-overlay: 40; // boot overlay, toasts
+
+@mixin z-custom-props {
+  --z-scene: #{$z-scene};
+  --z-scrim: #{$z-scrim};
+  --z-content: #{$z-content};
+  --z-scanlines: #{$z-scanlines};
+  --z-nav: #{$z-nav};
+  --z-overlay: #{$z-overlay};
+}
+
+// ----------------------------------------------------------------------------
+// BREAKPOINTS (mobile 780px carries over from the old site's DNA)
+// Keep in sync with app/utils/constants.ts
+// ----------------------------------------------------------------------------
+$bp-mobile: 780px;
+$bp-wide: 1440px;
+
+@mixin mobile {
+  @media (max-width: $bp-mobile) {
+    @content;
+  }
+}
+
+@mixin wide {
+  @media (min-width: $bp-wide) {
+    @content;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// SPACING SCALE (rem; html is 62.5% so 1rem = 10px)
+// ----------------------------------------------------------------------------
+$space-1: 0.4rem;
+$space-2: 0.8rem;
+$space-3: 1.2rem;
+$space-4: 1.6rem;
+$space-5: 2.4rem;
+$space-6: 3.2rem;
+$space-7: 4.8rem;
+$space-8: 6.4rem;
+$space-9: 9.6rem;
+
+// ----------------------------------------------------------------------------
+// MOTION
+// ----------------------------------------------------------------------------
+$ease-hud: cubic-bezier(0.22, 1, 0.36, 1);
+$duration-fast: 150ms;
+
+// ============================================================================
+// MIXINS
+// ============================================================================
+
+// HUD panel — the signature surface. Translucent navy glass over the scene.
+@mixin hud-panel {
+  background: $panel;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid $cyan-dim;
+  border-radius: 4px;
+}
+
+// Corner brackets — 12px L-shaped cyan strokes at all 4 corners.
+//
+// An element only has two pseudo-elements, so ::before/::after take the TOP
+// corners and two empty <span>s take the BOTTOM corners. Markup pattern:
+//
+//   <div class="panel">                            // @include corner-brackets;
+//     <span class="bracket-bl" aria-hidden="true"></span>
+//     <span class="bracket-br" aria-hidden="true"></span>
+//     ...content...
+//   </div>
+//
+// On :hover / .is-revealed the strokes extend $size -> $size-active (150ms).
+@mixin corner-brackets($size: 12px, $size-active: 18px, $color: $cyan) {
+  position: relative;
+
+  &::before,
+  &::after,
+  > .bracket-bl,
+  > .bracket-br {
+    content: '';
+    position: absolute;
+    width: $size;
+    height: $size;
+    pointer-events: none;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition:
+        width $duration-fast $ease-hud,
+        height $duration-fast $ease-hud;
+    }
+  }
+
+  &::before {
+    top: -1px;
+    left: -1px;
+    border-top: 1px solid $color;
+    border-left: 1px solid $color;
+  }
+
+  &::after {
+    top: -1px;
+    right: -1px;
+    border-top: 1px solid $color;
+    border-right: 1px solid $color;
+  }
+
+  > .bracket-bl {
+    bottom: -1px;
+    left: -1px;
+    border-bottom: 1px solid $color;
+    border-left: 1px solid $color;
+  }
+
+  > .bracket-br {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 1px solid $color;
+    border-right: 1px solid $color;
+  }
+
+  &:hover,
+  &.is-revealed {
+    &::before,
+    &::after,
+    > .bracket-bl,
+    > .bracket-br {
+      width: $size-active;
+      height: $size-active;
+    }
+  }
+}
+
+// Soft neon halo for text — keep it subtle, the glow is the signal.
+@mixin glow-text($color: $cyan) {
+  text-shadow:
+    0 0 8px rgba($color, 0.55),
+    0 0 28px rgba($color, 0.25);
+}
+
+// Keyboard-only focus ring. Glowing cyan = interactive, even for focus.
+@mixin focus-ring {
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $cyan;
+    outline-offset: 2px;
+  }
+}
