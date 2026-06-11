@@ -51,7 +51,13 @@ export const SCENE_FOV = 60
  *  starfield pads its generated star coverage by exactly this much. */
 export const CAM_SCROLL_MAX_WU = 50
 
-const HALF_FOV_TAN = Math.tan((SCENE_FOV / 2) * (Math.PI / 180))
+/** Reference depth (|z|, world units) of the MID star layer — the plane the
+ *  camera's scroll parallax is calibrated against. Starfield's MID spec and
+ *  SceneRoot's camera math both read this; Phase 5 exclusion-zone projection
+ *  should too. */
+export const MID_REF_DEPTH = 250
+
+export const HALF_FOV_TAN = Math.tan((SCENE_FOV / 2) * (Math.PI / 180))
 
 /** World units per CSS pixel on a plane `depth` units in front of the camera —
  *  converts screen-px parallax targets into world-space offsets. */

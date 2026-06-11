@@ -3,6 +3,7 @@ import { NoToneMapping, PerspectiveCamera } from 'three'
 import Starfield from './Starfield.vue'
 import {
   CAM_SCROLL_MAX_WU,
+  MID_REF_DEPTH,
   SCENE_FOV,
   sceneState,
   worldUnitsPerCssPixel,
@@ -47,7 +48,6 @@ const visibility = useDocumentVisibility()
 const camera = markRaw(new PerspectiveCamera(SCENE_FOV, 1, 1, 800))
 
 const SCROLL_PARALLAX = 0.1
-const MID_REF_DEPTH = 250 // must match Starfield's MID refDepth
 const CAM_EASE_RATE = 6 // 1/s
 
 // --- watchdog tuning -----------------------------------------------------------
@@ -74,19 +74,13 @@ let graceLeft = GRACE_S
 let bucketTime = 0
 let bucketFrames = 0
 let lowTime = 0
+/** The watchdog only arms once a bucket has DEMONSTRATED ≥ MIN_FPS — a 30Hz
+ *  display or OS Low Power Mode caps rAF below the threshold from the very
+ *  first frame, and downgrading those would punish capable GPUs. The trade:
+ *  a device janky from frame one never fires, but detect-gpu's tiering
+ *  already routes those to 'lite'. */
+let watchdogArmed = false
 let downgraded = false
-
-function probeWebgl2(): boolean {
-  try {
-    const canvas = document.createElement('canvas')
-    const gl = canvas.getContext('webgl2')
-    if (!gl) return false
-    gl.getExtension('WEBGL_lose_context')?.loseContext()
-    return true
-  } catch {
-    return false
-  }
-}
 
 function downgrade(toast = false): void {
   if (downgraded) return
@@ -145,10 +139,12 @@ function onBeforeLoop({ delta }: { delta: number }): void {
   bucketTime += dt
   bucketFrames++
   if (bucketTime >= BUCKET_S) {
-    lowTime = bucketFrames / bucketTime < MIN_FPS ? lowTime + bucketTime : 0
+    const fps = bucketFrames / bucketTime
+    if (fps >= MIN_FPS) watchdogArmed = true
+    lowTime = fps < MIN_FPS ? lowTime + bucketTime : 0
     bucketTime = 0
     bucketFrames = 0
-    if (lowTime >= SUSTAIN_S) downgrade(true)
+    if (watchdogArmed && lowTime >= SUSTAIN_S) downgrade(true)
   }
 }
 
@@ -157,12 +153,18 @@ function onContextLost(): void {
   downgrade()
 }
 
+// Structural slice of Tres's context — verified against @tresjs/core 5.8.1
+// (loop start/stop semantics and the live-reactive fpsLimit prop are the two
+// implementation details a minor Tres release could plausibly change).
 interface TresReadyContext {
   renderer: {
     loop: { start: () => void; stop: () => void }
     instance: { domElement: HTMLCanvasElement }
   }
 }
+
+/** Exposed surface of <TresCanvas> — dispose() is the force-teardown path. */
+const tresCanvasRef = ref<{ dispose?: () => void } | null>(null)
 
 function onReady(ctx: TresReadyContext): void {
   loopCtl = ctx.renderer.loop
@@ -180,14 +182,16 @@ function onRendererError(): void {
 
 // WebGLRenderer construction throws synchronously when context creation fails
 // (the probe can pass and the real context still be refused) — catch anything
-// the scene subtree throws and degrade instead of crashing the page.
-onErrorCaptured(() => {
+// the scene subtree throws and degrade instead of crashing the page. Logged
+// in dev: a silent downgrade would otherwise mask real bugs in scene children.
+onErrorCaptured((err) => {
+  if (import.meta.dev) console.error('[SceneRoot] scene error — downgrading to lite:', err)
   downgrade()
   return false
 })
 
 onMounted(() => {
-  if (!probeWebgl2()) {
+  if (!hasWebGl2Support()) {
     webglOk.value = false
     downgrade()
     return
@@ -211,13 +215,17 @@ onBeforeUnmount(() => {
   window.removeEventListener('pointermove', onPointerMove)
   window.removeEventListener('scroll', syncScroll)
   window.removeEventListener('resize', syncScroll)
+  // Listener off FIRST: the forced context loss below must not re-enter
+  // downgrade() and clobber a user-selected tier.
   rendererCanvas?.removeEventListener('webglcontextlost', onContextLost)
   rendererCanvas = null
   loopCtl = null
-  // Renderer/scene teardown is Tres's: on unmount it disposes the scene
-  // graph, renderer.dispose() + forceContextLoss() — no leaked contexts when
-  // FxToggle flips full→off→full. Starfield disposes its <primitive> objects
-  // (exempt from Tres auto-disposal) itself.
+  // Tres 5.8.1's own unmount only disposes the scene graph (force=false) —
+  // renderer.dispose() + forceContextLoss() live behind the EXPOSED dispose()
+  // and nothing else calls it. Without this, every FxToggle flip away from
+  // 'full' orphans a live GL context until GC. Starfield disposes its
+  // <primitive> objects (exempt from Tres auto-disposal) itself.
+  tresCanvasRef.value?.dispose?.()
 })
 </script>
 
@@ -231,6 +239,7 @@ onBeforeUnmount(() => {
          sprites only, save the fill rate. DPR cap 2, 1.5 on coarse pointers.
          fpsLimit is reactive — 30fps below the fold. -->
     <TresCanvas
+      ref="tresCanvasRef"
       :camera="camera"
       :alpha="true"
       :antialias="false"

@@ -22,7 +22,10 @@ const options: ReadonlyArray<{ value: Tier | null; label: string }> = [
 ]
 
 function select(value: Tier | null): void {
-  if (override.value === value) return // no-op: avoid re-running detection
+  // No-op only when nothing would change. A watchdog downgrade leaves the
+  // override pinned while the live tier diverges — re-clicking the pinned
+  // option must re-apply it (otherwise FULL reads as dead after a downgrade).
+  if (override.value === value && (value === null || tier.value === value)) return
   setOverride(value)
 }
 

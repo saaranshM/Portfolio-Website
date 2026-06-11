@@ -56,21 +56,9 @@ function readStoredOverride(): Tier | null {
   }
 }
 
-function hasWebGL2(): boolean {
-  try {
-    const canvas = document.createElement('canvas')
-    const gl = canvas.getContext('webgl2')
-    if (!gl) return false
-    gl.getExtension('WEBGL_lose_context')?.loseContext()
-    return true
-  } catch {
-    return false
-  }
-}
-
 async function detectTier(): Promise<Tier> {
   if (reducedMotion?.value) return 'off'
-  if (!hasWebGL2()) return 'lite'
+  if (!hasWebGl2Support()) return 'lite'
 
   // Cheap device heuristics before paying for the detect-gpu chunk.
   const nav = navigator as Navigator & { deviceMemory?: number }

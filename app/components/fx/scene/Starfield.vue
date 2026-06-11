@@ -8,9 +8,11 @@ import {
   Points,
   PointsMaterial,
 } from 'three'
-import { useLoop } from '@tresjs/core'
+import { useLoop, useTresContext } from '@tresjs/core'
 import {
   CAM_SCROLL_MAX_WU,
+  HALF_FOV_TAN,
+  MID_REF_DEPTH,
   sceneState,
   worldUnitsPerCssPixel,
 } from './useSceneState'
@@ -55,7 +57,6 @@ function mulberry32(seed: number): () => number {
 // Constant seed: the same sky every visit, on every viewport.
 const rand = mulberry32(0x57a2f1e1)
 
-const HALF_FOV_TAN = Math.tan((30 * Math.PI) / 180) // SCENE_FOV / 2
 /** Stars are generated to fill the frustum up to this aspect ratio (21:9 ≈
  *  2.33) at each layer's far edge, so ultrawide viewports stay covered. */
 const ASPECT_MAX = 2.4
@@ -75,7 +76,7 @@ interface LayerSpec {
 }
 
 const FAR: LayerSpec = { count: 2500, zNear: -400, zFar: -600, size: 1.0, parallax: 0.02, refDepth: 500 }
-const MID: LayerSpec = { count: 800, zNear: -150, zFar: -350, size: 1.2, parallax: 0.06, refDepth: 250 }
+const MID: LayerSpec = { count: 800, zNear: -150, zFar: -350, size: 1.2, parallax: 0.06, refDepth: MID_REF_DEPTH }
 const DUST: LayerSpec = { count: 90, zNear: -70, zFar: -130, size: 0.8, parallax: 0.14, refDepth: 100 }
 
 const ICE = new Color('#cfe9ff')
@@ -205,14 +206,28 @@ const DUST_SPAN = DUST_HALF_W * 2
 let parallaxOn = true // mirrors !isCoarsePointer (no ref reads in the loop)
 watch(isCoarsePointer, (coarse) => { parallaxOn = !coarse }, { immediate: true })
 
+// Canvas size mirrored into plain numbers — same no-ref-reads-in-the-loop
+// discipline as parallaxOn.
+const { sizes } = useTresContext()
+let viewportW = 1
+let viewportH = 1
+watch(
+  [sizes.width, sizes.height],
+  ([w, h]) => {
+    viewportW = w || 1
+    viewportH = h || 1
+  },
+  { immediate: true },
+)
+
 let driftPx = 0
 
 const { onBeforeRender } = useLoop()
 
-onBeforeRender(({ delta, sizes }) => {
+onBeforeRender(({ delta }) => {
   const dt = Math.min(delta, 0.25) // clamp resume gaps
-  const w = sizes.width.value || 1
-  const h = sizes.height.value || 1
+  const w = viewportW
+  const h = viewportH
 
   // Frame-rate-independent easing toward the pointer, per-layer multipliers.
   const k = 1 - Math.exp(-dt * POINTER_LERP_RATE)

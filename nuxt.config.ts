@@ -11,7 +11,9 @@ export default defineNuxtConfig({
     { path: '~/components/ui', pathPrefix: false },
     { path: '~/components/sections', pathPrefix: false },
     { path: '~/components/site', pathPrefix: false },
-    { path: '~/components', ignore: ['ui/**', 'sections/**', 'site/**'] },
+    // *.ts files under components/ are helpers (e.g. scene/useSceneState),
+    // not components — keep them out of the registry.
+    { path: '~/components', ignore: ['ui/**', 'sections/**', 'site/**', '**/*.ts'] },
   ],
 
   css: ['~/assets/scss/main.scss'],
