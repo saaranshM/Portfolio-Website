@@ -11,3 +11,4 @@ logs/
 .vscode/
 .idea/
 public/fx-benchmarks/
+firebase-debug.log

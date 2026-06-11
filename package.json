@@ -9,6 +9,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "typecheck": "nuxt typecheck",
+    "deploy": "nuxt generate && firebase deploy --only hosting",
+    "deploy:preview": "nuxt generate && firebase hosting:channel:deploy staging",
     "postinstall": "nuxt prepare && node scripts/copy-gpu-benchmarks.mjs"
   },
   "dependencies": {
@@ -28,6 +30,7 @@
     "@iconify-json/lucide": "^1.2.111",
     "@iconify-json/simple-icons": "^1.2.86",
     "@types/three": "^0.184.1",
+    "firebase-tools": "^15.20.0",
     "sass": "^1.100.0",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.3.4"

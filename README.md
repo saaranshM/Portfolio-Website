@@ -23,7 +23,14 @@ npm run typecheck  # vue-tsc via nuxt typecheck
 
 ## Deploy
 
-Firebase Hosting (project `vue-express-54b2e`), serving the prerendered `.output/public`. Deploy scripts and `firebase.json` rewrite are finalized in a later phase.
+Firebase Hosting (project `vue-express-54b2e`), serving the prerendered `.output/public` — fully static, no SPA rewrite (the generated `404.html` handles dead URLs). Hashed assets (`/_nuxt`, `/_fonts`) get immutable cache headers.
+
+```sh
+npm run deploy:preview   # generate + deploy to the "staging" preview channel
+npm run deploy           # generate + deploy to production
+```
+
+Requires an authenticated Firebase CLI (`firebase login`).
 
 ## Content checklist
 
