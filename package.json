@@ -15,15 +15,19 @@
     "@nuxt/fonts": "^0.14.0",
     "@nuxt/icon": "^2.2.3",
     "@nuxt/image": "^2.0.0",
+    "@tresjs/core": "^5.8.1",
+    "@tresjs/nuxt": "^5.6.1",
     "@vueuse/core": "^14.3.0",
     "@vueuse/nuxt": "^14.3.0",
     "detect-gpu": "^5.0.70",
     "nuxt": "^4.4.8",
+    "three": "^0.184.0",
     "vue": "^3.5.35"
   },
   "devDependencies": {
     "@iconify-json/lucide": "^1.2.111",
     "@iconify-json/simple-icons": "^1.2.86",
+    "@types/three": "^0.184.1",
     "sass": "^1.100.0",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.3.4"

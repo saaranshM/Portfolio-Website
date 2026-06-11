@@ -13,8 +13,8 @@ const { tier } = useEffectsTier()
 <template>
   <div class="fx-layer" aria-hidden="true">
     <ClientOnly>
-      <!-- Phase 4 replaces this branch with <LazyFxSceneRoot hydrate-on-idle> -->
-      <FxStarfieldLite v-if="tier === 'full'" />
+      <!-- Lazy prefix = own chunk: three.js only ever downloads on 'full'. -->
+      <LazyFxSceneRoot v-if="tier === 'full'" />
       <FxStarfieldLite v-else-if="tier === 'lite'" />
       <FxStaticBackdrop v-else />
       <template #fallback>

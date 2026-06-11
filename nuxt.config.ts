@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2026-06-10',
 
-  modules: ['@nuxt/image', '@nuxt/fonts', '@nuxt/icon', '@vueuse/nuxt'],
+  modules: ['@nuxt/image', '@nuxt/fonts', '@nuxt/icon', '@vueuse/nuxt', '@tresjs/nuxt'],
 
   components: [
     // UI primitives, sections and site chrome are used bare (<HudPanel>,

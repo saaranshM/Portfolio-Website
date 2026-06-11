@@ -22,6 +22,9 @@
 
     <!-- z-40: first-visit boot garnish; renders nothing on SSR/repeat visits. -->
     <BootOverlay />
+
+    <!-- z-40: singleton useHudToast() outlet (POWER SAVING MODE etc.). -->
+    <HudToast />
   </div>
 </template>
 
