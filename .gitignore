@@ -10,3 +10,4 @@ logs/
 .salvage/
 .vscode/
 .idea/
+public/fx-benchmarks/

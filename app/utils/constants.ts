@@ -6,6 +6,12 @@
 export const TIERS = ['off', 'lite', 'full'] as const
 export type Tier = (typeof TIERS)[number]
 
+/** localStorage key for the FxToggle tier override (`useEffectsTier`). */
+export const FX_TIER_STORAGE_KEY = 'fx-tier'
+
+/** sessionStorage flag — the boot garnish plays once per tab session. */
+export const BOOT_SESSION_KEY = 'boot-played'
+
 /** Breakpoints (px). Keep in sync with app/assets/scss/_tokens.scss. */
 export const BREAKPOINT_MOBILE = 780
 export const BREAKPOINT_WIDE = 1440

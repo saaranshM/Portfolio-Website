@@ -2,8 +2,8 @@
   <div class="flight-deck">
     <a class="skip-link" href="#main">// Skip to content</a>
 
-    <!-- z-0: the scene. Phase 3 swaps this for the tiered FxLayer. -->
-    <FxStaticBackdrop />
+    <!-- z-0: the scene — tier-resolved FX over the StaticBackdrop SSR baseline. -->
+    <FxLayer />
 
     <!-- z-20: static scanline glass. 3% opacity, no animation, ever. -->
     <div class="scanlines" aria-hidden="true" />
@@ -19,6 +19,9 @@
     <SideRails />
 
     <SiteFooter />
+
+    <!-- z-40: first-visit boot garnish; renders nothing on SSR/repeat visits. -->
+    <BootOverlay />
   </div>
 </template>
 

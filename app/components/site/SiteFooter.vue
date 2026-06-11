@@ -34,7 +34,7 @@ import { profile } from '~/data/profile'
       <GlowLink :href="REPO_URL" external>[ SOURCE ]</GlowLink>
     </p>
 
-    <!-- FxToggle mounts here (Phase 3) -->
+    <FxToggle class="site-footer__fx" />
   </footer>
 </template>
 
@@ -112,5 +112,10 @@ import { profile } from '~/data/profile'
 .site-footer__build {
   max-width: none;
   color: t.$ice-dim;
+}
+
+// --- effects toggle ----------------------------------------------------------
+.site-footer__fx {
+  margin-top: t.$space-2;
 }
 </style>
