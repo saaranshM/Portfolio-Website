@@ -24,6 +24,16 @@ export const EGG_SESSION_KEY = 'fx-egg-played'
 export const BREAKPOINT_MOBILE = 780
 export const BREAKPOINT_WIDE = 1440
 
+/** Content-column layout dims (px) — ShipSwarm projects these into its
+ *  patrol exclusion zone. Keep in sync with the hero column
+ *  (HeroSection.vue `.hero` padding / `.hero__inner` max-width) and the
+ *  centered `.content-section` column (_base.scss). */
+export const HERO_LEFT_PX = 48
+export const HERO_WIDTH_PX = 760
+export const SECTION_WIDTH_PX = 1100
+/** Extra CSS-px margin ShipSwarm pads around the content columns. */
+export const EXCLUSION_MARGIN_PX = 48
+
 /** Canonical site origin (no trailing slash) — SEO/JSON-LD. */
 export const SITE_URL = 'https://saaranshmenon.me'
 

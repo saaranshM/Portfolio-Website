@@ -7,12 +7,14 @@
  * the render loop, zero per-frame allocations — every slot below is
  * preallocated and recycled via `active`/`pending` flags.
  *
- * Frame ordering contract (enforced via onBeforeRender priorities in the two
- * components): ShipSwarm (priority 0) steers and publishes ship positions +
- * screen projections into `ships`, THEN LaserSystem (priority 1) moves bolts,
- * runs near-miss checks against those fresh projections, and raises
- * `nearMiss` flags that ShipSwarm consumes on the NEXT frame (one frame of
- * dodge latency — invisible at 60fps).
+ * Frame ordering contract (enforced via REGISTRATION order — each useLoop()
+ * call gets its own priority hook, so onBeforeRender priority args cannot
+ * order callbacks across components; SceneRoot's template mounts ShipSwarm
+ * before LaserSystem, which registers their loop callbacks in that order):
+ * ShipSwarm steers and publishes ship positions + screen projections into
+ * `ships`, THEN LaserSystem moves bolts, runs near-miss checks against those
+ * fresh projections, and raises `nearMiss` flags that ShipSwarm consumes on
+ * the NEXT frame (one frame of dodge latency — invisible at 60fps).
  */
 
 export type BoltFaction = 'cyan' | 'magenta'
@@ -82,8 +84,9 @@ export const fxBus = {
     tz: 0,
     faction: 'cyan',
   })),
-  /** Live ambient (ship-fired) bolts — maintained by LaserSystem; ShipSwarm
-   *  reads it to honor the max-1-ambient-volley-airborne rule (spec §5). */
+  /** Live ambient (ship-fired) bolts — owned SOLELY by LaserSystem (it
+   *  resets the counter on mount and unmount); ShipSwarm only reads it to
+   *  honor the max-1-ambient-volley-airborne rule (spec §5). */
   ambientBoltsAlive: 0,
 }
 
@@ -117,12 +120,19 @@ export function fireVolley(
   }
 }
 
-/** Full reset — both components call this on unmount so a tier flip can
- *  never leave stale cross-component state behind. */
+/** Drop queued-but-unspawned volley requests. ShipSwarm calls this when the
+ *  EMP wipes the extras and on egg end so no bolt materializes from a ship
+ *  that no longer exists. */
+export function resetVolleys(): void {
+  for (let i = 0; i < fxBus.volleys.length; i++) fxBus.volleys[i]!.pending = false
+}
+
+/** ShipSwarm-side reset, called on its unmount so a tier flip can never leave
+ *  stale contacts/requests behind. `ambientBoltsAlive` is deliberately NOT
+ *  touched — LaserSystem owns that counter (reset on its mount/unmount). */
 export function resetFxBus(): void {
   fxBus.ships.length = 0
-  fxBus.ambientBoltsAlive = 0
-  for (let i = 0; i < fxBus.volleys.length; i++) fxBus.volleys[i]!.pending = false
+  resetVolleys()
 }
 
 // Dev-only inspection hook for headless verification (tree-shaken from prod

@@ -48,6 +48,9 @@ export function useEasterEgg(): void {
   function trigger(): void {
     if (tier.value !== 'full' || reducedMotion.value) return
     if (sceneState.fx.eggActive) return
+    // Below the fold the dogfight is suppressed (ships trimmed, volleys off) —
+    // decline WITHOUT burning the session flag so scrolling up lets it fire.
+    if (sceneState.belowFold) return
     try {
       if (sessionStorage.getItem(EGG_SESSION_KEY)) return
       sessionStorage.setItem(EGG_SESSION_KEY, '1')

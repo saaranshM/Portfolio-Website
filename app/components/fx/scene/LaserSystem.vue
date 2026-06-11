@@ -44,10 +44,12 @@ import {
  * thin ring (~200ms) — all buffers preallocated, zero steady-state
  * allocations.
  *
- * Loop ordering: priority 1 — runs AFTER ShipSwarm (0) so near-miss checks
- * (player bolt within 90 css px of a ship) read this frame's ship
- * projections; the `nearMiss` flag it raises is consumed by ShipSwarm next
- * frame (dodge + shimmer). Ships are never destroyed.
+ * Loop ordering: each useLoop() gets its OWN priority hook, so cross-component
+ * order comes from REGISTRATION order — SceneRoot's template mounts ShipSwarm
+ * first, so this runs AFTER it and near-miss checks (player bolt within 90
+ * css px of a ship) read this frame's ship projections; the `nearMiss` flag
+ * raised here is consumed by ShipSwarm next frame (dodge + shimmer). Ships
+ * are never destroyed.
  */
 
 const { show: showToast } = useHudToast()
@@ -72,17 +74,6 @@ const SPARK_COUNT = 12
 const WHITE_HOT = new Color('#eafffe')
 const CYAN = new Color('#00f0ff')
 const MAGENTA = new Color('#ff2d78')
-
-function mulberry32(seed: number): () => number {
-  let a = seed
-  return () => {
-    a |= 0
-    a = (a + 0x6d2b79f5) | 0
-    let t = Math.imul(a ^ (a >>> 15), 1 | a)
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
-  }
-}
 
 const rand = mulberry32(0x1a5e7b01)
 
@@ -156,6 +147,10 @@ for (let i = 0; i < BOLT_POOL; i++) {
 
 let aliveBolts = 0
 let alivePlayerBolts = 0
+
+// Sole owner of the airborne-ambient counter (ShipSwarm only reads it):
+// reset on mount AND unmount so a remount can never inherit a stale count.
+fxBus.ambientBoltsAlive = 0
 
 // Second bolt of each ambient volley fires VOLLEY_STAGGER_S later — small
 // preallocated ring, capacity matches fxBus's volley slots.
@@ -263,6 +258,9 @@ const V_DIR = new Vector3()
 const V_TOCAM = new Vector3()
 const V_SIDE = new Vector3()
 const V_NORM = new Vector3()
+/** Explicit OUTPUT of spawnBolt: the spawned bolt's billboard side axis,
+ *  copied out so callers (the volley spread) never read raw scratch. */
+const V_SPREAD = new Vector3()
 const M_BASIS = new Matrix4()
 
 let calibratedToastShown = false
@@ -307,6 +305,7 @@ function spawnBolt(
   else V_SIDE.normalize()
   V_NORM.crossVectors(V_SIDE, V_DIR)
   M_BASIS.makeBasis(V_SIDE, V_DIR, V_NORM)
+  V_SPREAD.copy(V_SIDE) // export the side axis for the volley's twin offset
 
   bolt.group.quaternion.setFromRotationMatrix(M_BASIS)
   bolt.group.position.set(sx, sy, sz)
@@ -372,16 +371,27 @@ function boltColor(faction: BoltFaction): Color {
 }
 
 // ==============================================================================
-// Per-frame — priority 1 (after ShipSwarm's steering at 0)
+// Per-frame — registered AFTER ShipSwarm's steering callback (registration
+// order = SceneRoot's template order; see the loop-ordering note up top)
 // ==============================================================================
 
 const { onBeforeRender } = useLoop()
+
+let eggWas = false
 
 onBeforeRender(({ delta }) => {
   const dt = Math.min(delta, 0.25)
   const aspect = viewportW / viewportH
   const camY = sceneState.camY
   const cap = maxAlive()
+
+  // Egg falling edge: drop pending staggered seconds — their shooters are
+  // gone, and a bolt must not materialize from empty space after the wipe.
+  const egg = sceneState.fx.eggActive
+  if (!egg && eggWas) {
+    for (let i = 0; i < seconds.length; i++) seconds[i]!.pending = false
+  }
+  eggWas = egg
 
   // --- drain player clicks (twin corner bolts per click) -------------------------
   const queue = sceneState.fx.laserQueue
@@ -413,15 +423,15 @@ onBeforeRender(({ delta }) => {
     if (spawnBolt(slot.sx, slot.sy, slot.sz, slot.tx, slot.ty, slot.tz, slot.faction, false)) {
       slot.pending = false
       // Schedule the volley's second bolt with a slight stagger + spread
-      // (V_SIDE still holds the first bolt's billboard side axis here).
+      // along V_SPREAD (the first bolt's side axis, exported by spawnBolt).
       for (let j = 0; j < seconds.length; j++) {
         const second = seconds[j]!
         if (second.pending) continue
         second.pending = true
         second.t = VOLLEY_STAGGER_S
-        second.sx = slot.sx + V_SIDE.x * VOLLEY_SPREAD_WU
-        second.sy = slot.sy + V_SIDE.y * VOLLEY_SPREAD_WU
-        second.sz = slot.sz + V_SIDE.z * VOLLEY_SPREAD_WU
+        second.sx = slot.sx + V_SPREAD.x * VOLLEY_SPREAD_WU
+        second.sy = slot.sy + V_SPREAD.y * VOLLEY_SPREAD_WU
+        second.sz = slot.sz + V_SPREAD.z * VOLLEY_SPREAD_WU
         second.tx = slot.tx
         second.ty = slot.ty
         second.tz = slot.tz
@@ -521,7 +531,7 @@ onBeforeRender(({ delta }) => {
       }
     }
   }
-}, 1)
+})
 
 // Tres exempts <primitive> subtrees from automatic disposal — release all GL
 // resources on unmount (tier flips must not leak; dispose() is idempotent).
@@ -537,8 +547,12 @@ onUnmounted(() => {
     impact.ringMaterial.dispose()
   }
   boltTexture.dispose()
-  // Drop airborne-ambient bookkeeping so a remount starts clean.
+  // Drop airborne-ambient bookkeeping so a remount starts clean (this
+  // component is the counter's sole owner — reset on mount and unmount).
   fxBus.ambientBoltsAlive = 0
+  // Stale clicks queued while no LaserSystem exists must not fire after a
+  // full→lite→full round-trip.
+  sceneState.fx.laserQueue.length = 0
 })
 </script>
 

@@ -258,9 +258,11 @@ onBeforeUnmount(() => {
       @before-loop="onBeforeLoop"
     >
       <Starfield />
-      <!-- Loop order matters: ShipSwarm steers at priority 0, LaserSystem
-           targets/near-misses at priority 1 (registered via onBeforeRender's
-           priority arg — Tres runs callbacks ascending). -->
+      <!-- Loop order matters and comes from REGISTRATION order (each
+           useLoop() gets its own priority hook, so priority args can't order
+           across components): the @before-loop emit above registers first
+           (camY), then template order — ShipSwarm steers, THEN LaserSystem
+           targets/near-misses against the fresh projections. -->
       <ShipSwarm />
       <LaserSystem />
     </TresCanvas>

@@ -42,17 +42,6 @@ const DPR_CAP = 2
 const TWINKLE_FRACTION = 0.15
 const POINTER_LERP_RATE = 6 // 1/s — exponential smoothing constant
 
-function mulberry32(seed: number): () => number {
-  let a = seed
-  return () => {
-    a |= 0
-    a = (a + 0x6d2b79f5) | 0
-    let t = Math.imul(a ^ (a >>> 15), 1 | a)
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
-  }
-}
-
 // Constant seed: the same sky every visit, on every viewport.
 const rand = mulberry32(0x11735a17)
 

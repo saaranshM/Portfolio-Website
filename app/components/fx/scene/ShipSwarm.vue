@@ -17,7 +17,7 @@ import {
   Vector3,
 } from 'three'
 import { useLoop, useTresContext } from '@tresjs/core'
-import { fireVolley, fxBus, makeShipContact, resetFxBus } from './fxBus'
+import { fireVolley, fxBus, makeShipContact, resetFxBus, resetVolleys } from './fxBus'
 import { makeDiscTexture } from './textures'
 import {
   HALF_FOV_TAN,
@@ -38,9 +38,11 @@ import type { CssRect } from './useSceneState'
  * loop (preallocated scratch vectors; curves/pools built once), manual
  * disposal of everything on unmount.
  *
- * Loop ordering: registers onBeforeRender at PRIORITY 0 — steering runs and
- * publishes ship positions/screen projections into fxBus.ships BEFORE
- * LaserSystem (priority 1) consumes them for targeting and near-miss checks.
+ * Loop ordering: each useLoop() gets its OWN priority hook, so cross-component
+ * order comes from REGISTRATION order — SceneRoot's template mounts ShipSwarm
+ * before LaserSystem, so steering runs and publishes ship positions/screen
+ * projections into fxBus.ships BEFORE LaserSystem consumes them for targeting
+ * and near-miss checks.
  *
  * Suppression matrix:
  * - coarse pointer  → 2 ships total, no cursor-dodge (flee skipped)
@@ -90,17 +92,6 @@ const HULL = new Color('#101935')
 const CYAN = new Color('#00f0ff')
 const MAGENTA = new Color('#ff2d78')
 const DREAD_HULL = new Color('#0a1124')
-
-function mulberry32(seed: number): () => number {
-  let a = seed
-  return () => {
-    a |= 0
-    a = (a + 0x6d2b79f5) | 0
-    let t = Math.imul(a ^ (a >>> 15), 1 | a)
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
-  }
-}
 
 const rand = mulberry32(0x5417e770)
 
@@ -258,17 +249,15 @@ function buildDreadnoughtGeometry(): BufferGeometry {
 // upper third, REJECTED while inside the projected content exclusion zone.
 // ==============================================================================
 
-/** Central content column in CSS px: hero column (~760px, left padding 48px)
- *  unioned with the centered 1100px `.content-section` column, + 48px margin.
- *  Vertically the top ~28% of the viewport is the open sky corridor the
- *  upper-third bias aims for. */
+/** Central content column in CSS px: the hero column unioned with the
+ *  centered `.content-section` column, + margin (layout dims live in
+ *  app/utils/constants.ts next to the breakpoints). Vertically the top ~28%
+ *  of the viewport is the open sky corridor the upper-third bias aims for. */
 function contentExclusionRect(w: number, h: number): CssRect {
-  const HERO_LEFT = 48
-  const HERO_W = 760
-  const SECTION_W = 1100
-  const MARGIN = 48
-  const left = Math.min(HERO_LEFT, Math.max((w - SECTION_W) / 2, 0)) - MARGIN
-  const right = Math.max(HERO_LEFT + HERO_W, Math.min((w + SECTION_W) / 2, w)) + MARGIN
+  const left = Math.min(HERO_LEFT_PX, Math.max((w - SECTION_WIDTH_PX) / 2, 0)) - EXCLUSION_MARGIN_PX
+  const right =
+    Math.max(HERO_LEFT_PX + HERO_WIDTH_PX, Math.min((w + SECTION_WIDTH_PX) / 2, w)) +
+    EXCLUSION_MARGIN_PX
   const top = h * 0.28
   return { left, top, width: right - left, height: h - top }
 }
@@ -329,7 +318,9 @@ function makePatrolCurve(
 
   const curve = new CatmullRomCurve3(points, true, 'catmullrom', 0.5)
   // Period from arc length at a believable cruise speed, clamped to the spec
-  // lap band (20–35s; egg extras run hotter laps).
+  // lap band (20–35s; egg extras run hotter laps). EVERY curve passes through
+  // here, so this getLength() also warms the arc-length cache that the
+  // getPointAt() sampling in the loop depends on (uniform-speed traversal).
   const speed = fast ? 9 + rand() * 4 : 5.5 + rand() * 2.5
   const period = clamp(
     curve.getLength() / speed,
@@ -530,13 +521,41 @@ function init(): void {
     const { curve, period } = makePatrolCurve(viewportW, viewportH, ship.extra)
     ship.curve = curve
     ship.period = period
-    curve.getPoint(ship.pathT, V_CURVE)
+    curve.getPointAt(ship.pathT, V_CURVE)
     ship.group.position.copy(V_CURVE)
   }
   // LaserSystem reads positions/projections from these — install once.
   fxBus.ships.length = 0
   for (const ship of ships) fxBus.ships.push(ship.contact)
 }
+
+// --- resize → patrol rebuild (debounced) -----------------------------------------
+// Patrol curves bake the viewport's exclusion-zone projection in at build
+// time, so a real resize needs fresh loops. Debounced ~300ms past the last
+// size change; each ship KEEPS its pathT and the follow steering eases it
+// onto the new curve. Deferred while the egg is live (extras are mid-
+// dogfight) and flushed when it ends.
+const REBUILD_DEBOUNCE_MS = 300
+let rebuildTimer: ReturnType<typeof setTimeout> | undefined
+let rebuildPending = false
+
+function rebuildPatrols(): void {
+  rebuildPending = false
+  for (const ship of ships) {
+    const { curve, period } = makePatrolCurve(viewportW, viewportH, ship.extra)
+    ship.curve = curve
+    ship.period = period
+  }
+}
+
+watch([sizes.width, sizes.height], () => {
+  if (!inited) return // init() builds against the live viewport anyway
+  clearTimeout(rebuildTimer)
+  rebuildTimer = setTimeout(() => {
+    if (sceneState.fx.eggActive) rebuildPending = true // defer to endEgg()
+    else rebuildPatrols()
+  }, REBUILD_DEBOUNCE_MS)
+})
 
 /** Visibility policy for one frame. Below the fold only ships 0..1 remain;
  *  coarse pointers also run 2 ships total (spec §4). Extras only exist while
@@ -556,12 +575,12 @@ function startEgg(): void {
   for (const ship of ships) {
     if (!ship.extra || !ship.curve) continue
     ship.pathT = rand()
-    ship.curve.getPoint(ship.pathT, V_CURVE)
+    ship.curve.getPointAt(ship.pathT, V_CURVE)
     ship.group.position.copy(V_CURVE)
     ship.warpLeft = WARP_S
     ship.vel.set(0, 0, 0)
     // Enter facing along the loop (cheap tangent: a point slightly ahead).
-    ship.curve.getPoint((ship.pathT + 0.02) % 1, V_TMP)
+    ship.curve.getPointAt((ship.pathT + 0.02) % 1, V_TMP)
     V_TMP.sub(V_CURVE)
     if (V_TMP.lengthSq() > 1e-6) ship.fwd.copy(V_TMP).normalize()
     ship.vel.copy(ship.fwd).multiplyScalar(30)
@@ -586,8 +605,13 @@ function endEgg(): void {
       ship.group.visible = false
       ship.shown = false
       ship.contact.active = false
+      ship.contact.nearMiss = false
     }
   }
+  // Queued volleys from now-gone shooters must not materialize from nothing.
+  resetVolleys()
+  // Flush a resize rebuild that arrived mid-egg.
+  if (rebuildPending) rebuildPatrols()
 }
 
 function updateEgg(dt: number): void {
@@ -609,8 +633,11 @@ function updateEgg(dt: number): void {
         ship.group.visible = false
         ship.shown = false
         ship.contact.active = false
+        ship.contact.nearMiss = false
       }
     }
+    // …and so do their queued-but-unspawned volleys.
+    resetVolleys()
   }
   if (empFired && empRing.visible) {
     empT += dt
@@ -669,6 +696,7 @@ function steer(ship: Ship, dt: number): void {
     pos.addScaledVector(ship.vel, dt)
     ship.exhaust.visible = false
     c.active = false
+    c.nearMiss = false // inactive contacts must never carry a stale flag
     return
   }
   ship.group.scale.setScalar(ship.scale)
@@ -676,7 +704,7 @@ function steer(ship: Ship, dt: number): void {
 
   // --- follow the patrol spline -------------------------------------------------
   ship.pathT = (ship.pathT + dt / ship.period) % 1
-  ship.curve!.getPoint(ship.pathT, V_CURVE)
+  ship.curve!.getPointAt(ship.pathT, V_CURVE)
   // Below the fold the survivors ease ~120 wu deeper (far-depth presence).
   const zTarget = sceneState.belowFold && !ship.extra ? BELOW_FOLD_Z_PUSH : 0
   ship.zOff += (zTarget - ship.zOff) * (1 - Math.exp(-dt * 2))
@@ -784,7 +812,7 @@ function flyby(ship: Ship, dt: number): void {
   const p = flybyT / FLYBY_S
   if (p >= 1) {
     flybyActive = false
-    ship.curve!.getPoint(ship.pathT, V_CURVE)
+    ship.curve!.getPointAt(ship.pathT, V_CURVE)
     ship.group.position.copy(V_CURVE)
     ship.vel.set(0, 0, 0)
     return
@@ -805,7 +833,9 @@ function flyby(ship: Ship, dt: number): void {
 
 const { onBeforeRender } = useLoop()
 
-// PRIORITY 0: steering publishes ship state before LaserSystem (priority 1).
+// Runs BEFORE LaserSystem's callback: each useLoop() registers its own hook
+// with the renderer, so execution order = registration (template) order —
+// SceneRoot mounts ShipSwarm first.
 onBeforeRender(({ delta }) => {
   const dt = Math.min(delta, 0.25)
   if (!inited) {
@@ -841,7 +871,12 @@ onBeforeRender(({ delta }) => {
     if (shown !== ship.shown) {
       ship.shown = shown
       ship.group.visible = shown
-      if (!shown) ship.contact.active = false
+      if (!shown) {
+        // Hidden (fold crossing / coarse trim): clear BOTH the contact and
+        // any near-miss raised last frame — it must not fire on re-show.
+        ship.contact.active = false
+        ship.contact.nearMiss = false
+      }
     }
     if (!shown) continue
 
@@ -880,17 +915,18 @@ onBeforeRender(({ delta }) => {
       if (volleyIn > 0) volleyIn -= dt
       // Max ONE ambient volley airborne: hold fire (timer pinned at 0) until
       // the previous bolts are gone, then the 8–14s clock restarts.
-      if (volleyIn <= 0 && fxBus.ambientBoltsAlive === 0) {
+      if (volleyIn <= 0 && fxBus.ambientBoltsAlive <= 0) {
         fireRandomVolley()
         volleyIn = VOLLEY_MIN_S + rand() * VOLLEY_SPAN_S
       }
     }
   }
-}, 0)
+})
 
 // Tres exempts <primitive> subtrees from automatic disposal — release all
 // GL resources here (tier flips must not leak; dispose() is idempotent).
 onUnmounted(() => {
+  clearTimeout(rebuildTimer)
   dartGeometry.dispose()
   raiderGeometry.dispose()
   dreadGeometry.dispose()
