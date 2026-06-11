@@ -3,12 +3,12 @@ import {
   AdditiveBlending,
   BufferAttribute,
   BufferGeometry,
-  CanvasTexture,
   Color,
   Points,
   PointsMaterial,
 } from 'three'
 import { useLoop, useTresContext } from '@tresjs/core'
+import { makeDiscTexture } from './textures'
 import {
   CAM_SCROLL_MAX_WU,
   HALF_FOV_TAN,
@@ -81,19 +81,6 @@ const DUST: LayerSpec = { count: 90, zNear: -70, zFar: -130, size: 0.8, parallax
 
 const ICE = new Color('#cfe9ff')
 const CYAN_TINT = new Color('#9fe8f5')
-
-function makeDiscTexture(px: number, stops: ReadonlyArray<[number, number]>): CanvasTexture {
-  const canvas = document.createElement('canvas')
-  canvas.width = px
-  canvas.height = px
-  const ctx = canvas.getContext('2d')!
-  const half = px / 2
-  const grad = ctx.createRadialGradient(half, half, 0, half, half, half)
-  for (const [offset, alpha] of stops) grad.addColorStop(offset, `rgba(255,255,255,${alpha})`)
-  ctx.fillStyle = grad
-  ctx.fillRect(0, 0, px, px)
-  return new CanvasTexture(canvas)
-}
 
 // Pre-glowed star: hot core with a soft halo baked into the sprite — this IS
 // the "bloom" of the full tier (see SceneRoot's postprocessing decision).

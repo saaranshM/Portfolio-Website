@@ -12,6 +12,14 @@ export const FX_TIER_STORAGE_KEY = 'fx-tier'
 /** sessionStorage flag — the boot garnish plays once per tab session. */
 export const BOOT_SESSION_KEY = 'boot-played'
 
+/** sessionStorage flag — TARGETING SYSTEMS: CALIBRATED toast (5 player
+ *  near-misses) fires once per tab session (LaserSystem). */
+export const CALIBRATED_SESSION_KEY = 'fx-calibrated'
+
+/** sessionStorage flag — the easter-egg dogfight runs once per tab session
+ *  (useEasterEgg). */
+export const EGG_SESSION_KEY = 'fx-egg-played'
+
 /** Breakpoints (px). Keep in sync with app/assets/scss/_tokens.scss. */
 export const BREAKPOINT_MOBILE = 780
 export const BREAKPOINT_WIDE = 1440

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { NoToneMapping, PerspectiveCamera } from 'three'
+import LaserSystem from './LaserSystem.vue'
+import ShipSwarm from './ShipSwarm.vue'
 import Starfield from './Starfield.vue'
 import {
   CAM_SCROLL_MAX_WU,
@@ -124,6 +126,9 @@ function onBeforeLoop({ delta }: { delta: number }): void {
   )
   camY += (targetY - camY) * (1 - Math.exp(-dt * CAM_EASE_RATE))
   camera.position.y = camY
+  // Published BEFORE child useLoop callbacks run (Tres fires @before-loop
+  // first) — ShipSwarm/LaserSystem screen-space projections read this.
+  sceneState.camY = camY
 
   // FPS watchdog. Loop stop() already covers hidden tabs; the 30fps cap makes
   // below-fold frames meaningless, so measurement pauses there too.
@@ -253,6 +258,11 @@ onBeforeUnmount(() => {
       @before-loop="onBeforeLoop"
     >
       <Starfield />
+      <!-- Loop order matters: ShipSwarm steers at priority 0, LaserSystem
+           targets/near-misses at priority 1 (registered via onBeforeRender's
+           priority arg — Tres runs callbacks ascending). -->
+      <ShipSwarm />
+      <LaserSystem />
     </TresCanvas>
   </div>
 </template>

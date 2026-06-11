@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
+import { requestContactFlyby } from '~/components/fx/scene/useSceneState'
 
 /**
  * ContactSection — "04 // OPEN CHANNEL".
  * Narrow centered column: heading, display-size lede, two short sentences
  * (profile.contactBlurb), then the big [ SEND TRANSMISSION ] mailto CTA.
+ * The reveal also one-shots the scripted scene flyby (ShipSwarm).
  */
 const { target, revealed } = useReveal()
+watch(revealed, (isRevealed) => { if (isRevealed) requestContactFlyby() }, { once: true })
 </script>
 
 <template>

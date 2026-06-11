@@ -117,7 +117,8 @@ function onDialogClick(event: MouseEvent) {
 
 <template>
   <header class="site-header" :class="{ 'site-header--hidden': hidden }">
-    <a class="site-header__emblem" :class="{ 'is-booted': booted }" href="#" aria-label="Saaransh Menon — back to top">
+    <!-- data-egg-tap: 5 taps in 2s = the touch easter-egg trigger (useEasterEgg). -->
+    <a class="site-header__emblem" :class="{ 'is-booted': booted }" href="#" aria-label="Saaransh Menon — back to top" data-egg-tap>
       <svg viewBox="0 0 40 44" width="34" height="38" aria-hidden="true">
         <path
           class="site-header__hex"
