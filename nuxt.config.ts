@@ -1,3 +1,5 @@
+import { socialLinks } from './app/data/socials'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2026-06-10',
@@ -17,6 +19,17 @@ export default defineNuxtConfig({
   ],
 
   css: ['~/assets/scss/main.scss'],
+
+  // Bundle every icon — self-hosting doctrine: no runtime fetches to
+  // api.iconify.design (same reason fonts and the detect-gpu benchmark DB
+  // are vendored). `scan` catches static template usage; the social icons
+  // are data-driven (app/data/socials.ts), so they're listed explicitly.
+  icon: {
+    clientBundle: {
+      scan: true,
+      icons: socialLinks.map((link) => link.icon),
+    },
+  },
 
   app: {
     head: {

@@ -18,7 +18,18 @@ import { profile } from '~/data/profile'
 const SCROLL_TOP_ZONE = 80
 const SCROLL_DELTA = 4
 
-const { activeAnchor } = useScrollSpy(navItems.map((item) => item.anchor.slice(1)))
+// HANGAR BAY is an unnumbered annex with no nav item — it's observed so the
+// highlight doesn't go dark between MISSIONS and CONTACT, and aliased to the
+// MISSIONS band for display. The ids MUST stay in document order: useScrollSpy
+// resolves "topmost" and "page bottom → last" from array order.
+const { activeAnchor: rawAnchor } = useScrollSpy(
+  navItems.flatMap((item) =>
+    item.anchor === '#missions' ? ['missions', 'hangar'] : [item.anchor.slice(1)],
+  ),
+)
+const activeAnchor = computed(() =>
+  rawAnchor.value === '#hangar' ? '#missions' : rawAnchor.value,
+)
 
 // --- emblem self-draw + hide-on-scroll ------------------------------------
 const booted = ref(false)

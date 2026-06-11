@@ -11,8 +11,9 @@ useSeoMeta({
   ogTitle: 'Saaransh Menon — Tech Lead · Full-Stack + NLP',
   ogDescription:
     'Saaransh Menon — Tech Lead building full-stack products and NLP systems.',
-  ogImage: '/og-image.png',
-  ogUrl: SITE_URL,
+  // Absolute URL — OG scrapers (FB/LinkedIn/X) ignore relative image paths.
+  ogImage: `${SITE_URL}/og-image.png`,
+  ogUrl: `${SITE_URL}/`,
   twitterCard: 'summary_large_image',
   twitterCreator: '@saaransh_28',
 })

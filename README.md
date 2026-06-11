@@ -7,8 +7,15 @@ A sci-fi Nuxt 4 portfolio ([saaranshmenon.me](https://saaranshmenon.me)): a calm
 - [Nuxt 4](https://nuxt.com) — static generation via `nuxt generate`
 - [Vue 3](https://vuejs.org) + TypeScript (strict)
 - [Sass](https://sass-lang.com) — hand-rolled "Flight Deck" design system (no Tailwind)
-- `@nuxt/image` · `@nuxt/fonts` (Chakra Petch / Space Grotesk / JetBrains Mono, self-hosted) · `@nuxt/icon` · `@vueuse/nuxt`
-- WebGL scene (Three.js / TresJS) lands in a later phase, behind a device-tier fallback system
+- `@nuxt/image` · `@nuxt/fonts` (Chakra Petch / Space Grotesk / JetBrains Mono, self-hosted) · `@nuxt/icon` (icons bundled, no CDN) · `@vueuse/nuxt`
+- [TresJS](https://tresjs.org) + [Three.js](https://threejs.org) — the WebGL starfield/ship/laser scene, loaded as a lazy chunk on capable devices only
+
+## Architecture
+
+- **Content** lives in `app/data/*.ts` (typed; components never hardcode copy). Update projects/skills/bio there.
+- **Design system**: `app/assets/scss/_tokens.scss` is the single source for palette, z-stack, spacing, and the HUD mixins (panels, corner brackets, duotone, focus rings). The full design spec is committed at `docs/superpowers/specs/2026-06-10-scifi-portfolio-rebuild-design.md`.
+- **Effects tiers** (`app/composables/useEffectsTier.ts`): `off` (static CSS backdrop — also the SSR/no-JS/reduced-motion baseline) → `lite` (Canvas-2D starfield + 2D laser streaks) → `full` (lazy WebGL scene: parallax starfield, patrolling ships, click-to-fire lasers, a Konami-code surprise). Resolved per device via reduced-motion / WebGL2 / `detect-gpu`; the footer `FX` toggle pins it (persisted in `localStorage['fx-tier']`); an FPS watchdog downgrades live sessions that can't hold 45fps.
+- `public/fx-benchmarks/` is gitignored but required — `npm install`'s postinstall vendors detect-gpu's benchmark DB there (`scripts/copy-gpu-benchmarks.mjs`) so tier detection never calls a CDN.
 
 ## Usage
 
@@ -23,7 +30,7 @@ npm run typecheck  # vue-tsc via nuxt typecheck
 
 ## Deploy
 
-Firebase Hosting (project `vue-express-54b2e`), serving the prerendered `.output/public` — fully static, no SPA rewrite (the generated `404.html` handles dead URLs). Hashed assets (`/_nuxt`, `/_fonts`) get immutable cache headers.
+Firebase Hosting (project `vue-express-54b2e`), serving the prerendered `.output/public` — fully static, no SPA rewrite. Dead URLs get the generated `404.html` (note: it renders the themed SIGNAL LOST page client-side; no-JS visitors see a dark shell). Hashed assets (`/_nuxt`, `/_fonts`) get immutable cache headers; HTML and payloads revalidate on every request.
 
 ```sh
 npm run deploy:preview   # generate + deploy to the "staging" preview channel
