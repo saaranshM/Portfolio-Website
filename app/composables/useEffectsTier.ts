@@ -23,7 +23,9 @@ import type { Tier } from '~/utils/constants'
  */
 
 /** detect-gpu's model database, vendored by scripts/copy-gpu-benchmarks.mjs
- *  so getGPUTier() never reaches for its default unpkg.com CDN URL. */
+ *  so getGPUTier() never reaches for its default unpkg.com CDN URL.
+ *  Root-relative: prepend app.baseURL if the site ever moves off the domain
+ *  root (a silent 404 here degrades detection to 'lite' via the catch). */
 const FX_BENCHMARKS_URL = '/fx-benchmarks'
 
 const tier = ref<Tier>('off')
@@ -104,6 +106,18 @@ function syncPanelBlur(t: Tier): void {
   else root.style.removeProperty('--panel-blur')
 }
 
+/**
+ * Runtime (session-only) tier change — the Phase 4 FPS watchdog and
+ * context-creation failure path. Unlike setOverride this touches neither
+ * `override` nor localStorage, so a transient downgrade never becomes a
+ * pinned setting; with no explicit override FxToggle reads `AUTO (LITE)`.
+ */
+function applyRuntimeTier(t: Tier): void {
+  detectSeq++ // cancel any in-flight detection
+  tier.value = t
+  ready.value = true
+}
+
 function setOverride(t: Tier | null): void {
   override.value = t
   if (!import.meta.client) return
@@ -125,6 +139,12 @@ function setOverride(t: Tier | null): void {
 }
 
 function init(): void {
+  // Guarded HERE (not at registration) so a first caller whose mount never
+  // fires — e.g. a hydration-time error swapping in error.vue — doesn't
+  // permanently kill detection: the next caller that actually mounts wins.
+  if (initialized) return
+  initialized = true
+
   // Detached scope: the singleton's watchers must outlive whichever
   // component happened to call the composable first.
   const scope = effectScope(true)
@@ -153,9 +173,9 @@ function init(): void {
 
 export function useEffectsTier() {
   if (import.meta.client && !initialized) {
-    initialized = true
     // Spec §4: detection starts on mount. Outside a component (plugin,
-    // test) there is no mount hook — init immediately instead.
+    // test) there is no mount hook — init immediately instead. Every
+    // pre-mount caller registers; init() itself is idempotent.
     if (getCurrentInstance()) onMounted(init)
     else init()
   }
@@ -165,6 +185,7 @@ export function useEffectsTier() {
     override: overrideReadonly,
     ready: readyReadonly,
     setOverride,
+    applyRuntimeTier,
     isCoarsePointer: isCoarsePointerReadonly,
   }
 }

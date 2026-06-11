@@ -134,8 +134,10 @@ function resize(): void {
 
 function onPointerMove(e: PointerEvent): void {
   // Passive listener just records the position; the rAF loop consumes it.
-  pointerX = e.clientX - cssW / 2
-  pointerY = e.clientY - cssH / 2
+  // True viewport center — not canvas-derived, so the parallax origin stays
+  // correct even if this component is ever mounted at non-viewport size.
+  pointerX = e.clientX - window.innerWidth / 2
+  pointerY = e.clientY - window.innerHeight / 2
 }
 
 function step(dt: number): void {

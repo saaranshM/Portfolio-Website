@@ -20,10 +20,40 @@ const options: ReadonlyArray<{ value: Tier | null; label: string }> = [
   { value: 'lite', label: 'LITE' },
   { value: 'off', label: 'OFF' },
 ]
+
+function select(value: Tier | null): void {
+  if (override.value === value) return // no-op: avoid re-running detection
+  setOverride(value)
+}
+
+// Canonical radiogroup keyboard contract: one tab stop (the checked option),
+// arrows move + select. Buttons keep native Enter/Space activation.
+const groupRef = ref<HTMLElement | null>(null)
+const activeIndex = computed(() => options.findIndex((o) => o.value === override.value))
+
+function onKeydown(e: KeyboardEvent): void {
+  const delta =
+    e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1
+    : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1
+    : 0
+  if (delta === 0) return
+  e.preventDefault()
+  const next = (activeIndex.value + delta + options.length) % options.length
+  select(options[next]!.value)
+  groupRef.value
+    ?.querySelectorAll<HTMLButtonElement>('.fx-toggle__option')
+    [next]?.focus()
+}
 </script>
 
 <template>
-  <div class="fx-toggle t-mono-sm" role="radiogroup" aria-label="Effects level">
+  <div
+    ref="groupRef"
+    class="fx-toggle t-mono-sm"
+    role="radiogroup"
+    aria-label="Effects level"
+    @keydown="onKeydown"
+  >
     <span class="fx-toggle__label" aria-hidden="true">FX</span>
     <button
       v-for="option in options"
@@ -33,7 +63,8 @@ const options: ReadonlyArray<{ value: Tier | null; label: string }> = [
       :class="{ 'fx-toggle__option--active': override === option.value }"
       role="radio"
       :aria-checked="override === option.value"
-      @click="setOverride(option.value)"
+      :tabindex="override === option.value ? 0 : -1"
+      @click="select(option.value)"
     >
       {{ option.label
       }}<span
